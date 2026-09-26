@@ -1,0 +1,3174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockSense // Warehouse Inventory & Manifest Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Firebase Authentication SDK (Compat Build) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <style>
+    /* ==========================================================================
+       STOCKSENSE INDUSTRIAL DESIGN SYSTEM
+       Grounded in steel shelving, shipping manifests, physical ledgers & hazard signage
+       ========================================================================== */
+    
+    :root {
+      /* Base light mode: warm paper-gray + steel graphite */
+      --bg-canvas: #F2F0EA;
+      --bg-surface: #EAE6DC;
+      --bg-subtle: #DFD9CC;
+      --bg-field: #FAF8F5;
+      
+      --steel-graphite: #2E2C28;
+      --border-color: #D8D3C7;
+      --border-strong: #2E2C28;
+      --border-focus: #1C1B19;
+      
+      --text-primary: #1C1B19;
+      --text-secondary: #58544B;
+      --text-muted: #7E786C;
+      --text-invert: #F2F0EA;
+
+      /* Semantic tokens */
+      --amber-accent: #B87A1E;
+      --amber-accent-hover: #9E6514;
+      --amber-subtle: #F6ECDA;
+      --amber-border: #C98A2C;
+      
+      --teal-success: #3F6B4F;
+      --teal-subtle: #E3EDE6;
+      --teal-border: #2F543C;
+      
+      --rust-warning: #A6521F;
+      --rust-subtle: #F7EBE3;
+      --rust-border: #873E12;
+      
+      --oxide-danger: #8C2F26;
+      --oxide-subtle: #F6E6E4;
+      --oxide-border: #6F221B;
+
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      
+      --panel-pad: 14px 18px;
+      --transition-fast: 120ms ease;
+    }
+
+    [data-theme="dark"] {
+      --bg-canvas: #161513;
+      --bg-surface: #1E1D1A;
+      --bg-subtle: #272521;
+      --bg-field: #141311;
+      
+      --steel-graphite: #32302A;
+      --border-color: #38352E;
+      --border-strong: #545046;
+      --border-focus: #ABA496;
+      
+      --text-primary: #EDEAE3;
+      --text-secondary: #A8A396;
+      --text-muted: #747065;
+      --text-invert: #161513;
+
+      --amber-accent: #D4902B;
+      --amber-accent-hover: #E8A23C;
+      --amber-subtle: #2A1F10;
+      --amber-border: #8F5C12;
+      
+      --teal-success: #4E8562;
+      --teal-subtle: #14241B;
+      --teal-border: #355C43;
+      
+      --rust-warning: #C06428;
+      --rust-subtle: #2B180E;
+      --rust-border: #823E11;
+      
+      --oxide-danger: #AA3B31;
+      --oxide-subtle: #2A1311;
+      --oxide-border: #73251D;
+    }
+
+    /* Reset & Industrial Box Model */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Utilitarian selection */
+    ::selection {
+      background-color: var(--amber-accent);
+      color: #FFFFFF;
+    }
+
+    /* App Container */
+    .app-root {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      border-left: 6px solid var(--steel-graphite);
+    }
+
+    /* Header: Industrial Station Rig */
+    .station-masthead {
+      background-color: var(--bg-surface);
+      border-bottom: 2px solid var(--border-strong);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .masthead-strip {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      height: 48px;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 18px;
+      background-color: var(--steel-graphite);
+      color: var(--text-invert);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      font-size: 15px;
+      user-select: none;
+    }
+
+    .brand-mark {
+      width: 14px;
+      height: 14px;
+      background-color: var(--amber-accent);
+      display: inline-block;
+    }
+
+    .station-telemetry {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      flex: 1;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .telemetry-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .telemetry-item strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .live-pulse {
+      width: 6px;
+      height: 6px;
+      background-color: var(--teal-success);
+      display: inline-block;
+    }
+
+    .station-controls {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      background-color: var(--border-color);
+      margin-left: auto;
+    }
+
+    .util-btn {
+      background-color: var(--bg-surface);
+      border: none;
+      padding: 0 14px;
+      height: 100%;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color var(--transition-fast);
+    }
+
+    .util-btn:hover {
+      background-color: var(--bg-subtle);
+    }
+
+    .util-btn.active {
+      background-color: var(--bg-field);
+      font-weight: 600;
+    }
+
+    /* Screen Navigation Tab Bar */
+    .screen-nav-bar {
+      display: flex;
+      align-items: stretch;
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+    }
+
+    .nav-tab {
+      background: none;
+      border: none;
+      border-right: 1px solid var(--border-color);
+      padding: 11px 20px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all var(--transition-fast);
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav-tab:hover {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .nav-tab.active {
+      color: var(--text-primary);
+      background-color: var(--bg-canvas);
+      font-weight: 600;
+      border-bottom: 2px solid var(--amber-accent);
+      margin-bottom: -1px;
+    }
+
+    .tab-index {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .nav-tab.active .tab-index {
+      color: var(--amber-accent);
+    }
+
+    .tab-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 1px 5px;
+      background-color: var(--steel-graphite);
+      color: var(--text-invert);
+      font-weight: 600;
+    }
+
+    .tab-badge.badge-amber {
+      background-color: var(--amber-accent);
+      color: #FFFFFF;
+    }
+
+    /* Main Viewport Content */
+    .main-viewport {
+      flex: 1;
+      padding: 20px;
+      max-width: 1600px;
+      width: 100%;
+      margin: 0;
+    }
+
+    .screen-pane {
+      display: none;
+    }
+
+    .screen-pane.active {
+      display: block;
+    }
+
+    /* Generic Utility Classes */
+    .font-mono {
+      font-family: var(--font-mono);
+    }
+
+    /* ==========================================================================
+       STATUS SQUARE CHIPS (Rigid 8px / 10px functional squares, no rounded pills)
+       ========================================================================== */
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: none;
+      padding: 2px 6px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .status-chip .indicator-sq {
+      width: 7px;
+      height: 7px;
+      flex-shrink: 0;
+    }
+
+    .status-chip.status-cleared .indicator-sq,
+    .status-chip.status-confirmed .indicator-sq,
+    .status-chip.status-approved .indicator-sq {
+      background-color: var(--teal-success);
+    }
+    .status-chip.status-cleared {
+      border-color: var(--teal-border);
+      background-color: var(--teal-subtle);
+      color: var(--teal-success);
+    }
+
+    .status-chip.status-in-progress .indicator-sq,
+    .status-chip.status-action .indicator-sq {
+      background-color: var(--amber-accent);
+    }
+    .status-chip.status-in-progress,
+    .status-chip.status-action {
+      border-color: var(--amber-border);
+      background-color: var(--amber-subtle);
+      color: var(--amber-accent);
+    }
+
+    .status-chip.status-pending .indicator-sq,
+    .status-chip.status-low-stock .indicator-sq,
+    .status-chip.status-flagged .indicator-sq {
+      background-color: var(--rust-warning);
+    }
+    .status-chip.status-pending,
+    .status-chip.status-low-stock,
+    .status-chip.status-flagged {
+      border-color: var(--rust-border);
+      background-color: var(--rust-subtle);
+      color: var(--rust-warning);
+    }
+
+    .status-chip.status-mismatch .indicator-sq,
+    .status-chip.status-rejected .indicator-sq,
+    .status-chip.status-critical .indicator-sq {
+      background-color: var(--oxide-danger);
+    }
+    .status-chip.status-mismatch,
+    .status-chip.status-rejected,
+    .status-chip.status-critical {
+      border-color: var(--oxide-border);
+      background-color: var(--oxide-subtle);
+      color: var(--oxide-danger);
+    }
+
+    /* ==========================================================================
+       SCREEN 1: DASHBOARD
+       Bordered manifest-style KPI strip + Filterable Table
+       ========================================================================== */
+    .manifest-kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      background-color: var(--border-strong);
+      gap: 1px;
+      border: 1px solid var(--border-strong);
+      margin-bottom: 20px;
+    }
+
+    .kpi-cell {
+      background-color: var(--bg-surface);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 80px;
+    }
+
+    .kpi-cell.alert-rust {
+      border-top: 3px solid var(--rust-warning);
+    }
+
+    .kpi-cell.alert-amber {
+      border-top: 3px solid var(--amber-accent);
+    }
+
+    .kpi-cell.alert-teal {
+      border-top: 3px solid var(--teal-success);
+    }
+
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+    }
+
+    .kpi-metric-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .kpi-value {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .kpi-subtext {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    /* Section Frame & Filters */
+    .ledger-frame {
+      border: 1px solid var(--border-strong);
+      background-color: var(--bg-surface);
+      margin-bottom: 20px;
+    }
+
+    .frame-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      background-color: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .toolbar-title {
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-primary);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-util {
+      height: 28px;
+      background-color: var(--bg-field);
+      border: 1px solid var(--border-color);
+      padding: 0 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .input-util:focus {
+      border-color: var(--border-focus);
+      background-color: var(--bg-canvas);
+    }
+
+    .select-util {
+      height: 28px;
+      background-color: var(--bg-field);
+      border: 1px solid var(--border-color);
+      padding: 0 8px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--text-primary);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .btn-action-sm {
+      height: 28px;
+      padding: 0 10px;
+      background-color: var(--steel-graphite);
+      color: var(--text-invert);
+      border: 1px solid var(--border-strong);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-action-sm:hover {
+      background-color: #3f3c37;
+    }
+
+    .btn-action-sm.btn-amber {
+      background-color: var(--amber-accent);
+      border-color: var(--amber-border);
+      color: #FFFFFF;
+    }
+
+    .btn-action-sm.btn-amber:hover {
+      background-color: var(--amber-accent-hover);
+    }
+
+    /* Dense Manifest & Ledger Tables */
+    .table-container {
+      overflow-x: auto;
+      background-color: var(--bg-canvas);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    .data-table th {
+      background-color: var(--bg-subtle);
+      color: var(--text-secondary);
+      font-weight: 600;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-strong);
+      border-right: 1px solid var(--border-color);
+      white-space: nowrap;
+      font-size: 11px;
+    }
+
+    .data-table th:last-child {
+      border-right: none;
+    }
+
+    .data-table td {
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+
+    .data-table td:last-child {
+      border-right: none;
+    }
+
+    .data-table tbody tr:hover {
+      background-color: var(--bg-subtle);
+    }
+
+    .data-table td.col-mono {
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .data-table td.col-num {
+      font-family: var(--font-mono);
+      text-align: right;
+    }
+
+    .data-table th.col-num {
+      text-align: right;
+    }
+
+    .col-highlight {
+      font-weight: 600;
+    }
+
+    .table-pagination-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      background-color: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       SCREEN 2: SCAN-FIRST ENTRY WORKSTATION (The Centerpiece)
+       Industrial floor terminal, physical scanner hud, audio feedback & bay locator
+       ========================================================================== */
+    .station-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+    }
+
+    @media (max-width: 1080px) {
+      .station-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .scan-terminal-unit {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-strong);
+      position: relative;
+    }
+
+    /* Industrial Hazard Striping Header on Station */
+    .terminal-top-tape {
+      height: 8px;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--steel-graphite),
+        var(--steel-graphite) 10px,
+        var(--amber-accent) 10px,
+        var(--amber-accent) 20px
+      );
+      border-bottom: 1px solid var(--border-strong);
+    }
+
+    .terminal-body {
+      padding: 20px;
+    }
+
+    .station-flow-selector {
+      display: flex;
+      gap: 1px;
+      background-color: var(--border-color);
+      border: 1px solid var(--border-strong);
+      margin-bottom: 18px;
+    }
+
+    .flow-option-btn {
+      flex: 1;
+      padding: 10px;
+      background-color: var(--bg-subtle);
+      border: none;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-align: center;
+      transition: all var(--transition-fast);
+    }
+
+    .flow-option-btn:hover {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+    }
+
+    .flow-option-btn.active {
+      background-color: var(--steel-graphite);
+      color: var(--text-invert);
+    }
+
+    /* THE BOLD SCAN-STATION FOCUS TREATMENT */
+    .scan-rig-chamber {
+      background-color: var(--bg-field);
+      border: 2px solid var(--border-color);
+      padding: 20px;
+      position: relative;
+      margin-bottom: 20px;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    /* Chamber corner alignment crosshairs */
+    .scan-rig-chamber::before,
+    .scan-rig-chamber::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+    }
+
+    .scan-rig-chamber::before {
+      top: -2px;
+      left: -2px;
+      border-top: 3px solid var(--amber-accent);
+      border-left: 3px solid var(--amber-accent);
+    }
+
+    .scan-rig-chamber::after {
+      bottom: -2px;
+      right: -2px;
+      border-bottom: 3px solid var(--amber-accent);
+      border-right: 3px solid var(--amber-accent);
+    }
+
+    .scan-rig-chamber.scan-active {
+      border-color: var(--amber-accent);
+      background-color: var(--bg-field);
+      box-shadow: 0 0 0 3px rgba(184, 122, 30, 0.22);
+    }
+
+    .scan-rig-chamber.scan-feedback-match {
+      border-color: var(--teal-success) !important;
+      box-shadow: 0 0 0 3px rgba(63, 107, 79, 0.25) !important;
+    }
+
+    .scan-rig-chamber.scan-feedback-mismatch {
+      border-color: var(--oxide-danger) !important;
+      box-shadow: 0 0 0 3px rgba(140, 47, 38, 0.25) !important;
+    }
+
+    .scan-label-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .scan-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scan-mode-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .scan-input-wrap {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .scan-field {
+      flex: 1;
+      height: 48px;
+      background-color: var(--bg-canvas);
+      border: 2px solid var(--border-strong);
+      padding: 0 16px;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+
+    .scan-field:focus {
+      border-color: var(--amber-accent);
+      background-color: var(--bg-field);
+    }
+
+    .btn-scan-trigger {
+      padding: 0 20px;
+      background-color: var(--amber-accent);
+      border: 2px solid var(--amber-border);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn-scan-trigger:hover {
+      background-color: var(--amber-accent-hover);
+    }
+
+    /* Live Feed Feedback HUD */
+    .scan-feedback-hud {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 44px;
+    }
+
+    .hud-status-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hud-light {
+      width: 10px;
+      height: 10px;
+      background-color: var(--amber-accent);
+      border: 1px solid var(--steel-graphite);
+    }
+
+    .hud-light.light-teal {
+      background-color: var(--teal-success);
+    }
+
+    .hud-light.light-oxide {
+      background-color: var(--oxide-danger);
+    }
+
+    .hud-message {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .hud-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    /* Quick Test Barcode Bar */
+    .quick-test-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 11px;
+    }
+
+    .quick-test-label {
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+
+    .barcode-chip {
+      background-color: var(--bg-subtle);
+      border: 1px dashed var(--border-color);
+      padding: 2px 7px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: all var(--transition-fast);
+    }
+
+    .barcode-chip:hover {
+      background-color: var(--amber-subtle);
+      border-color: var(--amber-border);
+      color: var(--amber-accent);
+    }
+
+    /* Manifest Live Scanned Ledger (Current Session) */
+    .active-manifest-section {
+      margin-top: 24px;
+    }
+
+    .manifest-manifest-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .manifest-counter {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .manifest-counter strong {
+      color: var(--text-primary);
+    }
+
+    /* Side Column: Bay & Bin Physical Coordinate Matrix */
+    .bay-coordinate-panel {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-strong);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header-strip {
+      padding: 10px 14px;
+      background-color: var(--steel-graphite);
+      color: var(--text-invert);
+      font-weight: 600;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .panel-content {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bin-coordinate-card {
+      background-color: var(--bg-field);
+      border: 1px solid var(--border-strong);
+      padding: 12px;
+    }
+
+    .bin-coord-header {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bin-large-callout {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.5px;
+    }
+
+    .bin-detail-rows {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    .bin-detail-rows div {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 2px;
+    }
+
+    .bin-detail-rows strong {
+      color: var(--text-primary);
+    }
+
+    /* Visual Shelf Bay Grid */
+    .shelf-visualizer {
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-canvas);
+      padding: 10px;
+    }
+
+    .shelf-vis-title {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .shelf-matrix {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+
+    .shelf-bin-cell {
+      height: 32px;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-secondary);
+      position: relative;
+    }
+
+    .shelf-bin-cell.occupied {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .shelf-bin-cell.target-bin {
+      background-color: var(--amber-subtle);
+      border-color: var(--amber-accent);
+      color: var(--amber-accent);
+      font-weight: 700;
+      box-shadow: inset 0 0 0 1px var(--amber-accent);
+    }
+
+    .shelf-bin-cell.target-bin::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 4px;
+      height: 4px;
+      background-color: var(--amber-accent);
+    }
+
+    .commit-manifest-dock {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-dock-commit {
+      width: 100%;
+      height: 38px;
+      background-color: var(--steel-graphite);
+      color: var(--text-invert);
+      border: 1px solid var(--border-strong);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color var(--transition-fast);
+    }
+
+    .btn-dock-commit:hover {
+      background-color: #3f3c37;
+    }
+
+    /* ==========================================================================
+       SCREEN 3: MANAGER APPROVAL QUEUE
+       Manifest-style authorization list, inline verification, stamp actions
+       ========================================================================== */
+    .approval-queue-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .manifest-card-row {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-left: 5px solid var(--amber-accent);
+      display: flex;
+      flex-direction: column;
+      transition: border-color var(--transition-fast);
+    }
+
+    .manifest-card-row.row-cleared {
+      border-left-color: var(--teal-success);
+    }
+
+    .manifest-card-row.row-rejected {
+      border-left-color: var(--oxide-danger);
+    }
+
+    .manifest-row-header {
+      padding: 10px 16px;
+      background-color: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .manifest-id-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .manifest-doc-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .manifest-type-tag {
+      font-size: 11px;
+      padding: 2px 6px;
+      background-color: var(--bg-field);
+      border: 1px solid var(--border-color);
+      font-family: var(--font-sans);
+      color: var(--text-secondary);
+    }
+
+    .manifest-row-body {
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .manifest-row-body {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .manifest-desc-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .manifest-items-summary {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .manifest-source-line {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .manifest-quantity-block {
+      font-family: var(--font-mono);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 11px;
+    }
+
+    .manifest-quantity-block strong {
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .manifest-audit-info {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .manifest-action-dock {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-approve-stamp {
+      height: 32px;
+      padding: 0 14px;
+      background-color: var(--teal-success);
+      color: #FFFFFF;
+      border: 1px solid var(--teal-border);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color var(--transition-fast);
+    }
+
+    .btn-approve-stamp:hover {
+      background-color: #345942;
+    }
+
+    .btn-reject-stamp {
+      height: 32px;
+      padding: 0 14px;
+      background-color: var(--bg-surface);
+      color: var(--oxide-danger);
+      border: 1px solid var(--oxide-border);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-reject-stamp:hover {
+      background-color: var(--oxide-subtle);
+    }
+
+    /* Stamped Badge overlay when approved/rejected */
+    .stamp-confirmed-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 2px solid currentColor;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .stamp-confirmed-flag.stamp-teal {
+      color: var(--teal-success);
+      background-color: var(--teal-subtle);
+    }
+
+    .stamp-confirmed-flag.stamp-oxide {
+      color: var(--oxide-danger);
+      background-color: var(--oxide-subtle);
+    }
+
+    /* ==========================================================================
+       SCREEN 4: STOCK LEDGER & AUDIT TRAIL
+       Continuous ledger styling, physical ledger ruling, scannable balances
+       ========================================================================== */
+    .ledger-summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background-color: var(--steel-graphite);
+      color: var(--text-invert);
+      border: 1px solid var(--border-strong);
+      margin-top: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .ledger-summary-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .ledger-sum-item {
+      padding: 10px 14px;
+      border-right: 1px solid #444038;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .ledger-sum-item:last-child {
+      border-right: none;
+    }
+
+    .ledger-sum-label {
+      font-size: 10px;
+      color: #ABA496;
+      font-family: var(--font-sans);
+    }
+
+    .ledger-sum-val {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    /* Printable Slip Overlay Modal / Dialog */
+    .slip-dialog-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(22, 21, 19, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 20px;
+    }
+
+    .slip-dialog-backdrop.open {
+      display: flex;
+    }
+
+    .slip-manifest-paper {
+      background-color: #FAF8F3;
+      color: #1C1B19;
+      border: 2px solid #2E2C28;
+      width: 100%;
+      max-width: 620px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      position: relative;
+    }
+
+    .slip-header-tape {
+      background-color: #2E2C28;
+      color: #FAF8F3;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .slip-content-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .slip-barcode-render {
+      background-color: #FFFFFF;
+      border: 1px solid #D8D3C7;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .barcode-svg {
+      width: 100%;
+      max-width: 320px;
+      height: 48px;
+    }
+
+    .slip-barcode-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 3px;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    .slip-footer-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 12px 24px;
+      background-color: #EFECE3;
+      border-top: 1px solid #D8D3C7;
+    }
+
+    /* Print Stylesheet */
+    @media print {
+      body {
+        background-color: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .station-masthead,
+      .screen-nav-bar,
+      .frame-toolbar,
+      .btn-action-sm,
+      .slip-footer-btns,
+      .quick-test-strip {
+        display: none !important;
+      }
+      .slip-dialog-backdrop {
+        position: static;
+        background: none;
+        display: block !important;
+        padding: 0;
+      }
+      .slip-manifest-paper {
+        border: 2px solid #000000;
+        box-shadow: none;
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-root">
+    
+    <!-- STATION MASTHEAD -->
+    <header class="station-masthead">
+      <div class="masthead-strip">
+        <div class="brand-block">
+          <span class="brand-mark"></span>
+          <span>StockSense</span>
+        </div>
+
+        <div class="station-telemetry">
+          <div class="telemetry-item">
+            <span class="live-pulse"></span>
+            <span>Station: <strong>BAY-04 // DOCK-NORTH</strong></span>
+          </div>
+          <div class="telemetry-item">
+            <span>Operator: <strong id="telemetryOperatorName">OP-409 (J. Miller)</strong></span>
+          </div>
+          <div class="telemetry-item">
+            <span>Gateway: <strong>ONLINE // 14ms</strong></span>
+          </div>
+          <div class="telemetry-item">
+            <span>Shift: <strong>06:00 - 14:00 (A)</strong></span>
+          </div>
+        </div>
+
+        <div class="station-controls">
+          <button class="util-btn" id="soundToggleBtn" title="Toggle scanner audio confirmation" onclick="StockSenseApp.toggleAudio()">
+            <span id="soundIcon">🔊</span>
+            <span id="soundLabel">BEEP: ON</span>
+          </button>
+
+          <button class="util-btn" id="themeToggleBtn" title="Toggle Light Warm Paper / Dark Steel" onclick="StockSenseApp.toggleTheme()">
+            <span id="themeIcon">◐</span>
+            <span id="themeLabel">WARM PAPER</span>
+          </button>
+
+          <button class="util-btn" id="authStatusBtn" title="Lock Terminal / Sign In with Mobile or Gmail" onclick="StockSenseApp.handleAuthAction()">
+            <span id="authStatusIcon">🔒</span>
+            <span id="mastheadAuthLabel">AUTH: SIGN IN</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- WORKSTATION NAVIGATION TABS -->
+      <nav class="screen-nav-bar" aria-label="Workstation Navigation">
+        <button class="nav-tab active" data-tab="dashboard" onclick="StockSenseApp.switchTab('dashboard')">
+          <span class="tab-index">01</span>
+          <span>Dashboard & Manifests</span>
+        </button>
+        <button class="nav-tab" data-tab="scanner" onclick="StockSenseApp.switchTab('scanner')">
+          <span class="tab-index">02</span>
+          <span>Scan-First Entry Station</span>
+          <span class="tab-badge badge-amber" id="scanLiveBadge">READY</span>
+        </button>
+        <button class="nav-tab" data-tab="approvals" onclick="StockSenseApp.switchTab('approvals')">
+          <span class="tab-index">03</span>
+          <span>Manager Approval Queue</span>
+          <span class="tab-badge" id="pendingQueueCount">3</span>
+        </button>
+        <button class="nav-tab" data-tab="ledger" onclick="StockSenseApp.switchTab('ledger')">
+          <span class="tab-index">04</span>
+          <span>Stock Ledger & Audit</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- MAIN VIEWPORT -->
+    <main class="main-viewport">
+      
+      <!-- ====================================================================
+           SCREEN 1: DASHBOARD
+           ==================================================================== -->
+      <section class="screen-pane active" id="pane-dashboard">
+        
+        <!-- Industrial Manifest KPI Strip -->
+        <div class="manifest-kpi-strip">
+          <div class="kpi-cell alert-teal">
+            <div class="kpi-header">
+              <span>Active Inbound / Outbound</span>
+              <span class="font-mono">RC // DL</span>
+            </div>
+            <div class="kpi-metric-row">
+              <span class="kpi-value">18</span>
+              <span class="kpi-subtext">Manifests in queue</span>
+            </div>
+          </div>
+
+          <div class="kpi-cell alert-rust">
+            <div class="kpi-header">
+              <span>Unresolved Discrepancies</span>
+              <span class="font-mono">COUNT FLAG</span>
+            </div>
+            <div class="kpi-metric-row">
+              <span class="kpi-value">2</span>
+              <span class="kpi-subtext">Requires floor recount</span>
+            </div>
+          </div>
+
+          <div class="kpi-cell alert-amber">
+            <div class="kpi-header">
+              <span>Capacity Utilization</span>
+              <span class="font-mono">BAYS A–F</span>
+            </div>
+            <div class="kpi-metric-row">
+              <span class="kpi-value">84.6%</span>
+              <span class="kpi-subtext">3,890 / 4,600 Bins</span>
+            </div>
+          </div>
+
+          <div class="kpi-cell">
+            <div class="kpi-header">
+              <span>24H Ledger Volume</span>
+              <span class="font-mono">UNITS MOVED</span>
+            </div>
+            <div class="kpi-metric-row">
+              <span class="kpi-value">1,420</span>
+              <span class="kpi-subtext">Net +312 Stock-In</span>
+            </div>
+          </div>
+
+          <div class="kpi-cell">
+            <div class="kpi-header">
+              <span>Physical Dock Status</span>
+              <span class="font-mono">BAY-04 / GATE-2</span>
+            </div>
+            <div class="kpi-metric-row">
+              <span class="kpi-value" style="font-size: 18px;">GATE 02: UNLOAD</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filterable Document Manifest Table Frame -->
+        <div class="ledger-frame">
+          <div class="frame-toolbar">
+            <div class="toolbar-title">
+              <span>Active Warehouse Manifests & Transit Documents</span>
+              <span class="tab-badge" id="manifestFilterCount">8 documents</span>
+            </div>
+
+            <div class="toolbar-actions">
+              <div class="search-box">
+                <input type="text" class="input-util" id="manifestSearchInput" placeholder="Filter doc #, carrier, SKU..." oninput="StockSenseApp.filterManifests()">
+              </div>
+
+              <select class="select-util" id="manifestTypeFilter" onchange="StockSenseApp.filterManifests()">
+                <option value="ALL">All Document Types</option>
+                <option value="Receipt">Receipt (Stock-In)</option>
+                <option value="Delivery">Delivery (Outbound)</option>
+                <option value="Transfer">Bay Transfer</option>
+              </select>
+
+              <select class="select-util" id="manifestStatusFilter" onchange="StockSenseApp.filterManifests()">
+                <option value="ALL">All Statuses</option>
+                <option value="CLEARED">Cleared</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="PENDING">Pending Scan</option>
+                <option value="MISMATCH">Discrepancy</option>
+              </select>
+
+              <button class="btn-action-sm btn-amber" onclick="StockSenseApp.openQuickScanForManifest('RC-9402')">
+                <span>+ Scan Manifest</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table" id="dashboardManifestTable">
+              <thead>
+                <tr>
+                  <th>Doc #</th>
+                  <th>Type</th>
+                  <th>Carrier / Origin</th>
+                  <th>Destination Bay</th>
+                  <th class="col-num">Expected</th>
+                  <th class="col-num">Scanned</th>
+                  <th class="col-num">Delta</th>
+                  <th>Operator</th>
+                  <th>Timestamp</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="manifestTableBody">
+                <!-- Dynamically generated rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-pagination-strip">
+            <span>Showing records 1 - 8 of 18 active manifests</span>
+            <span>Ledger sync sequence #LS-8841-09</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SCREEN 2: SCAN-FIRST ENTRY STATION (Centerpiece)
+           ==================================================================== -->
+      <section class="screen-pane" id="pane-scanner">
+        <div class="station-grid">
+          
+          <!-- Primary Terminal Rig -->
+          <div class="scan-terminal-unit">
+            <div class="terminal-top-tape"></div>
+
+            <div class="terminal-body">
+              <!-- Flow mode selector -->
+              <div class="station-flow-selector">
+                <button class="flow-option-btn active" id="flowBtn-Receipt" onclick="StockSenseApp.setScanFlow('Receipt')">
+                  1. Receipt (Stock-In)
+                </button>
+                <button class="flow-option-btn" id="flowBtn-Delivery" onclick="StockSenseApp.setScanFlow('Delivery')">
+                  2. Pick & Delivery (Outbound)
+                </button>
+                <button class="flow-option-btn" id="flowBtn-Transfer" onclick="StockSenseApp.setScanFlow('Transfer')">
+                  3. Internal Bay Transfer
+                </button>
+              </div>
+
+              <!-- TARGET SCAN CHIP & INPUT FIXTURE (Centerpiece) -->
+              <div class="scan-rig-chamber scan-active" id="scanRigChamber">
+                <div class="scan-label-strip">
+                  <div class="scan-title">
+                    <span style="display:inline-block; width:8px; height:8px; background-color:var(--amber-accent);"></span>
+                    <span id="scanModeTitle">Inbound Stock-In Scan Station</span>
+                  </div>
+                  <div class="scan-mode-tag" id="scanTargetManifestTag">Target Manifest: RC-9402 [Titan Industrial Supply]</div>
+                </div>
+
+                <div class="scan-input-wrap">
+                  <input type="text" class="scan-field" id="barcodeScanInput" 
+                         placeholder="SCAN BARCODE OR ENTER SKU..." 
+                         autocomplete="off" 
+                         autofocus 
+                         onkeydown="StockSenseApp.handleScanKeyDown(event)">
+                  <button class="btn-scan-trigger" onclick="StockSenseApp.processScanSubmit()">
+                    <span>COMMIT SCAN [ENTER]</span>
+                  </button>
+                </div>
+
+                <!-- Live Feedback HUD -->
+                <div class="scan-feedback-hud" id="scanFeedbackHud">
+                  <div class="hud-status-block">
+                    <div class="hud-light" id="hudStatusLight"></div>
+                    <span class="hud-message" id="hudStatusMessage">OPTICAL SENSOR READY — AWAITING SCAN FEED</span>
+                  </div>
+                  <div class="hud-meta" id="hudStatusMeta">Buffer: IDLE // Focus Locked</div>
+                </div>
+
+                <!-- Quick Test Barcodes for instant testing -->
+                <div class="quick-test-strip">
+                  <span class="quick-test-label">Click test barcode:</span>
+                  <button class="barcode-chip" onclick="StockSenseApp.simulateBarcode('SKU-4820-MET')">SKU-4820-MET (Bearing Ring)</button>
+                  <button class="barcode-chip" onclick="StockSenseApp.simulateBarcode('SKU-9912-STL')">SKU-9912-STL (Steel Channel)</button>
+                  <button class="barcode-chip" onclick="StockSenseApp.simulateBarcode('SKU-3104-BOLT')">SKU-3104-BOLT (M12 Flange)</button>
+                  <button class="barcode-chip" onclick="StockSenseApp.simulateBarcode('SKU-7721-VAL')">SKU-7721-VAL (Brass Valve)</button>
+                  <button class="barcode-chip" style="color:var(--oxide-danger); border-color:var(--oxide-border);" onclick="StockSenseApp.simulateBarcode('ERR-999-MISMATCH')">ERR-999 (Overdelivery / Mismatch)</button>
+                </div>
+              </div>
+
+              <!-- Active Manifest Items Being Scanned -->
+              <div class="active-manifest-section">
+                <div class="manifest-manifest-header">
+                  <div class="toolbar-title">
+                    <span>Current Session Items: Manifest RC-9402</span>
+                  </div>
+                  <div class="manifest-counter" id="sessionItemCounter">
+                    Items Verified: <strong>3 of 4</strong> | Total Count: <strong>190 / 240 units</strong>
+                  </div>
+                </div>
+
+                <div class="table-container">
+                  <table class="data-table" id="liveSessionTable">
+                    <thead>
+                      <tr>
+                        <th>SKU</th>
+                        <th>Barcode Serial</th>
+                        <th>Item Description</th>
+                        <th>Assigned Bay/Bin</th>
+                        <th class="col-num">Expected</th>
+                        <th class="col-num">Scanned</th>
+                        <th>Verification</th>
+                        <th>Adjust</th>
+                      </tr>
+                    </thead>
+                    <tbody id="liveSessionTableBody">
+                      <!-- Dynamically rendered -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right Column: Physical Bay Locator & Allocation Matrix -->
+          <div class="bay-coordinate-panel">
+            <div class="panel-header-strip">
+              <span>Physical Bay & Bin Coordinates</span>
+              <span class="font-mono">RACK-B</span>
+            </div>
+
+            <div class="panel-content">
+              
+              <div class="bin-coordinate-card">
+                <div class="bin-coord-header">
+                  <span>ACTIVE TARGET LOCATION</span>
+                  <span class="status-chip status-action">
+                    <span class="indicator-sq"></span>
+                    <span>ALLOCATED</span>
+                  </span>
+                </div>
+                <div class="bin-large-callout" id="locatorBinCode">B-08-T3-14</div>
+                <div class="bin-detail-rows">
+                  <div><span>Aisle / Zone:</span> <strong id="locatorAisle">Aisle 02 (Heavy Metals)</strong></div>
+                  <div><span>Rack Bay:</span> <strong id="locatorBay">Bay 08</strong></div>
+                  <div><span>Tier Height:</span> <strong id="locatorTier">Tier 3 (1.8m Forklift)</strong></div>
+                  <div><span>Bin Slot:</span> <strong id="locatorSlot">Slot 14 (Tote 45L)</strong></div>
+                  <div><span>Max Weight:</span> <strong>650 kg</strong></div>
+                  <div><span>Current Load:</span> <strong>320 kg (49%)</strong></div>
+                </div>
+              </div>
+
+              <!-- Shelf Visualizer Grid -->
+              <div class="shelf-visualizer">
+                <div class="shelf-vis-title">
+                  <span>Rack B-08 Vertical Matrix</span>
+                  <span>4 x 4 Bins</span>
+                </div>
+                <div class="shelf-matrix" id="shelfVisualizerGrid">
+                  <!-- 16 bin representations -->
+                </div>
+              </div>
+
+              <div class="commit-manifest-dock">
+                <button class="btn-dock-commit" onclick="StockSenseApp.commitCurrentManifest()">
+                  <span>Commit Manifest & Sync Ledger</span>
+                </button>
+                <button class="btn-action-sm" onclick="StockSenseApp.printCurrentSlip()" style="width: 100%; justify-content: center; height: 32px;">
+                  <span>Print Bay Staging Ticket</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SCREEN 3: MANAGER APPROVAL QUEUE
+           ==================================================================== -->
+      <section class="screen-pane" id="pane-approvals">
+        <div class="ledger-frame">
+          <div class="frame-toolbar">
+            <div class="toolbar-title">
+              <span>Pending Manifest Authorization & Variance Queue</span>
+              <span class="tab-badge badge-amber" id="approvalsBadgeCounter">3 Pending</span>
+            </div>
+
+            <div class="toolbar-actions">
+              <button class="btn-action-sm btn-amber" onclick="StockSenseApp.batchApproveAll()">
+                <span>Authorize All Pending (3)</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="padding: 14px;" class="approval-queue-wrap" id="approvalQueueContainer">
+            <!-- Dynamically populated manifest approval rows -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SCREEN 4: STOCK LEDGER & AUDIT TRAIL
+           ==================================================================== -->
+      <section class="screen-pane" id="pane-ledger">
+        <div class="ledger-frame">
+          <div class="frame-toolbar">
+            <div class="toolbar-title">
+              <span>Stock Ledger & Material Audit Trail</span>
+              <span class="tab-badge" id="ledgerCountBadge">12 records</span>
+            </div>
+
+            <div class="toolbar-actions">
+              <div class="search-box">
+                <input type="text" class="input-util" id="ledgerSearchInput" placeholder="Filter ledger by SKU, doc, or bin..." oninput="StockSenseApp.filterLedger()">
+              </div>
+
+              <select class="select-util" id="ledgerTypeFilter" onchange="StockSenseApp.filterLedger()">
+                <option value="ALL">All Transaction Types</option>
+                <option value="STOCK_IN">+ Stock Inbound (Receipt)</option>
+                <option value="STOCK_OUT">- Stock Outbound (Delivery)</option>
+                <option value="TRANSFER">~ Internal Bay Transfer</option>
+                <option value="ADJUST">! Audit Adjustment</option>
+              </select>
+
+              <button class="btn-action-sm" onclick="StockSenseApp.exportLedgerCSV()">
+                <span>Export CSV</span>
+              </button>
+              <button class="btn-action-sm" onclick="window.print()">
+                <span>Print Ledger Sheet</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table" id="stockLedgerTable">
+              <thead>
+                <tr>
+                  <th>Tx ID</th>
+                  <th>Timestamp</th>
+                  <th>SKU</th>
+                  <th>Item Description</th>
+                  <th>Bin / Bay</th>
+                  <th>Type</th>
+                  <th class="col-num">Delta Units</th>
+                  <th class="col-num">Running Balance</th>
+                  <th>Ref Doc</th>
+                  <th>Operator</th>
+                  <th>Verification</th>
+                </tr>
+              </thead>
+              <tbody id="stockLedgerTableBody">
+                <!-- Dynamically populated ledger entries -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Bottom Ledger Summary Ribbon -->
+          <div class="ledger-summary-strip">
+            <div class="ledger-sum-item">
+              <span class="ledger-sum-label">24H Inbound Receipts</span>
+              <span class="ledger-sum-val" style="color:var(--teal-success);">+840 Units</span>
+            </div>
+            <div class="ledger-sum-item">
+              <span class="ledger-sum-label">24H Outbound Picked</span>
+              <span class="ledger-sum-val" style="color:var(--amber-accent);">-528 Units</span>
+            </div>
+            <div class="ledger-sum-item">
+              <span class="ledger-sum-label">Current Total Stock on Hand</span>
+              <span class="ledger-sum-val">42,890 Units</span>
+            </div>
+            <div class="ledger-sum-item">
+              <span class="ledger-sum-label">Audit Discrepancy Margin</span>
+              <span class="ledger-sum-val" style="color:var(--teal-success);">0.03% (Tolerable)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- PRINTABLE SLIP MODAL -->
+    <div class="slip-dialog-backdrop" id="slipModalBackdrop" onclick="StockSenseApp.closeSlipModal(event)">
+      <div class="slip-manifest-paper" onclick="event.stopPropagation()">
+        <div class="slip-header-tape">
+          <span>STOCKSENSE WAREHOUSE MANIFEST SLIP</span>
+          <span id="slipDocCode">RC-9402</span>
+        </div>
+
+        <div class="slip-content-body">
+          <div style="display:flex; justify-content:space-between; border-bottom: 2px solid #2E2C28; padding-bottom: 8px;">
+            <div>
+              <div style="font-size:16px; font-weight:700;">Inbound Material Receiving Slip</div>
+              <div style="font-size:11px; font-family:var(--font-mono); color:#58544B;">Terminal: BAY-04 // DOCK-NORTH</div>
+            </div>
+            <div style="text-align:right; font-family:var(--font-mono); font-size:11px;">
+              <div>Date: <span id="slipDateStr">2026-09-26 09:30</span></div>
+              <div>Auth: <strong>MGR-SIGNED</strong></div>
+            </div>
+          </div>
+
+          <div class="slip-barcode-render">
+            <!-- Simulated crisp SVG industrial barcode -->
+            <svg class="barcode-svg" viewBox="0 0 300 48" preserveAspectRatio="none">
+              <rect x="0" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="8" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="14" y="0" width="6" height="48" fill="#1C1B19"/>
+              <rect x="24" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="30" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="38" y="0" width="8" height="48" fill="#1C1B19"/>
+              <rect x="50" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="56" y="0" width="6" height="48" fill="#1C1B19"/>
+              <rect x="68" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="76" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="82" y="0" width="8" height="48" fill="#1C1B19"/>
+              <rect x="94" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="104" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="110" y="0" width="6" height="48" fill="#1C1B19"/>
+              <rect x="120" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="130" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="136" y="0" width="8" height="48" fill="#1C1B19"/>
+              <rect x="148" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="156" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="162" y="0" width="6" height="48" fill="#1C1B19"/>
+              <rect x="174" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="182" y="0" width="8" height="48" fill="#1C1B19"/>
+              <rect x="194" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="200" y="0" width="6" height="48" fill="#1C1B19"/>
+              <rect x="212" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="222" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="228" y="0" width="8" height="48" fill="#1C1B19"/>
+              <rect x="240" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="250" y="0" width="6" height="48" fill="#1C1B19"/>
+              <rect x="260" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="266" y="0" width="8" height="48" fill="#1C1B19"/>
+              <rect x="280" y="0" width="4" height="48" fill="#1C1B19"/>
+              <rect x="288" y="0" width="2" height="48" fill="#1C1B19"/>
+              <rect x="294" y="0" width="6" height="48" fill="#1C1B19"/>
+            </svg>
+            <div class="slip-barcode-num" id="slipBarcodeText">*RC9402-B08T314*</div>
+          </div>
+
+          <div style="font-size:12px; font-family:var(--font-mono); display:flex; flex-direction:column; gap:4px;">
+            <div>Carrier: <strong>Titan Industrial Supply Ltd</strong></div>
+            <div>Staging Destination: <strong>Aisle 02 // Rack B // Bay 08 // Slot 14</strong></div>
+            <div>Scanned Units: <strong>240 / 240 Verified</strong></div>
+            <div>Hazard Classification: <strong>Class 3B — Non-Combustible Hardware</strong></div>
+          </div>
+        </div>
+
+        <div class="slip-footer-btns">
+          <button class="btn-action-sm" onclick="StockSenseApp.closeSlipModal()">Close</button>
+          <button class="btn-action-sm btn-amber" onclick="window.print()">Print Physical Manifest Ticket</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       STOCKSENSE INTERACTIVITY & SOUND ENGINE
+       ========================================================================== -->
+  <script>
+    const StockSenseApp = (function() {
+      // Audio Engine using Web Audio API for true warehouse scanner acoustic feedback
+      let audioCtx = null;
+      let soundEnabled = true;
+
+      function getAudioContext() {
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            audioCtx = new AudioContext();
+          }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playSound(type) {
+        if (!soundEnabled) return;
+        try {
+          const ctx = getAudioContext();
+          if (!ctx) return;
+          const now = ctx.currentTime;
+
+          if (type === 'scan-success') {
+            // Crisp dual industrial beep (1400Hz then 1800Hz)
+            const osc1 = ctx.createOscillator();
+            const gain1 = ctx.createGain();
+            osc1.type = 'square';
+            osc1.frequency.setValueAtTime(1400, now);
+            gain1.gain.setValueAtTime(0.08, now);
+            gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+            osc1.connect(gain1);
+            gain1.connect(ctx.destination);
+            osc1.start(now);
+            osc1.stop(now + 0.05);
+
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = 'square';
+            osc2.frequency.setValueAtTime(1850, now + 0.06);
+            gain2.gain.setValueAtTime(0.08, now + 0.06);
+            gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+            osc2.start(now + 0.06);
+            osc2.stop(now + 0.12);
+
+          } else if (type === 'scan-error') {
+            // Low error buzz (180Hz)
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(190, now);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.28);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.28);
+
+          } else if (type === 'stamp-approve') {
+            // Mechanical stamp thud / affirmative tone
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(520, now);
+            osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.15);
+          }
+        } catch (e) {
+          console.warn('Web Audio error:', e);
+        }
+      }
+
+      // App Data Stores
+      const manifests = [
+        {
+          id: 'RC-9402',
+          type: 'Receipt',
+          carrier: 'Titan Industrial Supply Ltd',
+          bay: 'Bay B-08 (Slot 14)',
+          expected: 240,
+          scanned: 190,
+          delta: -50,
+          operator: 'OP-409',
+          timestamp: '2026-09-26 08:42',
+          status: 'IN_PROGRESS'
+        },
+        {
+          id: 'RC-9405',
+          type: 'Receipt',
+          carrier: 'Apex Fasteners Corp',
+          bay: 'Bay A-03 (Slot 02)',
+          expected: 600,
+          scanned: 600,
+          delta: 0,
+          operator: 'OP-112',
+          timestamp: '2026-09-26 07:15',
+          status: 'CLEARED'
+        },
+        {
+          id: 'DL-3319',
+          type: 'Delivery',
+          carrier: 'DHL Freight Staging Dock 1',
+          bay: 'Bay C-12 (Pick Area)',
+          expected: 85,
+          scanned: 85,
+          delta: 0,
+          operator: 'OP-304',
+          timestamp: '2026-09-26 09:05',
+          status: 'CLEARED'
+        },
+        {
+          id: 'TR-1082',
+          type: 'Transfer',
+          carrier: 'Forklift Station 02 (Inter-Bay)',
+          bay: 'Bay E-04 -> Bay B-02',
+          expected: 140,
+          scanned: 140,
+          delta: 0,
+          operator: 'OP-409',
+          timestamp: '2026-09-26 06:40',
+          status: 'CLEARED'
+        },
+        {
+          id: 'RC-9411',
+          type: 'Receipt',
+          carrier: 'Nordic Bearing Dynamics',
+          bay: 'Bay B-09 (Slot 04)',
+          expected: 320,
+          scanned: 322,
+          delta: +2,
+          operator: 'OP-221',
+          timestamp: '2026-09-26 08:58',
+          status: 'MISMATCH'
+        },
+        {
+          id: 'DL-3324',
+          type: 'Delivery',
+          carrier: 'Penske Logistics Bay 3',
+          bay: 'Bay D-01 (Outbound)',
+          expected: 210,
+          scanned: 0,
+          delta: -210,
+          operator: 'OP-112',
+          timestamp: '2026-09-26 09:20',
+          status: 'PENDING'
+        },
+        {
+          id: 'TR-1085',
+          type: 'Transfer',
+          carrier: 'Manual Dolly Station 4',
+          bay: 'Bay A-01 -> Bay F-11',
+          expected: 45,
+          scanned: 20,
+          delta: -25,
+          operator: 'OP-304',
+          timestamp: '2026-09-26 09:12',
+          status: 'IN_PROGRESS'
+        },
+        {
+          id: 'RC-9414',
+          type: 'Receipt',
+          carrier: 'Precision Castings SA',
+          bay: 'Bay C-06 (Slot 18)',
+          expected: 150,
+          scanned: 0,
+          delta: -150,
+          operator: 'OP-409',
+          timestamp: '2026-09-26 09:28',
+          status: 'PENDING'
+        }
+      ];
+
+      // Session items for the scan station
+      const sessionItems = [
+        {
+          sku: 'SKU-4820-MET',
+          barcode: '4820091841',
+          desc: 'Heavy Roller Bearing Ring 45mm',
+          bay: 'B-08-T3-14',
+          expected: 50,
+          scanned: 50,
+          verified: true
+        },
+        {
+          sku: 'SKU-9912-STL',
+          barcode: '9912883011',
+          desc: 'Extruded Steel C-Channel 2.4m',
+          bay: 'B-08-T3-15',
+          expected: 40,
+          scanned: 40,
+          verified: true
+        },
+        {
+          sku: 'SKU-3104-BOLT',
+          barcode: '3104192055',
+          desc: 'Zinc M12 Flange Bolts (Box 100)',
+          bay: 'B-08-T2-08',
+          expected: 100,
+          scanned: 100,
+          verified: true
+        },
+        {
+          sku: 'SKU-7721-VAL',
+          barcode: '7721554109',
+          desc: 'High Pressure Brass Check Valve',
+          bay: 'B-08-T3-14',
+          expected: 50,
+          scanned: 0,
+          verified: false
+        }
+      ];
+
+      // Manager Approvals Queue
+      const approvalQueue = [
+        {
+          id: 'APP-8841',
+          docId: 'RC-9411',
+          type: 'Receipt Variance Clearance',
+          carrier: 'Nordic Bearing Dynamics',
+          submitter: 'OP-221 (Clerk E. Vance)',
+          timestamp: '2026-09-26 08:58',
+          expectedQty: 320,
+          scannedQty: 322,
+          varianceNote: '+2 Overdelivery (Supplier shipped 2 bonus test units under packing slip ref #NB-44)',
+          declaredValue: '$14,490.00',
+          state: 'PENDING' // 'PENDING', 'APPROVED', 'REJECTED'
+        },
+        {
+          id: 'APP-8839',
+          docId: 'ADJ-104',
+          type: 'Stock Write-off / Damaged in Transit',
+          carrier: 'Forklift Damage Bay D',
+          submitter: 'OP-409 (J. Miller)',
+          timestamp: '2026-09-26 08:14',
+          expectedQty: 4,
+          scannedQty: 0,
+          varianceNote: 'Forklift puncture on Pallet #P-902; cracked casting on SKU-9912-STL',
+          declaredValue: '$418.00',
+          state: 'PENDING'
+        },
+        {
+          id: 'APP-8835',
+          docId: 'TR-1082',
+          type: 'Inter-Bay Hazardous Material Transfer',
+          carrier: 'Station Hazmat Zone F',
+          submitter: 'OP-112 (S. Chen)',
+          timestamp: '2026-09-26 07:40',
+          expectedQty: 140,
+          scannedQty: 140,
+          varianceNote: 'Standard scheduled movement to fire-rated shelving Bay B-02',
+          declaredValue: '$8,220.00',
+          state: 'PENDING'
+        }
+      ];
+
+      // Stock Ledger Entries
+      const ledgerEntries = [
+        {
+          txId: 'TX-88419',
+          time: '2026-09-26 09:24',
+          sku: 'SKU-4820-MET',
+          desc: 'Heavy Roller Bearing Ring 45mm',
+          location: 'B-08-T3-14',
+          type: 'STOCK_IN',
+          delta: +50,
+          balance: 620,
+          refDoc: 'RC-9402',
+          op: 'OP-409',
+          verified: true
+        },
+        {
+          txId: 'TX-88418',
+          time: '2026-09-26 09:18',
+          sku: 'SKU-9912-STL',
+          desc: 'Extruded Steel C-Channel 2.4m',
+          location: 'B-08-T3-15',
+          type: 'STOCK_IN',
+          delta: +40,
+          balance: 240,
+          refDoc: 'RC-9402',
+          op: 'OP-409',
+          verified: true
+        },
+        {
+          txId: 'TX-88415',
+          time: '2026-09-26 09:05',
+          sku: 'SKU-3104-BOLT',
+          desc: 'Zinc M12 Flange Bolts (Box 100)',
+          location: 'C-12-T1-02',
+          type: 'STOCK_OUT',
+          delta: -85,
+          balance: 1415,
+          refDoc: 'DL-3319',
+          op: 'OP-304',
+          verified: true
+        },
+        {
+          txId: 'TX-88410',
+          time: '2026-09-26 08:45',
+          sku: 'SKU-3104-BOLT',
+          desc: 'Zinc M12 Flange Bolts (Box 100)',
+          location: 'B-08-T2-08',
+          type: 'STOCK_IN',
+          delta: +100,
+          balance: 1500,
+          refDoc: 'RC-9402',
+          op: 'OP-409',
+          verified: true
+        },
+        {
+          txId: 'TX-88402',
+          time: '2026-09-26 07:15',
+          sku: 'SKU-1890-NUT',
+          desc: 'Hex Heavy Grade 8 Nut M12',
+          location: 'A-03-T1-01',
+          type: 'STOCK_IN',
+          delta: +600,
+          balance: 3800,
+          refDoc: 'RC-9405',
+          op: 'OP-112',
+          verified: true
+        },
+        {
+          txId: 'TX-88398',
+          time: '2026-09-26 06:40',
+          sku: 'SKU-7721-VAL',
+          desc: 'High Pressure Brass Check Valve',
+          location: 'B-02-T4-11',
+          type: 'TRANSFER',
+          delta: 140,
+          balance: 420,
+          refDoc: 'TR-1082',
+          op: 'OP-409',
+          verified: true
+        },
+        {
+          txId: 'TX-88390',
+          time: '2026-09-26 06:12',
+          sku: 'SKU-9912-STL',
+          desc: 'Extruded Steel C-Channel 2.4m',
+          location: 'D-02-T2-05',
+          type: 'ADJUST',
+          delta: -4,
+          balance: 200,
+          refDoc: 'ADJ-104',
+          op: 'OP-409',
+          verified: true
+        },
+        {
+          txId: 'TX-88385',
+          time: '2026-09-25 18:30',
+          sku: 'SKU-6601-PIN',
+          desc: 'Dowel Pin Hardened Steel 8mm',
+          location: 'A-02-T2-18',
+          type: 'STOCK_IN',
+          delta: +250,
+          balance: 1850,
+          refDoc: 'RC-9388',
+          op: 'OP-221',
+          verified: true
+        },
+        {
+          txId: 'TX-88380',
+          time: '2026-09-25 17:10',
+          sku: 'SKU-7721-VAL',
+          desc: 'High Pressure Brass Check Valve',
+          location: 'E-04-T2-09',
+          type: 'STOCK_OUT',
+          delta: -30,
+          balance: 280,
+          refDoc: 'DL-3301',
+          op: 'OP-112',
+          verified: true
+        }
+      ];
+
+      // Shelf Matrix simulation
+      function renderShelfMatrix(targetBinNum = 14) {
+        const grid = document.getElementById('shelfVisualizerGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        for (let i = 1; i <= 16; i++) {
+          const cell = document.createElement('div');
+          const isTarget = (i === targetBinNum);
+          const isOccupied = (i % 3 !== 0);
+          cell.className = `shelf-bin-cell ${isOccupied ? 'occupied' : ''} ${isTarget ? 'target-bin' : ''}`;
+          cell.textContent = `T${Math.ceil(i/4)}-${String(i).padStart(2, '0')}`;
+          if (isTarget) {
+            cell.title = 'Target Bin Allocation';
+          }
+          grid.appendChild(cell);
+        }
+      }
+
+      // Render Dashboard Manifest Table
+      function renderManifests(list = manifests) {
+        const tbody = document.getElementById('manifestTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        list.forEach(m => {
+          const tr = document.createElement('tr');
+
+          let statusClass = 'status-pending';
+          let statusText = 'Pending';
+          if (m.status === 'CLEARED') {
+            statusClass = 'status-cleared';
+            statusText = 'Cleared';
+          } else if (m.status === 'IN_PROGRESS') {
+            statusClass = 'status-in-progress';
+            statusText = 'In Progress';
+          } else if (m.status === 'MISMATCH') {
+            statusClass = 'status-mismatch';
+            statusText = 'Mismatch';
+          }
+
+          let deltaStyle = '';
+          if (m.delta > 0) deltaStyle = 'color:var(--rust-warning); font-weight:600;';
+          if (m.delta < 0 && m.status !== 'PENDING') deltaStyle = 'color:var(--oxide-danger);';
+          if (m.delta === 0) deltaStyle = 'color:var(--teal-success);';
+
+          tr.innerHTML = `
+            <td class="col-mono col-highlight">${m.id}</td>
+            <td><span class="manifest-type-tag">${m.type}</span></td>
+            <td>${m.carrier}</td>
+            <td class="col-mono">${m.bay}</td>
+            <td class="col-num">${m.expected}</td>
+            <td class="col-num">${m.scanned}</td>
+            <td class="col-num" style="${deltaStyle}">${m.delta > 0 ? '+' + m.delta : m.delta}</td>
+            <td class="col-mono">${m.operator}</td>
+            <td class="col-mono" style="color:var(--text-muted);">${m.timestamp}</td>
+            <td>
+              <span class="status-chip ${statusClass}">
+                <span class="indicator-sq"></span>
+                <span>${statusText}</span>
+              </span>
+            </td>
+            <td>
+              <button class="btn-action-sm ${m.status === 'IN_PROGRESS' || m.status === 'PENDING' ? 'btn-amber' : ''}" 
+                      onclick="StockSenseApp.openQuickScanForManifest('${m.id}')">
+                ${m.status === 'CLEARED' ? 'View' : 'Scan'}
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        const filterCount = document.getElementById('manifestFilterCount');
+        if (filterCount) {
+          filterCount.textContent = `${list.length} documents`;
+        }
+      }
+
+      // Filter Manifests
+      function filterManifests() {
+        const query = document.getElementById('manifestSearchInput').value.trim().toLowerCase();
+        const typeFilter = document.getElementById('manifestTypeFilter').value;
+        const statusFilter = document.getElementById('manifestStatusFilter').value;
+
+        const filtered = manifests.filter(m => {
+          const matchQuery = !query || 
+            m.id.toLowerCase().includes(query) || 
+            m.carrier.toLowerCase().includes(query) || 
+            m.bay.toLowerCase().includes(query);
+          const matchType = (typeFilter === 'ALL' || m.type === typeFilter);
+          const matchStatus = (statusFilter === 'ALL' || m.status === statusFilter);
+          return matchQuery && matchType && matchStatus;
+        });
+
+        renderManifests(filtered);
+      }
+
+      // Render Scanner Active Session Items Table
+      function renderSessionItems() {
+        const tbody = document.getElementById('liveSessionTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        let totalExpected = 0;
+        let totalScanned = 0;
+        let verifiedCount = 0;
+
+        sessionItems.forEach(item => {
+          totalExpected += item.expected;
+          totalScanned += item.scanned;
+          if (item.verified) verifiedCount++;
+
+          const tr = document.createElement('tr');
+          const isComplete = (item.scanned >= item.expected && item.scanned > 0);
+          
+          tr.innerHTML = `
+            <td class="col-mono col-highlight">${item.sku}</td>
+            <td class="col-mono" style="color:var(--text-muted);">${item.barcode}</td>
+            <td>${item.desc}</td>
+            <td class="col-mono">${item.bay}</td>
+            <td class="col-num">${item.expected}</td>
+            <td class="col-num" style="${isComplete ? 'color:var(--teal-success); font-weight:700;' : ''}">${item.scanned}</td>
+            <td>
+              <span class="status-chip ${isComplete ? 'status-cleared' : (item.scanned > 0 ? 'status-in-progress' : 'status-pending')}">
+                <span class="indicator-sq"></span>
+                <span>${isComplete ? 'VERIFIED' : (item.scanned > 0 ? 'COUNTING' : 'PENDING')}</span>
+              </span>
+            </td>
+            <td>
+              <button class="btn-action-sm" onclick="StockSenseApp.incrementItem('${item.sku}')">+1</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        const counterEl = document.getElementById('sessionItemCounter');
+        if (counterEl) {
+          counterEl.innerHTML = `Items Verified: <strong>${verifiedCount} of ${sessionItems.length}</strong> | Total Count: <strong>${totalScanned} / ${totalExpected} units</strong>`;
+        }
+      }
+
+      // Render Manager Approvals
+      function renderApprovals() {
+        const container = document.getElementById('approvalQueueContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        let pendingCount = 0;
+
+        approvalQueue.forEach(item => {
+          if (item.state === 'PENDING') pendingCount++;
+
+          const card = document.createElement('div');
+          let stateClass = '';
+          if (item.state === 'APPROVED') stateClass = 'row-cleared';
+          if (item.state === 'REJECTED') stateClass = 'row-rejected';
+
+          card.className = `manifest-card-row ${stateClass}`;
+          card.id = `approval-card-${item.id}`;
+
+          let actionBlockHtml = '';
+          if (item.state === 'PENDING') {
+            actionBlockHtml = `
+              <div class="manifest-action-dock">
+                <button class="btn-approve-stamp" onclick="StockSenseApp.stampApproval('${item.id}', true)">
+                  <span>Authorize & Post</span>
+                </button>
+                <button class="btn-reject-stamp" onclick="StockSenseApp.stampApproval('${item.id}', false)">
+                  <span>Reject & Hold</span>
+                </button>
+              </div>
+            `;
+          } else if (item.state === 'APPROVED') {
+            actionBlockHtml = `
+              <div class="stamp-confirmed-flag stamp-teal">
+                <span>✓ AUTHORIZED [MGR-STAMP]</span>
+              </div>
+            `;
+          } else if (item.state === 'REJECTED') {
+            actionBlockHtml = `
+              <div class="stamp-confirmed-flag stamp-oxide">
+                <span>✕ REJECTED [DISCREPANCY HOLD]</span>
+              </div>
+            `;
+          }
+
+          card.innerHTML = `
+            <div class="manifest-row-header">
+              <div class="manifest-id-wrap">
+                <span class="manifest-doc-title">${item.docId} // ${item.id}</span>
+                <span class="manifest-type-tag">${item.type}</span>
+              </div>
+              <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-secondary);">
+                Submitter: <strong>${item.submitter}</strong> &bull; ${item.timestamp}
+              </div>
+            </div>
+
+            <div class="manifest-row-body">
+              <div class="manifest-desc-block">
+                <div class="manifest-items-summary">${item.carrier}</div>
+                <div class="manifest-source-line">${item.varianceNote}</div>
+              </div>
+
+              <div class="manifest-quantity-block">
+                <span>Count: <strong>${item.scannedQty} units</strong> (Decl: ${item.expectedQty})</span>
+                <span style="color:var(--text-secondary);">Valuation: ${item.declaredValue}</span>
+              </div>
+
+              <div class="manifest-audit-info">
+                <span>Checksum: <strong style="color:var(--text-primary);">0x9E4A</strong></span>
+                <span>Sign-off: Station Bay-04</span>
+              </div>
+
+              ${actionBlockHtml}
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        const badge = document.getElementById('pendingQueueCount');
+        const badge2 = document.getElementById('approvalsBadgeCounter');
+        if (badge) badge.textContent = pendingCount;
+        if (badge2) badge2.textContent = `${pendingCount} Pending`;
+      }
+
+      // Render Stock Ledger
+      function renderLedger(list = ledgerEntries) {
+        const tbody = document.getElementById('stockLedgerTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        list.forEach(tx => {
+          const tr = document.createElement('tr');
+
+          let typeColor = 'var(--text-primary)';
+          let typeLabel = tx.type;
+          let deltaFormatted = tx.delta;
+
+          if (tx.type === 'STOCK_IN') {
+            typeColor = 'var(--teal-success)';
+            typeLabel = '+ INBOUND';
+            deltaFormatted = `+${tx.delta}`;
+          } else if (tx.type === 'STOCK_OUT') {
+            typeColor = 'var(--amber-accent)';
+            typeLabel = '- OUTBOUND';
+            deltaFormatted = `${tx.delta}`;
+          } else if (tx.type === 'TRANSFER') {
+            typeColor = 'var(--text-primary)';
+            typeLabel = '~ TRANSFER';
+            deltaFormatted = `${tx.delta}`;
+          } else if (tx.type === 'ADJUST') {
+            typeColor = 'var(--rust-warning)';
+            typeLabel = '! ADJUST';
+            deltaFormatted = `${tx.delta}`;
+          }
+
+          tr.innerHTML = `
+            <td class="col-mono col-highlight">${tx.txId}</td>
+            <td class="col-mono" style="color:var(--text-secondary);">${tx.time}</td>
+            <td class="col-mono">${tx.sku}</td>
+            <td>${tx.desc}</td>
+            <td class="col-mono">${tx.location}</td>
+            <td class="col-mono" style="font-weight:600; color:${typeColor}">${typeLabel}</td>
+            <td class="col-num" style="font-weight:700; color:${typeColor}">${deltaFormatted}</td>
+            <td class="col-num">${tx.balance.toLocaleString()}</td>
+            <td class="col-mono">${tx.refDoc}</td>
+            <td class="col-mono">${tx.op}</td>
+            <td>
+              <span class="status-chip status-cleared">
+                <span class="indicator-sq"></span>
+                <span>POSTED</span>
+              </span>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        const badge = document.getElementById('ledgerCountBadge');
+        if (badge) badge.textContent = `${list.length} records`;
+      }
+
+      // Filter Ledger
+      function filterLedger() {
+        const query = document.getElementById('ledgerSearchInput').value.trim().toLowerCase();
+        const typeFilter = document.getElementById('ledgerTypeFilter').value;
+
+        const filtered = ledgerEntries.filter(tx => {
+          const matchQuery = !query ||
+            tx.txId.toLowerCase().includes(query) ||
+            tx.sku.toLowerCase().includes(query) ||
+            tx.desc.toLowerCase().includes(query) ||
+            tx.location.toLowerCase().includes(query) ||
+            tx.refDoc.toLowerCase().includes(query);
+          const matchType = (typeFilter === 'ALL' || tx.type === typeFilter);
+          return matchQuery && matchType;
+        });
+
+        renderLedger(filtered);
+      }
+
+      // Process barcode input
+      function processScan(val) {
+        const code = (val || '').trim().toUpperCase();
+        if (!code) return;
+
+        const chamber = document.getElementById('scanRigChamber');
+        const light = document.getElementById('hudStatusLight');
+        const msg = document.getElementById('hudStatusMessage');
+        const meta = document.getElementById('hudStatusMeta');
+        const input = document.getElementById('barcodeScanInput');
+
+        // Check for mismatch simulation or known item
+        if (code.includes('ERR') || code.includes('MISMATCH')) {
+          // MISMATCH CASE
+          chamber.className = 'scan-rig-chamber scan-feedback-mismatch';
+          light.className = 'hud-light light-oxide';
+          msg.textContent = `ALERT: SKU OR SERIAL MISMATCH [${code}] — NOT ON ACTIVE MANIFEST`;
+          msg.style.color = 'var(--oxide-danger)';
+          meta.textContent = 'STATUS: REJECTED // ESC to clear buffer';
+          playSound('scan-error');
+
+          setTimeout(() => {
+            chamber.className = 'scan-rig-chamber scan-active';
+            msg.style.color = '';
+            light.className = 'hud-light';
+            msg.textContent = 'OPTICAL SENSOR READY — AWAITING SCAN FEED';
+            meta.textContent = 'Buffer: READY // Focus Locked';
+          }, 3200);
+
+          if (input) input.value = '';
+          return;
+        }
+
+        // Match against session items
+        let matched = sessionItems.find(it => it.sku.toUpperCase() === code || it.barcode === code);
+
+        if (!matched) {
+          // If typed something else, check desc or make dummy match
+          matched = sessionItems.find(it => it.sku.toUpperCase().includes(code));
+        }
+
+        if (matched) {
+          matched.scanned = Math.min(matched.expected, matched.scanned + 10);
+          matched.verified = (matched.scanned >= matched.expected);
+
+          chamber.className = 'scan-rig-chamber scan-feedback-match';
+          light.className = 'hud-light light-teal';
+          msg.textContent = `CONFIRMED: ${matched.sku} [${matched.desc}] — ALLOCATED TO ${matched.bay}`;
+          msg.style.color = 'var(--teal-success)';
+          meta.textContent = `COUNT: ${matched.scanned} / ${matched.expected} // CHECKSUM OK`;
+          
+          playSound('scan-success');
+
+          // Update bay locator card
+          const locBin = document.getElementById('locatorBinCode');
+          if (locBin) locBin.textContent = matched.bay;
+          renderShelfMatrix(14);
+
+          renderSessionItems();
+
+          setTimeout(() => {
+            chamber.className = 'scan-rig-chamber scan-active';
+            msg.style.color = '';
+            light.className = 'hud-light';
+            msg.textContent = 'OPTICAL SENSOR READY — AWAITING SCAN FEED';
+            meta.textContent = 'Buffer: READY // Focus Locked';
+          }, 2400);
+
+        } else {
+          // Generic valid new scan addition
+          chamber.className = 'scan-rig-chamber scan-feedback-match';
+          light.className = 'hud-light light-teal';
+          msg.textContent = `NEW SKU REGISTERED: ${code} — ALLOCATING TO BAY B-08`;
+          msg.style.color = 'var(--teal-success)';
+          meta.textContent = 'COUNT: +1 // MANIFEST UPDATED';
+          playSound('scan-success');
+
+          sessionItems.push({
+            sku: code,
+            barcode: Math.floor(1000000000 + Math.random() * 9000000000).toString(),
+            desc: 'Auxiliary Industrial Hardware Lot',
+            bay: 'B-08-T3-16',
+            expected: 20,
+            scanned: 1,
+            verified: false
+          });
+
+          renderSessionItems();
+
+          setTimeout(() => {
+            chamber.className = 'scan-rig-chamber scan-active';
+            msg.style.color = '';
+            light.className = 'hud-light';
+            msg.textContent = 'OPTICAL SENSOR READY — AWAITING SCAN FEED';
+            meta.textContent = 'Buffer: READY // Focus Locked';
+          }, 2400);
+        }
+
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+      }
+
+      function handleScanKeyDown(e) {
+        if (e.key === 'Enter') {
+          processScanSubmit();
+        } else if (e.key === 'Escape') {
+          const input = document.getElementById('barcodeScanInput');
+          if (input) input.value = '';
+        }
+      }
+
+      function processScanSubmit() {
+        const input = document.getElementById('barcodeScanInput');
+        if (input) {
+          processScan(input.value);
+        }
+      }
+
+      function simulateBarcode(code) {
+        const input = document.getElementById('barcodeScanInput');
+        if (input) input.value = code;
+        processScan(code);
+      }
+
+      function incrementItem(sku) {
+        const it = sessionItems.find(i => i.sku === sku);
+        if (it) {
+          it.scanned = Math.min(it.expected, it.scanned + 1);
+          it.verified = (it.scanned >= it.expected);
+          playSound('scan-success');
+          renderSessionItems();
+        }
+      }
+
+      // Tab switcher
+      function switchTab(tabId) {
+        document.querySelectorAll('.screen-pane').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+
+        const targetPane = document.getElementById(`pane-${tabId}`);
+        const targetBtn = document.querySelector(`.nav-tab[data-tab="${tabId}"]`);
+
+        if (targetPane) targetPane.classList.add('active');
+        if (targetBtn) targetBtn.classList.add('active');
+
+        if (tabId === 'scanner') {
+          setTimeout(() => {
+            const input = document.getElementById('barcodeScanInput');
+            if (input) input.focus();
+          }, 50);
+        }
+      }
+
+      // Flow mode selection in Scan station
+      function setScanFlow(flowName) {
+        document.querySelectorAll('.flow-option-btn').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.getElementById(`flowBtn-${flowName}`);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        const modeTitle = document.getElementById('scanModeTitle');
+        const tag = document.getElementById('scanTargetManifestTag');
+
+        if (flowName === 'Receipt') {
+          if (modeTitle) modeTitle.textContent = 'Inbound Stock-In Scan Station';
+          if (tag) tag.textContent = 'Target Manifest: RC-9402 [Titan Industrial Supply]';
+        } else if (flowName === 'Delivery') {
+          if (modeTitle) modeTitle.textContent = 'Outbound Pick & Pack Station';
+          if (tag) tag.textContent = 'Target Manifest: DL-3324 [Penske Logistics Outbound]';
+        } else if (flowName === 'Transfer') {
+          if (modeTitle) modeTitle.textContent = 'Inter-Bay Internal Transfer Station';
+          if (tag) tag.textContent = 'Target Transfer Order: TR-1085 [Bay A-01 to F-11]';
+        }
+
+        playSound('stamp-approve');
+      }
+
+      // Quick jump to scanner from dashboard
+      function openQuickScanForManifest(manifestId) {
+        switchTab('scanner');
+        const tag = document.getElementById('scanTargetManifestTag');
+        if (tag) tag.textContent = `Target Manifest: ${manifestId} [Active Session]`;
+      }
+
+      // Commit current manifest
+      function commitCurrentManifest() {
+        playSound('stamp-approve');
+        alert('MANIFEST RC-9402 COMMITTED.\n\nAll 240 units verified and synced to Stock Ledger.\nLocation allocated to Rack B, Bay 08.\nAudit checksum: 0x4B19F.');
+
+        // Update dashboard record
+        const m = manifests.find(x => x.id === 'RC-9402');
+        if (m) {
+          m.scanned = 240;
+          m.delta = 0;
+          m.status = 'CLEARED';
+          renderManifests();
+        }
+
+        // Add to ledger
+        ledgerEntries.unshift({
+          txId: 'TX-88422',
+          time: '2026-09-26 09:35',
+          sku: 'SKU-7721-VAL',
+          desc: 'High Pressure Brass Check Valve',
+          location: 'B-08-T3-14',
+          type: 'STOCK_IN',
+          delta: +50,
+          balance: 470,
+          refDoc: 'RC-9402',
+          op: 'OP-409',
+          verified: true
+        });
+        renderLedger();
+
+        // Switch to ledger to show user the entry
+        switchTab('ledger');
+      }
+
+      // Manager Stamp Approval
+      function stampApproval(appId, isApproved) {
+        const item = approvalQueue.find(a => a.id === appId);
+        if (!item) return;
+
+        if (isApproved) {
+          item.state = 'APPROVED';
+          playSound('stamp-approve');
+
+          // If it was the RC-9411 variance, clear it on dashboard manifest list
+          if (item.docId === 'RC-9411') {
+            const m = manifests.find(x => x.id === 'RC-9411');
+            if (m) {
+              m.status = 'CLEARED';
+              renderManifests();
+            }
+          }
+
+          // Add transaction to ledger
+          ledgerEntries.unshift({
+            txId: `TX-${Math.floor(88425 + Math.random()*50)}`,
+            time: '2026-09-26 09:38',
+            sku: 'SKU-6610-VAR',
+            desc: item.type,
+            location: 'BAY-MGR-AUTH',
+            type: item.type.includes('Write-off') ? 'ADJUST' : 'STOCK_IN',
+            delta: item.scannedQty,
+            balance: 43212,
+            refDoc: item.docId,
+            op: 'MGR-AUTH',
+            verified: true
+          });
+          renderLedger();
+
+        } else {
+          item.state = 'REJECTED';
+          playSound('scan-error');
+        }
+
+        renderApprovals();
+      }
+
+      function batchApproveAll() {
+        approvalQueue.forEach(item => {
+          if (item.state === 'PENDING') {
+            item.state = 'APPROVED';
+          }
+        });
+        playSound('stamp-approve');
+        renderApprovals();
+        alert('All pending variance batches authorized and committed to master ledger.');
+      }
+
+      // Print slip modal
+      function printCurrentSlip() {
+        const modal = document.getElementById('slipModalBackdrop');
+        if (modal) modal.classList.add('open');
+      }
+
+      function closeSlipModal(e) {
+        const modal = document.getElementById('slipModalBackdrop');
+        if (modal) modal.classList.remove('open');
+      }
+
+      // Export CSV
+      function exportLedgerCSV() {
+        const rows = [
+          ['TxID', 'Timestamp', 'SKU', 'Description', 'Location', 'Type', 'Delta', 'RunningBalance', 'RefDoc', 'Operator']
+        ];
+        ledgerEntries.forEach(tx => {
+          rows.push([tx.txId, tx.time, tx.sku, `"${tx.desc}"`, tx.location, tx.type, tx.delta, tx.balance, tx.refDoc, tx.op]);
+        });
+        const csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "StockSense_Master_Ledger.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      // Sound toggle
+      function toggleAudio() {
+        soundEnabled = !soundEnabled;
+        const btn = document.getElementById('soundToggleBtn');
+        const icon = document.getElementById('soundIcon');
+        const label = document.getElementById('soundLabel');
+        if (soundEnabled) {
+          if (icon) icon.textContent = '🔊';
+          if (label) label.textContent = 'BEEP: ON';
+          if (btn) btn.classList.remove('active');
+          playSound('scan-success');
+        } else {
+          if (icon) icon.textContent = '🔇';
+          if (label) label.textContent = 'BEEP: OFF';
+          if (btn) btn.classList.add('active');
+        }
+      }
+
+      // Theme toggle (Light Warm Paper vs Dark Steel)
+      function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+
+        const icon = document.getElementById('themeIcon');
+        const label = document.getElementById('themeLabel');
+
+        if (newTheme === 'dark') {
+          if (icon) icon.textContent = '◑';
+          if (label) label.textContent = 'DARK STEEL';
+        } else {
+          if (icon) icon.textContent = '◐';
+          if (label) label.textContent = 'WARM PAPER';
+        }
+        playSound('stamp-approve');
+      }
+
+      // Global hotkeys
+      function initKeybindings() {
+        window.addEventListener('keydown', (e) => {
+          // Alt+1 to Alt+4 or 1 to 4 when not focused on an input
+          if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+            return;
+          }
+          if (e.key === '1') switchTab('dashboard');
+          if (e.key === '2' || e.key.toLowerCase() === 's') {
+            e.preventDefault();
+            switchTab('scanner');
+          }
+          if (e.key === '3') switchTab('approvals');
+          if (e.key === '4') switchTab('ledger');
+        });
+      }
+
+      // Initialize
+      function init() {
+        renderManifests();
+        renderSessionItems();
+        renderShelfMatrix(14);
+        renderApprovals();
+        renderLedger();
+        initKeybindings();
+
+        // Check for operator authentication session with server
+        verifyOperatorSession();
+      }
+
+      const DEFAULT_FIREBASE_CONFIG = {
+        apiKey: "AIzaSyCwOlpjo9VrKngX9t1-ArLhZE-XlsBDsrU",
+        authDomain: "stocksense-889bf.firebaseapp.com",
+        projectId: "stocksense-889bf",
+        storageBucket: "stocksense-889bf.firebasestorage.app",
+        messagingSenderId: "1003309878973",
+        appId: "1:1003309878973:web:929fa78ff5929b830171d4",
+        measurementId: "G-5R4KFVL4Q7"
+      };
+
+      function initFirebaseClient() {
+        try {
+          let cfg = DEFAULT_FIREBASE_CONFIG;
+          const stored = localStorage.getItem('stocksense_firebase_config');
+          if (stored) {
+            try {
+              const parsed = JSON.parse(stored);
+              if (parsed && parsed.apiKey && !parsed.apiKey.includes('YOUR_API_KEY')) {
+                cfg = parsed;
+              }
+            } catch(e) {}
+          }
+          if (typeof firebase !== 'undefined' && !firebase.apps.length && cfg && cfg.apiKey) {
+            firebase.initializeApp(cfg);
+          }
+          return typeof firebase !== 'undefined' ? firebase.auth() : null;
+        } catch(e) {}
+        return null;
+      }
+
+      async function verifyOperatorSession() {
+        const token = localStorage.getItem('stocksense_token') || sessionStorage.getItem('stocksense_token');
+        const storedUserJson = localStorage.getItem('stocksense_user');
+        const opEl = document.getElementById('telemetryOperatorName');
+        const authLbl = document.getElementById('mastheadAuthLabel');
+        const authIcon = document.getElementById('authStatusIcon');
+
+        // Initialize Firebase Auth listener if configured
+        const fbAuth = initFirebaseClient();
+        if (fbAuth) {
+          fbAuth.onAuthStateChanged((fbUser) => {
+            if (fbUser) {
+              const displayName = fbUser.displayName || fbUser.email || fbUser.phoneNumber || 'Verified Operator';
+              const isGoogle = !!fbUser.email;
+              const methodTag = isGoogle ? 'FIREBASE GOOGLE' : 'FIREBASE SMS';
+              if (opEl) {
+                opEl.innerHTML = `${displayName} <span style="font-size:10px; padding:1px 5px; background:var(--teal-subtle); color:var(--teal-success); border:1px solid var(--teal-border); margin-left:4px;">${methodTag}</span>`;
+              }
+              if (authLbl) authLbl.textContent = 'SIGN OUT';
+              if (authIcon) authIcon.textContent = '🔓';
+              return;
+            }
+          });
+        }
+
+        if (storedUserJson) {
+          try {
+            const user = JSON.parse(storedUserJson);
+            const displayName = user.name || user.email || user.phone || 'Operator';
+            let methodTag = 'AUTHENTICATED';
+            if (user.method === 'firebase-google' || user.method === 'google') {
+              methodTag = 'FIREBASE GOOGLE';
+            } else if (user.method === 'firebase-phone' || user.method === 'mobile-otp') {
+              methodTag = 'FIREBASE SMS';
+            }
+            if (opEl) {
+              opEl.innerHTML = `${displayName} <span style="font-size:10px; padding:1px 5px; background:var(--teal-subtle); color:var(--teal-success); border:1px solid var(--teal-border); margin-left:4px;">${methodTag}</span>`;
+            }
+            if (authLbl) authLbl.textContent = 'SIGN OUT';
+            if (authIcon) authIcon.textContent = '🔓';
+            return;
+          } catch(e) {}
+        }
+
+        if (!token) {
+          if (authLbl) authLbl.textContent = 'AUTH: SIGN IN';
+          if (authIcon) authIcon.textContent = '🔒';
+          return;
+        }
+
+        // Check fallback server endpoint if running on Express
+        try {
+          const res = await fetch('/api/auth/me', {
+            headers: { 'Authorization': 'Bearer ' + token }
+          });
+          const data = await res.json();
+          if (data.authenticated && data.user) {
+            const user = data.user;
+            const displayName = user.name || user.email || user.phone || 'Operator';
+            const methodTag = user.method === 'google' ? 'GOOGLE SSO' : 'SMS VERIFIED';
+            if (opEl) {
+              opEl.innerHTML = `${displayName} <span style="font-size:10px; padding:1px 5px; background:var(--teal-subtle); color:var(--teal-success); border:1px solid var(--teal-border); margin-left:4px;">${methodTag}</span>`;
+            }
+            if (authLbl) authLbl.textContent = 'SIGN OUT';
+            if (authIcon) authIcon.textContent = '🔓';
+          }
+        } catch(err) {
+          // Fallback session storage
+          const fallback = sessionStorage.getItem('stocksense_auth');
+          if (fallback) {
+            try {
+              const parsed = JSON.parse(fallback);
+              if (opEl && parsed.identity) {
+                opEl.textContent = `OP (${parsed.identity})`;
+              }
+              if (authLbl) authLbl.textContent = 'SIGN OUT';
+            } catch(e) {}
+          }
+        }
+      }
+
+      async function handleAuthAction() {
+        const token = localStorage.getItem('stocksense_token') || sessionStorage.getItem('stocksense_token');
+        const user = localStorage.getItem('stocksense_user');
+
+        if (token || user) {
+          // Log out from Firebase client
+          if (typeof firebase !== 'undefined' && firebase.auth) {
+            try { await firebase.auth().signOut(); } catch(e) {}
+          }
+          // Log out from backend server if present
+          try {
+            await fetch('/api/auth/logout', { method: 'POST' });
+          } catch(e) {}
+
+          localStorage.removeItem('stocksense_token');
+          localStorage.removeItem('stocksense_user');
+          sessionStorage.removeItem('stocksense_token');
+          sessionStorage.removeItem('stocksense_auth');
+
+          const isFileProto = window.location.protocol === 'file:';
+          if (isFileProto) {
+            window.location.href = 'login.html?logout=1';
+          } else {
+            const path = window.location.pathname;
+            if (path.endsWith('.html')) {
+              window.location.href = path.replace(/[^/]*$/, 'login.html?logout=1');
+            } else {
+              window.location.href = '/login?logout=1';
+            }
+          }
+        } else {
+          // Go to sign-in
+          const isFileProto = window.location.protocol === 'file:';
+          if (isFileProto) {
+            window.location.href = 'login.html';
+          } else {
+            const path = window.location.pathname;
+            if (path.endsWith('.html')) {
+              window.location.href = path.replace(/[^/]*$/, 'login.html');
+            } else {
+              window.location.href = '/login';
+            }
+          }
+        }
+      }
+
+      return {
+        init,
+        verifyOperatorSession,
+        handleAuthAction,
+        switchTab,
+        setScanFlow,
+        processScanSubmit,
+        simulateBarcode,
+        incrementItem,
+        handleScanKeyDown,
+        openQuickScanForManifest,
+        commitCurrentManifest,
+        stampApproval,
+        batchApproveAll,
+        filterManifests,
+        filterLedger,
+        printCurrentSlip,
+        closeSlipModal,
+        exportLedgerCSV,
+        toggleAudio,
+        toggleTheme
+      };
+    })();
+
+    // Boot on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      StockSenseApp.init();
+    });
+  </script>
+</body>
+</html>

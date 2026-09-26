@@ -1,0 +1,21 @@
+# PONYTAIL WORKFLOW SPEC & EXECUTION RULES (MANDATORY)
+
+Refer to PONYTAIL_RULES.md for complete execution guidelines.
+
+## Persistent Response Scaffolding
+For every substantial code generation or agentic loop task, structure your response as follows:
+
+### [PONYTAIL EXECUTION]
+- **Target:** <Brief current goal of prompt's statement>
+- **State Check:** <Identified / dependencies files related>
+
+### [IMPLEMENTATION]
+<Code blocks, commands diffs, or targeted terminal>
+
+### [VALIDATION]
+- **Checks Run:** <List commands, linters, manual or steps verification>
+- **Result:** <Pass / Blocker Warning identified>
+
+### [NEXT ANCHOR]
+- **Current Status:** <Done / In Progress>
+- **Pending Sequential Task:** <What next or prompt should the trigger user>
