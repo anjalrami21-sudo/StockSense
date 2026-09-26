@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StockSense // Terminal Sign-in</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <!-- Firebase Authentication SDK (Compat Build) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -14,98 +15,168 @@
   <style>
     /* ==========================================================================
        STOCKSENSE AUTHENTICATION DESIGN SYSTEM
-       Mobile-first, utilitarian, industrial, strict color semantics
+       Grounded in Deep Navy, Slate, Muted Amber & Warm Off-White specification
        ========================================================================== */
 
     :root {
-      --bg-canvas: #F2F0EA;
-      --bg-surface: #EAE6DC;
-      --bg-subtle: #DFD9CC;
-      --bg-field: #FAF8F5;
+      /* Palette Tokens */
+      --color-primary: #243447;        /* Deep Navy */
+      --color-secondary: #52616B;      /* Slate */
+      --color-accent: #D69E2E;         /* Muted Amber */
+      --color-background: #F7F5F0;     /* Warm Off-white */
+      --color-surface: #FFFFFF;        /* Surface White */
+      --color-border: #D9DDE1;         /* Soft Gray */
+      --color-text: #252A2E;           /* Charcoal */
+      --color-muted: #6B7280;          /* Gray */
+      --color-success: #3F7D58;        /* Forest Green */
+      --color-warning: #B7791F;        /* Ochre */
+      --color-error: #B84A39;          /* Brick Red */
 
-      --steel-graphite: #2E2C28;
-      --border-color: #D8D3C7;
-      --border-strong: #2E2C28;
-      --border-focus: #1C1B19;
+      /* Base layout mappings */
+      --bg-canvas: #F7F5F0;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #ECEAE4;
+      --bg-field: #FFFFFF;
 
-      --text-primary: #1C1B19;
-      --text-secondary: #58544B;
-      --text-muted: #7E786C;
-      --text-invert: #F2F0EA;
+      --steel-graphite: #243447;
+      --border-color: #D9DDE1;
+      --border-strong: #243447;
+      --border-focus: #D69E2E;
+
+      --text-primary: #252A2E;
+      --text-secondary: #52616B;
+      --text-muted: #6B7280;
+      --text-invert: #F7F5F0;
 
       /* Semantic tokens */
-      --amber-accent: #B87A1E;
-      --amber-accent-hover: #9E6514;
-      --amber-subtle: #F6ECDA;
-      --amber-border: #C98A2C;
+      --amber-accent: #D69E2E;         /* Muted Amber */
+      --amber-accent-hover: #C08B24;
+      --amber-subtle: #FBF4E6;
+      --amber-border: #D69E2E;
 
-      --teal-success: #3F6B4F;
-      --teal-subtle: #E3EDE6;
-      --teal-border: #2F543C;
+      --teal-success: #3F7D58;         /* Forest Green */
+      --teal-subtle: #EBF4EE;
+      --teal-border: #3F7D58;
 
-      --rust-warning: #A6521F;
-      --rust-subtle: #F7EBE3;
-      --rust-border: #873E12;
+      --rust-warning: #B7791F;         /* Ochre */
+      --rust-subtle: #F9F3E8;
+      --rust-border: #B7791F;
 
-      --oxide-danger: #8C2F26;
-      --oxide-subtle: #F6E6E4;
-      --oxide-border: #6F221B;
+      --oxide-danger: #B84A39;         /* Brick Red */
+      --oxide-subtle: #F9ECE9;
+      --oxide-border: #B84A39;
 
+      /* Typography tokens */
       --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-heading: 'Source Sans 3', 'IBM Plex Sans', sans-serif;
       --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
       --transition-fast: 120ms ease;
     }
 
     [data-theme="dark"] {
-      --bg-canvas: #191815;
-      --bg-surface: #22201C;
-      --bg-subtle: #2C2924;
-      --bg-field: #141311;
+      --bg-canvas: #151D28;
+      --bg-surface: #1E2B3A;
+      --bg-subtle: #27374A;
+      --bg-field: #182330;
 
-      --steel-graphite: #32302A;
-      --border-color: #3C3932;
-      --border-strong: #5A554A;
-      --border-focus: #ABA496;
+      --steel-graphite: #243447;
+      --border-color: #36485C;
+      --border-strong: #52616B;
+      --border-focus: #E5AC3A;
 
-      --text-primary: #EDEAE3;
-      --text-secondary: #A8A396;
-      --text-muted: #767166;
-      --text-invert: #191815;
+      --text-primary: #F7F5F0;
+      --text-secondary: #BAC6CF;
+      --text-muted: #8B9CA8;
+      --text-invert: #151D28;
 
-      --amber-accent: #D9A24B;
-      --amber-accent-hover: #E8B35C;
-      --amber-subtle: #2C2111;
-      --amber-border: #9E6C1A;
+      --amber-accent: #E5AC3A;
+      --amber-accent-hover: #F1B94B;
+      --amber-subtle: #332711;
+      --amber-border: #E5AC3A;
 
-      --teal-success: #4E8562;
-      --teal-subtle: #14241B;
-      --teal-border: #355C43;
+      --teal-success: #4E9B6E;
+      --teal-subtle: #14291D;
+      --teal-border: #4E9B6E;
 
-      --rust-warning: #C06428;
-      --rust-subtle: #2B180E;
-      --rust-border: #823E11;
+      --rust-warning: #CC8D2B;
+      --rust-subtle: #33240D;
+      --rust-border: #CC8D2B;
 
-      --oxide-danger: #AA3B31;
-      --oxide-subtle: #2A1311;
-      --oxide-border: #73251D;
+      --oxide-danger: #CF5A48;
+      --oxide-subtle: #3A1915;
+      --oxide-border: #CF5A48;
     }
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html, body {
+    html,
+    body {
       min-height: 100vh;
       background-color: var(--bg-canvas);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      font-size: 14px;
+      font-size: 15px; /* Scaled up from 12-13px */
+      font-weight: 400;
       line-height: 1.45;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ==========================================================================
+       TYPOGRAPHY SPECIFICATION RULES:
+       - Page heading → 600
+       - Section heading → 600
+       - Subheading → 500
+       - Body → 400
+       - Labels → 500 (IBM Plex Sans) / 600 (Source Sans 3)
+       - Buttons → 500
+       - Table data → 400–500
+       - Numbers → 500
+       ========================================================================== */
+    h1, .page-heading, .card-title, .brand-title {
+      font-family: var(--font-heading), var(--font-sans);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    h2, h3, .section-heading, .panel-heading, .terminal-title {
+      font-family: var(--font-heading), var(--font-sans);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .sub-heading, .lead-subtitle, .card-subtitle {
+      font-family: var(--font-heading), var(--font-sans);
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    p, .body-copy {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      color: var(--text-primary);
+    }
+
+    label, .field-label, .input-label {
+      font-family: var(--font-heading), var(--font-sans);
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    button, .btn-auth-primary, .btn-action-sm, .util-btn, .btn-tab, .btn-link-action {
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    .font-mono, .code-snippet, .timer-box, .otp-box, .stat-num {
+      font-weight: 500;
     }
 
     ::selection {
@@ -215,13 +286,11 @@
     /* Industrial Hazard Header Tape */
     .auth-card-tape {
       height: 8px;
-      background: repeating-linear-gradient(
-        -45deg,
-        var(--steel-graphite),
-        var(--steel-graphite) 10px,
-        var(--amber-accent) 10px,
-        var(--amber-accent) 20px
-      );
+      background: repeating-linear-gradient(-45deg,
+          var(--steel-graphite),
+          var(--steel-graphite) 10px,
+          var(--amber-accent) 10px,
+          var(--amber-accent) 20px);
       border-bottom: 1px solid var(--border-strong);
     }
 
@@ -964,7 +1033,7 @@
       align-items: center;
       justify-content: center;
       padding: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .totp-qr-img {
@@ -1052,10 +1121,11 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="auth-root">
-    
+
     <!-- MASTHEAD -->
     <header class="auth-masthead">
       <div class="brand-wrap">
@@ -1074,7 +1144,8 @@
       </div>
 
       <div class="masthead-actions">
-        <button class="util-btn" id="fbConfigBtn" onclick="AuthEngine.openFirebaseModal()" title="Firebase Authentication Settings">
+        <button class="util-btn" id="fbConfigBtn" onclick="AuthEngine.openFirebaseModal()"
+          title="Firebase Authentication Settings">
           <span id="fbIcon">🔥</span>
           <span id="fbStatusLabel">FIREBASE: LIVE</span>
         </button>
@@ -1091,7 +1162,7 @@
 
     <!-- AUTH STAGE -->
     <main class="auth-stage">
-      
+
       <div class="auth-card">
         <div class="auth-card-tape"></div>
 
@@ -1099,7 +1170,7 @@
              STEP 1: PRIMARY PHONE ENTRY & GMAIL SIGN-IN
              ================================================================ -->
         <div class="auth-card-body step-pane active" id="stepPhonePane">
-          
+
           <div class="auth-heading-block">
             <h1 class="auth-title">Terminal sign-in</h1>
             <p class="auth-subtitle">Verify operator credentials via RFC 6238 TOTP (Google/Microsoft Authenticator).</p>
@@ -1111,7 +1182,8 @@
               <span class="totp-status-dot"></span>
               <span id="totpStatusSummary">RFC 6238 TOTP // GOOGLE &amp; MS AUTHENTICATOR</span>
             </div>
-            <button type="button" class="totp-cfg-link" id="btnPairTotp" onclick="TotpEngine.openPairingModal()">[📷 PAIR APP / QR]</button>
+            <button type="button" class="totp-cfg-link" id="btnPairTotp" onclick="TotpEngine.openPairingModal()">[📷
+              PAIR APP / QR]</button>
           </div>
 
           <!-- PRIMARY FLOW: 6-DIGIT TOTP AUTHENTICATION -->
@@ -1119,10 +1191,12 @@
             <div class="field-group">
               <div class="totp-window-row">
                 <span class="totp-window-tag">
-                  <span style="display:inline-block; width:6px; height:6px; background-color:var(--amber-accent);"></span>
+                  <span
+                    style="display:inline-block; width:6px; height:6px; background-color:var(--amber-accent);"></span>
                   <span>ROTATING WINDOW</span>
                 </span>
-                <span id="totpCountdownTag">Refresh in <strong id="totpCountdownNum" style="color:var(--amber-accent);">30</strong>s</span>
+                <span id="totpCountdownTag">Refresh in <strong id="totpCountdownNum"
+                    style="color:var(--amber-accent);">30</strong>s</span>
               </div>
               <div class="totp-window-bar">
                 <div class="totp-window-fill" id="totpWindowFill"></div>
@@ -1135,28 +1209,26 @@
 
               <!-- Single verification input for direct script/user typing and automated tests -->
               <div style="margin-bottom: 12px;">
-                <input 
-                  type="text" 
-                  id="verification-code" 
-                  name="verification-code"
-                  class="phone-field" 
-                  placeholder="000000" 
-                  maxlength="6" 
-                  inputmode="numeric" 
-                  autocomplete="one-time-code"
-                  style="text-align: center; letter-spacing: 6px; font-weight: 700; font-size: 20px; font-family: var(--font-mono);" 
-                  autofocus
-                />
+                <input type="text" id="verification-code" name="verification-code" class="phone-field"
+                  placeholder="000000" maxlength="6" inputmode="numeric" autocomplete="one-time-code"
+                  style="text-align: center; letter-spacing: 6px; font-weight: 700; font-size: 20px; font-family: var(--font-mono);"
+                  autofocus />
               </div>
 
               <!-- 6 separate single-digit boxes with auto-advance & backspace -->
               <div class="otp-boxes-grid" id="otpBoxGrid">
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="0" autocomplete="off" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="1" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="2" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="3" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="4" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="5" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                  data-index="0" autocomplete="off" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                  data-index="1" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                  data-index="2" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                  data-index="3" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                  data-index="4" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                  data-index="5" />
               </div>
 
               <!-- Inline validation error container -->
@@ -1173,7 +1245,8 @@
           </form>
 
           <div style="margin-top: 10px; display: flex; justify-content: center;">
-            <button type="button" class="btn-link-action" style="font-size: 11px; text-decoration: underline;" onclick="TotpEngine.openPairingModal()">
+            <button type="button" class="btn-link-action" style="font-size: 11px; text-decoration: underline;"
+              onclick="TotpEngine.openPairingModal()">
               First time setup? Scan QR Code to pair device →
             </button>
           </div>
@@ -1187,10 +1260,14 @@
 
           <button type="button" class="btn-auth-outline" id="btnGmailAuth" onclick="AuthEngine.handleGmailSignIn()">
             <svg class="google-icon-svg" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              <path fill="#4285F4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+              <path fill="#34A853"
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+              <path fill="#FBBC05"
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+              <path fill="#EA4335"
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
             </svg>
             <span>Continue with Gmail</span>
           </button>
@@ -1210,22 +1287,15 @@
                     <span class="field-sublabel">SMS OTP delivery</span>
                   </label>
                   <div class="phone-input-row" id="phoneInputRow">
-                    <input 
-                      type="tel" 
-                      id="phone-number" 
-                      name="phone-number"
-                      class="phone-field" 
-                      placeholder="+919876543210" 
-                      maxlength="16" 
-                      inputmode="tel" 
-                      autocomplete="tel" 
-                    />
+                    <input type="tel" id="phone-number" name="phone-number" class="phone-field"
+                      placeholder="+919876543210" maxlength="16" inputmode="tel" autocomplete="tel" />
                   </div>
                   <div id="phoneErrorBox" class="inline-msg-box msg-error" style="display: none;">
                     <span id="phoneErrorText">Please enter a valid mobile number with country code.</span>
                   </div>
                 </div>
-                <button type="button" class="btn-auth-outline" id="send-otp-btn" style="width:100%;" onclick="sendOtpToPhone()">
+                <button type="button" class="btn-auth-outline" id="send-otp-btn" style="width:100%;"
+                  onclick="sendOtpToPhone()">
                   <span>Send SMS Code</span>
                   <span style="font-family:var(--font-mono);">→</span>
                 </button>
@@ -1242,90 +1312,92 @@
         <div class="auth-card-body step-pane" id="stepOtpPane">
           <!-- Input and button for entering the received OTP -->
           <div id="otp-section" style="display:none;">
-          
-          <div class="auth-heading-block">
-            <h1 class="auth-title">Verify mobile number</h1>
-            <p class="auth-subtitle">Enter the 6-digit code delivered via SMS to authorize this device.</p>
-          </div>
 
-          <div class="otp-target-banner">
-            <div class="otp-target-text">
-              <span>Code sent to: </span>
-              <strong id="displayTargetPhone">+91 ••••• •••••</strong>
-            </div>
-            <button type="button" class="btn-link-action" onclick="AuthEngine.goToPhoneStep()">Change</button>
-          </div>
-
-          <form id="otpForm" onsubmit="event.preventDefault(); verifyReceivedOtp();">
-            
-            <div class="field-group">
-              <label class="field-label" for="verification-code">
-                <span>Security code (6 digits)</span>
-                <span class="field-sublabel" id="expiryIndicator">Expires in 05:00</span>
-              </label>
-
-              <!-- Single verification input for direct script/user typing -->
-              <div style="margin-bottom: 12px;">
-                <input 
-                  type="text" 
-                  id="verification-code" 
-                  class="phone-field" 
-                  placeholder="6-digit code" 
-                  maxlength="6" 
-                  inputmode="numeric" 
-                  style="text-align: center; letter-spacing: 4px; font-weight: 700; font-size: 18px;" 
-                />
-              </div>
-
-              <!-- 6 separate single-digit boxes with auto-advance & backspace -->
-              <div class="otp-boxes-grid" id="otpBoxGrid">
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="0" autofocus autocomplete="one-time-code" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="1" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="2" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="3" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="4" />
-                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="5" />
-              </div>
-
-              <!-- Inline verification / error message -->
-              <div id="otpErrorBox" class="inline-msg-box msg-error" style="display: none;">
-                <span id="otpErrorText">Incorrect code. 2 attempts remaining.</span>
-              </div>
+            <div class="auth-heading-block">
+              <h1 class="auth-title">Verify mobile number</h1>
+              <p class="auth-subtitle">Enter the 6-digit code delivered via SMS to authorize this device.</p>
             </div>
 
-            <!-- Verify OTP Button -->
-            <button type="button" class="btn-auth-primary" id="verify-btn" onclick="verifyReceivedOtp()">
-              <span>Verify OTP</span>
-              <span style="font-family:var(--font-mono);">[ENTER]</span>
-            </button>
+            <div class="otp-target-banner">
+              <div class="otp-target-text">
+                <span>Code sent to: </span>
+                <strong id="displayTargetPhone">+91 ••••• •••••</strong>
+              </div>
+              <button type="button" class="btn-link-action" onclick="AuthEngine.goToPhoneStep()">Change</button>
+            </div>
 
-            <!-- Resend timer & countdown -->
-            <div class="otp-timer-row">
-              <span id="attemptsCounterLabel">Attempts left: 3 / 3</span>
-              <div>
-                <button type="button" class="btn-resend-code" id="btnResendOtp" disabled onclick="AuthEngine.resendOtp()">
-                  Resend code in <span id="resendCountdownNum">30</span>s
+            <form id="otpForm" onsubmit="event.preventDefault(); verifyReceivedOtp();">
+
+              <div class="field-group">
+                <label class="field-label" for="verification-code">
+                  <span>Security code (6 digits)</span>
+                  <span class="field-sublabel" id="expiryIndicator">Expires in 05:00</span>
+                </label>
+
+                <!-- Single verification input for direct script/user typing -->
+                <div style="margin-bottom: 12px;">
+                  <input type="text" id="verification-code" class="phone-field" placeholder="6-digit code" maxlength="6"
+                    inputmode="numeric"
+                    style="text-align: center; letter-spacing: 4px; font-weight: 700; font-size: 18px;" />
+                </div>
+
+                <!-- 6 separate single-digit boxes with auto-advance & backspace -->
+                <div class="otp-boxes-grid" id="otpBoxGrid">
+                  <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                    data-index="0" autofocus autocomplete="one-time-code" />
+                  <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                    data-index="1" />
+                  <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                    data-index="2" />
+                  <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                    data-index="3" />
+                  <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                    data-index="4" />
+                  <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                    data-index="5" />
+                </div>
+
+                <!-- Inline verification / error message -->
+                <div id="otpErrorBox" class="inline-msg-box msg-error" style="display: none;">
+                  <span id="otpErrorText">Incorrect code. 2 attempts remaining.</span>
+                </div>
+              </div>
+
+              <!-- Verify OTP Button -->
+              <button type="button" class="btn-auth-primary" id="verify-btn" onclick="verifyReceivedOtp()">
+                <span>Verify OTP</span>
+                <span style="font-family:var(--font-mono);">[ENTER]</span>
+              </button>
+
+              <!-- Resend timer & countdown -->
+              <div class="otp-timer-row">
+                <span id="attemptsCounterLabel">Attempts left: 3 / 3</span>
+                <div>
+                  <button type="button" class="btn-resend-code" id="btnResendOtp" disabled
+                    onclick="AuthEngine.resendOtp()">
+                    Resend code in <span id="resendCountdownNum">30</span>s
+                  </button>
+                </div>
+              </div>
+
+            </form>
+
+            <!-- SMS Carrier Feed / Demonstration HUD -->
+            <div class="sms-simulation-box" id="smsSimulationBox">
+              <div class="sms-sim-header">
+                <span id="carrierGatewayTag">GATEWAY: FIREBASE GOOGLE SMS // AUTH-01</span>
+                <span>DEV SIMULATOR</span>
+              </div>
+              <div class="sms-sim-body" id="simulatedSmsText">
+                [StockSense] Your terminal verification code is <strong id="simSmsCode"
+                  style="color:var(--amber-accent);">------</strong>. Valid for 5 min.
+              </div>
+              <div class="sms-sim-actions">
+                <button type="button" class="sms-chip-autofill" onclick="AuthEngine.fillSimulatedCode()">
+                  Auto-fill simulated code for test
                 </button>
               </div>
             </div>
-
-          </form>
-
-          <!-- SMS Carrier Feed / Demonstration HUD -->
-          <div class="sms-simulation-box" id="smsSimulationBox">
-            <div class="sms-sim-header">
-              <span id="carrierGatewayTag">GATEWAY: FIREBASE GOOGLE SMS // AUTH-01</span>
-              <span>DEV SIMULATOR</span>
-            </div>
-            <div class="sms-sim-body" id="simulatedSmsText">
-              [StockSense] Your terminal verification code is <strong id="simSmsCode" style="color:var(--amber-accent);">------</strong>. Valid for 5 min.
-            </div>
-            <div class="sms-sim-actions">
-              <button type="button" class="sms-chip-autofill" onclick="AuthEngine.fillSimulatedCode()">
-                Auto-fill simulated code for test
-              </button>
-            </div>
-          </div>
 
           </div>
         </div>
@@ -1335,7 +1407,7 @@
              STEP 3: AUTHENTICATION CONFIRMED & TRANSITION
              ================================================================ -->
         <div class="auth-card-body step-pane" id="stepSuccessPane">
-          
+
           <div class="success-card-body">
             <div class="success-stamp-box">
               <span>✓</span>
@@ -1349,7 +1421,8 @@
             </div>
 
             <div style="font-size:12px; color:var(--text-secondary); line-height: 1.5;">
-              Operator session initialized via Firebase Identity Service. Cryptographic station key minted for <strong>BAY-04 // DOCK-NORTH</strong>.
+              Operator session initialized via Firebase Identity Service. Cryptographic station key minted for
+              <strong>BAY-04 // DOCK-NORTH</strong>.
             </div>
 
             <div class="terminal-handshake-meter">
@@ -1387,11 +1460,16 @@
       <div class="fb-modal-body">
         <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">
           <strong>Connect your live Firebase Project:</strong><br>
-          1. Go to <a href="https://console.firebase.google.com" target="_blank" style="color:var(--amber-accent); font-weight:600;">console.firebase.google.com</a> &rarr; Build &rarr; Authentication &rarr; Sign-in method.<br>
+          1. Go to <a href="https://console.firebase.google.com" target="_blank"
+            style="color:var(--amber-accent); font-weight:600;">console.firebase.google.com</a> &rarr; Build &rarr;
+          Authentication &rarr; Sign-in method.<br>
           2. Enable <strong>Google</strong> (pick support email) and <strong>Phone</strong>.<br>
-          3. Project settings (gear icon) &rarr; General &rarr; Your apps &rarr; Web &rarr; Copy <code>firebaseConfig</code>.<br>
+          3. Project settings (gear icon) &rarr; General &rarr; Your apps &rarr; Web &rarr; Copy
+          <code>firebaseConfig</code>.<br>
           4. Paste below (supports JSON or JS object).<br>
-          <span style="color:var(--teal-success); font-size:11px;">💡 <em>Tip: Under Phone &gt; "Phone numbers for testing", add your number with a static code (e.g. 123456) to test real Firebase Auth without SMS quotas!</em></span>
+          <span style="color:var(--teal-success); font-size:11px;">💡 <em>Tip: Under Phone &gt; "Phone numbers for
+              testing", add your number with a static code (e.g. 123456) to test real Firebase Auth without SMS
+              quotas!</em></span>
         </div>
         <textarea id="firebaseConfigInput" class="fb-config-textarea" spellcheck="false" placeholder='{
   "apiKey": "AIzaSy...",
@@ -1401,14 +1479,17 @@
   "messagingSenderId": "1234567890",
   "appId": "1:1234567890:web:abcdef"
 }'></textarea>
-        <div style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">
+        <div
+          style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">
           <span id="fbModalStatusText">Status: Checking...</span>
-          <button type="button" class="btn-link-action" onclick="AuthEngine.loadDemoFirebaseConfig()">[Load Example Template]</button>
+          <button type="button" class="btn-link-action" onclick="AuthEngine.loadDemoFirebaseConfig()">[Load Example
+            Template]</button>
         </div>
       </div>
       <div class="fb-modal-footer">
         <button type="button" class="util-btn" onclick="AuthEngine.resetFirebaseConfig()">Reset to Dev Mode</button>
-        <button type="button" class="btn-auth-primary" style="margin:0; width:auto; padding:6px 14px; font-size:12px;" onclick="AuthEngine.saveFirebaseConfig()">Save &amp; Connect</button>
+        <button type="button" class="btn-auth-primary" style="margin:0; width:auto; padding:6px 14px; font-size:12px;"
+          onclick="AuthEngine.saveFirebaseConfig()">Save &amp; Connect</button>
       </div>
     </div>
   </div>
@@ -1426,7 +1507,8 @@
 
       <div class="totp-modal-body">
         <p style="font-size:12px; color:var(--text-secondary); margin:0;">
-          Scan this QR code using <strong>Google Authenticator</strong>, <strong>Microsoft Authenticator</strong>, or <strong>Aegis</strong> to pair this workstation.
+          Scan this QR code using <strong>Google Authenticator</strong>, <strong>Microsoft Authenticator</strong>, or
+          <strong>Aegis</strong> to pair this workstation.
         </p>
 
         <div class="totp-qr-wrap">
@@ -1438,7 +1520,8 @@
             <span style="font-size:10px; color:var(--text-muted); display:block;">MANUAL SECRET KEY:</span>
             <code id="totpSecretKey" class="totp-secret-key">GENERATING...</code>
           </div>
-          <button type="button" class="btn-copy-secret" id="btnCopySecret" onclick="TotpEngine.copySecret()">COPY KEY</button>
+          <button type="button" class="btn-copy-secret" id="btnCopySecret" onclick="TotpEngine.copySecret()">COPY
+            KEY</button>
         </div>
 
         <ol class="totp-steps-list">
@@ -1449,7 +1532,8 @@
       </div>
 
       <div class="totp-modal-footer">
-        <button type="button" class="btn-auth-primary" style="margin:0; width:auto; padding:8px 18px; font-size:12px;" onclick="TotpEngine.closePairingModal()">
+        <button type="button" class="btn-auth-primary" style="margin:0; width:auto; padding:8px 18px; font-size:12px;"
+          onclick="TotpEngine.closePairingModal()">
           Done // Ready to Sign in &rarr;
         </button>
       </div>
@@ -1458,7 +1542,7 @@
 
   <!-- SCRIPT LOGIC -->
   <script>
-    const AuthEngine = (function() {
+    const AuthEngine = (function () {
       // Audio Engine for physical feedback
       let audioCtx = null;
       let soundEnabled = true;
@@ -1616,7 +1700,7 @@
           const auth = firebase.auth();
           updateStatusDisplay();
           return auth;
-        } catch(err) {
+        } catch (err) {
           console.warn('[StockSense] Firebase init notice:', err.message);
           updateStatusDisplay();
           return null;
@@ -1637,7 +1721,7 @@
               window.recaptchaWidgetId = widgetId;
             }).catch(e => console.warn('[StockSense] reCAPTCHA render notice:', e));
           }
-        } catch(e) {
+        } catch (e) {
           console.warn('[StockSense] reCAPTCHA init notice:', e);
         }
       }
@@ -1708,11 +1792,11 @@
             setTimeout(() => {
               if (otpBoxes[0]) otpBoxes[0].focus();
             }, 100);
-          } catch(err) {
+          } catch (err) {
             showPhoneError('Firebase SMS: ' + err.message);
             playSound('beep-error');
             if (window.grecaptcha && window.recaptchaWidgetId !== undefined) {
-              try { grecaptcha.reset(window.recaptchaWidgetId); } catch(e) {}
+              try { grecaptcha.reset(window.recaptchaWidgetId); } catch (e) { }
             }
           } finally {
             btn.disabled = false;
@@ -1895,7 +1979,7 @@
             }));
 
             completeAuthentication('MOBILE', user.phoneNumber || currentPhone);
-          } catch(err) {
+          } catch (err) {
             attemptsRemaining--;
             updateAttemptsDisplay();
             if (attemptsRemaining > 0) {
@@ -2019,7 +2103,7 @@
             startExpiryTimer();
             playSound('beep-success');
             if (otpBoxes[0]) otpBoxes[0].focus();
-          } catch(err) {
+          } catch (err) {
             showOtpError('Firebase resend failed: ' + err.message);
             playSound('beep-error');
           }
@@ -2075,7 +2159,7 @@
 
             playSound('beep-success');
             completeAuthentication('GMAIL', user.email);
-          } catch(err) {
+          } catch (err) {
             showPhoneError('Google Sign-in: ' + err.message);
             playSound('beep-error');
           }
@@ -2219,20 +2303,20 @@
         // Try strict JSON parse first
         try {
           return JSON.parse(text);
-        } catch(e) {}
+        } catch (e) { }
         // Try loose JS object notation conversion
         try {
           const jsonCompliant = text
             .replace(/([{,]\s*)([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
             .replace(/'/g, '"');
           return JSON.parse(jsonCompliant);
-        } catch(e) {}
+        } catch (e) { }
         // Fallback to safe evaluation for JS object literals
         try {
           const fn = new Function('return (' + text + ')');
           const result = fn();
           if (result && typeof result === 'object') return result;
-        } catch(e) {}
+        } catch (e) { }
         throw new Error('Please ensure you paste a valid JSON or JavaScript object from Firebase Console.');
       }
 
@@ -2248,7 +2332,7 @@
           playSound('beep-success');
           alert('Firebase configuration saved successfully! Connecting to live project...');
           window.location.reload();
-        } catch(e) {
+        } catch (e) {
           alert('Config Parse Error: ' + e.message);
         }
       }
@@ -2287,7 +2371,7 @@
           sessionStorage.removeItem('stocksense_token');
           sessionStorage.removeItem('stocksense_auth');
           if (typeof firebase !== 'undefined' && firebase.auth) {
-            try { firebase.auth().signOut(); } catch(e) {}
+            try { firebase.auth().signOut(); } catch (e) { }
           }
         }
 
@@ -2365,7 +2449,7 @@
     function sendOtpToPhone() {
       const phoneEl = document.getElementById('phone-number');
       const rawNumber = (phoneEl ? phoneEl.value : '').trim();
-      
+
       // Must include international code e.g. +91
       if (!rawNumber.startsWith('+')) {
         alert("Please include country code (e.g. +91XXXXXXXXXX)");
@@ -2374,7 +2458,7 @@
 
       // Ensure Firebase app is initialized
       if (typeof firebase !== 'undefined' && !firebase.apps.length) {
-        try { firebase.initializeApp(firebaseConfig); } catch (e) {}
+        try { firebase.initializeApp(firebaseConfig); } catch (e) { }
       }
 
       if (!window.recaptchaVerifier && typeof firebase !== 'undefined' && firebase.auth) {
@@ -2419,7 +2503,7 @@
                 if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
                   grecaptcha.reset(widgetId);
                 }
-              }).catch(() => {});
+              }).catch(() => { });
             }
           });
       } else {
@@ -2464,7 +2548,7 @@
     // =========================================================================
     // RFC 6238 TOTP 2FA ENGINE (Self-Contained speakeasy + qrcode verification)
     // =========================================================================
-    const TotpEngine = (function() {
+    const TotpEngine = (function () {
       let activeSecret = localStorage.getItem('stocksense_totp_secret') || '';
       let activeQr = '';
       let windowTimer = null;
@@ -2710,7 +2794,7 @@
           .then((result) => {
             const user = result.user;
             console.log("Authenticated User:", user);
-            
+
             user.getIdToken().then(token => {
               localStorage.setItem('stocksense_token', token);
               localStorage.setItem('stocksense_user', JSON.stringify({
@@ -2781,4 +2865,5 @@
     });
   </script>
 </body>
+
 </html>

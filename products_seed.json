@@ -1,0 +1,4502 @@
+[
+  {
+    "id": "PROD-RAW-101",
+    "sku": "RAW-101",
+    "name": "Precision Structural Steel Rods",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 20,
+    "reorder_threshold": 20,
+    "stock_on_hand": 377,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 207,
+        "locations": {
+          "WH1/Main Store": 103,
+          "WH1/Production Floor": 51,
+          "WH1/Rack A": 31,
+          "WH1/Rack B": 22
+        }
+      },
+      "WH-BLR-02": {
+        "total": 170,
+        "locations": {
+          "WH2/Inbound Dock": 76,
+          "WH2/Bulk Storage": 51,
+          "WH2/Rack Alpha": 25,
+          "WH2/Rack Beta": 18
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 103,
+      "WH1/Production Floor": 51,
+      "WH1/Rack A": 31,
+      "WH1/Rack B": 22,
+      "WH2/Inbound Dock": 76,
+      "WH2/Bulk Storage": 51,
+      "WH2/Rack Alpha": 25,
+      "WH2/Rack Beta": 18,
+      "Main Store": 103,
+      "Production Floor": 51,
+      "Rack A": 31,
+      "Rack B": 22
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-102",
+    "sku": "RAW-102",
+    "name": "Aerospace Grade Aluminum Billets 6061",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 27,
+    "reorder_threshold": 27,
+    "stock_on_hand": 21,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 12,
+        "locations": {
+          "WH1/Main Store": 6,
+          "WH1/Production Floor": 3,
+          "WH1/Rack A": 1,
+          "WH1/Rack B": 2
+        }
+      },
+      "WH-BLR-02": {
+        "total": 9,
+        "locations": {
+          "WH2/Inbound Dock": 4,
+          "WH2/Bulk Storage": 2,
+          "WH2/Rack Alpha": 1,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 6,
+      "WH1/Production Floor": 3,
+      "WH1/Rack A": 1,
+      "WH1/Rack B": 2,
+      "WH2/Inbound Dock": 4,
+      "WH2/Bulk Storage": 2,
+      "WH2/Rack Alpha": 1,
+      "WH2/Rack Beta": 2,
+      "Main Store": 6,
+      "Production Floor": 3,
+      "Rack A": 1,
+      "Rack B": 2
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-103",
+    "sku": "RAW-103",
+    "name": "Electrolytic Pure Copper Wire Spools",
+    "category": "Raw Materials",
+    "uom": "meters",
+    "minThreshold": 34,
+    "reorder_threshold": 34,
+    "stock_on_hand": 85,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 46,
+        "locations": {
+          "WH1/Main Store": 23,
+          "WH1/Production Floor": 11,
+          "WH1/Rack A": 6,
+          "WH1/Rack B": 6
+        }
+      },
+      "WH-BLR-02": {
+        "total": 39,
+        "locations": {
+          "WH2/Inbound Dock": 17,
+          "WH2/Bulk Storage": 11,
+          "WH2/Rack Alpha": 5,
+          "WH2/Rack Beta": 6
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 23,
+      "WH1/Production Floor": 11,
+      "WH1/Rack A": 6,
+      "WH1/Rack B": 6,
+      "WH2/Inbound Dock": 17,
+      "WH2/Bulk Storage": 11,
+      "WH2/Rack Alpha": 5,
+      "WH2/Rack Beta": 6,
+      "Main Store": 23,
+      "Production Floor": 11,
+      "Rack A": 6,
+      "Rack B": 6
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-104",
+    "sku": "RAW-104",
+    "name": "Industrial High-Density PVC Pellets",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 41,
+    "reorder_threshold": 41,
+    "stock_on_hand": 129,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 70,
+        "locations": {
+          "WH1/Main Store": 35,
+          "WH1/Production Floor": 17,
+          "WH1/Rack A": 10,
+          "WH1/Rack B": 8
+        }
+      },
+      "WH-BLR-02": {
+        "total": 59,
+        "locations": {
+          "WH2/Inbound Dock": 26,
+          "WH2/Bulk Storage": 17,
+          "WH2/Rack Alpha": 8,
+          "WH2/Rack Beta": 8
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 35,
+      "WH1/Production Floor": 17,
+      "WH1/Rack A": 10,
+      "WH1/Rack B": 8,
+      "WH2/Inbound Dock": 26,
+      "WH2/Bulk Storage": 17,
+      "WH2/Rack Alpha": 8,
+      "WH2/Rack Beta": 8,
+      "Main Store": 35,
+      "Production Floor": 17,
+      "Rack A": 10,
+      "Rack B": 8
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-105",
+    "sku": "RAW-105",
+    "name": "Woven Carbon Fiber Prepreg Sheets",
+    "category": "Raw Materials",
+    "uom": "meters",
+    "minThreshold": 48,
+    "reorder_threshold": 48,
+    "stock_on_hand": 0,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 0,
+        "locations": {
+          "WH1/Main Store": 0,
+          "WH1/Production Floor": 0,
+          "WH1/Rack A": 0,
+          "WH1/Rack B": 0
+        }
+      },
+      "WH-BLR-02": {
+        "total": 0,
+        "locations": {
+          "WH2/Inbound Dock": 0,
+          "WH2/Bulk Storage": 0,
+          "WH2/Rack Alpha": 0,
+          "WH2/Rack Beta": 0
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 0,
+      "WH1/Production Floor": 0,
+      "WH1/Rack A": 0,
+      "WH1/Rack B": 0,
+      "WH2/Inbound Dock": 0,
+      "WH2/Bulk Storage": 0,
+      "WH2/Rack Alpha": 0,
+      "WH2/Rack Beta": 0,
+      "Main Store": 0,
+      "Production Floor": 0,
+      "Rack A": 0,
+      "Rack B": 0
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-106",
+    "sku": "RAW-106",
+    "name": "Precision Brass Hexagonal Bars",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 14,
+    "reorder_threshold": 14,
+    "stock_on_hand": 176,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 96,
+        "locations": {
+          "WH1/Main Store": 48,
+          "WH1/Production Floor": 24,
+          "WH1/Rack A": 14,
+          "WH1/Rack B": 10
+        }
+      },
+      "WH-BLR-02": {
+        "total": 80,
+        "locations": {
+          "WH2/Inbound Dock": 36,
+          "WH2/Bulk Storage": 24,
+          "WH2/Rack Alpha": 12,
+          "WH2/Rack Beta": 8
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 48,
+      "WH1/Production Floor": 24,
+      "WH1/Rack A": 14,
+      "WH1/Rack B": 10,
+      "WH2/Inbound Dock": 36,
+      "WH2/Bulk Storage": 24,
+      "WH2/Rack Alpha": 12,
+      "WH2/Rack Beta": 8,
+      "Main Store": 48,
+      "Production Floor": 24,
+      "Rack A": 14,
+      "Rack B": 10
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-107",
+    "sku": "RAW-107",
+    "name": "Cold Rolled Stainless Steel Coil 304",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 21,
+    "reorder_threshold": 21,
+    "stock_on_hand": 220,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 121,
+        "locations": {
+          "WH1/Main Store": 60,
+          "WH1/Production Floor": 30,
+          "WH1/Rack A": 18,
+          "WH1/Rack B": 13
+        }
+      },
+      "WH-BLR-02": {
+        "total": 99,
+        "locations": {
+          "WH2/Inbound Dock": 44,
+          "WH2/Bulk Storage": 29,
+          "WH2/Rack Alpha": 14,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 60,
+      "WH1/Production Floor": 30,
+      "WH1/Rack A": 18,
+      "WH1/Rack B": 13,
+      "WH2/Inbound Dock": 44,
+      "WH2/Bulk Storage": 29,
+      "WH2/Rack Alpha": 14,
+      "WH2/Rack Beta": 12,
+      "Main Store": 60,
+      "Production Floor": 30,
+      "Rack A": 18,
+      "Rack B": 13
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-108",
+    "sku": "RAW-108",
+    "name": "Hot-Dipped Galvanized Sheet Metal",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 28,
+    "reorder_threshold": 28,
+    "stock_on_hand": 264,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 145,
+        "locations": {
+          "WH1/Main Store": 72,
+          "WH1/Production Floor": 36,
+          "WH1/Rack A": 21,
+          "WH1/Rack B": 16
+        }
+      },
+      "WH-BLR-02": {
+        "total": 119,
+        "locations": {
+          "WH2/Inbound Dock": 53,
+          "WH2/Bulk Storage": 35,
+          "WH2/Rack Alpha": 17,
+          "WH2/Rack Beta": 14
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 72,
+      "WH1/Production Floor": 36,
+      "WH1/Rack A": 21,
+      "WH1/Rack B": 16,
+      "WH2/Inbound Dock": 53,
+      "WH2/Bulk Storage": 35,
+      "WH2/Rack Alpha": 17,
+      "WH2/Rack Beta": 14,
+      "Main Store": 72,
+      "Production Floor": 36,
+      "Rack A": 21,
+      "Rack B": 16
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-109",
+    "sku": "RAW-109",
+    "name": "Titanium Alloy Rods Grade 5",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 35,
+    "reorder_threshold": 35,
+    "stock_on_hand": 30,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 18,
+        "locations": {
+          "WH1/Main Store": 9,
+          "WH1/Production Floor": 4,
+          "WH1/Rack A": 2,
+          "WH1/Rack B": 3
+        }
+      },
+      "WH-BLR-02": {
+        "total": 12,
+        "locations": {
+          "WH2/Inbound Dock": 5,
+          "WH2/Bulk Storage": 3,
+          "WH2/Rack Alpha": 1,
+          "WH2/Rack Beta": 3
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 9,
+      "WH1/Production Floor": 4,
+      "WH1/Rack A": 2,
+      "WH1/Rack B": 3,
+      "WH2/Inbound Dock": 5,
+      "WH2/Bulk Storage": 3,
+      "WH2/Rack Alpha": 1,
+      "WH2/Rack Beta": 3,
+      "Main Store": 9,
+      "Production Floor": 4,
+      "Rack A": 2,
+      "Rack B": 3
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-110",
+    "sku": "RAW-110",
+    "name": "Polycarbonate Transparent Pellets",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 42,
+    "reorder_threshold": 42,
+    "stock_on_hand": 352,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 193,
+        "locations": {
+          "WH1/Main Store": 96,
+          "WH1/Production Floor": 48,
+          "WH1/Rack A": 28,
+          "WH1/Rack B": 21
+        }
+      },
+      "WH-BLR-02": {
+        "total": 159,
+        "locations": {
+          "WH2/Inbound Dock": 71,
+          "WH2/Bulk Storage": 47,
+          "WH2/Rack Alpha": 23,
+          "WH2/Rack Beta": 18
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 96,
+      "WH1/Production Floor": 48,
+      "WH1/Rack A": 28,
+      "WH1/Rack B": 21,
+      "WH2/Inbound Dock": 71,
+      "WH2/Bulk Storage": 47,
+      "WH2/Rack Alpha": 23,
+      "WH2/Rack Beta": 18,
+      "Main Store": 96,
+      "Production Floor": 48,
+      "Rack A": 28,
+      "Rack B": 21
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-111",
+    "sku": "RAW-111",
+    "name": "Industrial Phosphor Bronze Strip",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 49,
+    "reorder_threshold": 49,
+    "stock_on_hand": 396,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 217,
+        "locations": {
+          "WH1/Main Store": 108,
+          "WH1/Production Floor": 54,
+          "WH1/Rack A": 32,
+          "WH1/Rack B": 23
+        }
+      },
+      "WH-BLR-02": {
+        "total": 179,
+        "locations": {
+          "WH2/Inbound Dock": 80,
+          "WH2/Bulk Storage": 53,
+          "WH2/Rack Alpha": 26,
+          "WH2/Rack Beta": 20
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 108,
+      "WH1/Production Floor": 54,
+      "WH1/Rack A": 32,
+      "WH1/Rack B": 23,
+      "WH2/Inbound Dock": 80,
+      "WH2/Bulk Storage": 53,
+      "WH2/Rack Alpha": 26,
+      "WH2/Rack Beta": 20,
+      "Main Store": 108,
+      "Production Floor": 54,
+      "Rack A": 32,
+      "Rack B": 23
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-112",
+    "sku": "RAW-112",
+    "name": "Annealed Electrical Copper Busbars",
+    "category": "Raw Materials",
+    "uom": "meters",
+    "minThreshold": 15,
+    "reorder_threshold": 15,
+    "stock_on_hand": 399,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 219,
+        "locations": {
+          "WH1/Main Store": 109,
+          "WH1/Production Floor": 54,
+          "WH1/Rack A": 32,
+          "WH1/Rack B": 24
+        }
+      },
+      "WH-BLR-02": {
+        "total": 180,
+        "locations": {
+          "WH2/Inbound Dock": 81,
+          "WH2/Bulk Storage": 54,
+          "WH2/Rack Alpha": 27,
+          "WH2/Rack Beta": 18
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 109,
+      "WH1/Production Floor": 54,
+      "WH1/Rack A": 32,
+      "WH1/Rack B": 24,
+      "WH2/Inbound Dock": 81,
+      "WH2/Bulk Storage": 54,
+      "WH2/Rack Alpha": 27,
+      "WH2/Rack Beta": 18,
+      "Main Store": 109,
+      "Production Floor": 54,
+      "Rack A": 32,
+      "Rack B": 24
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-113",
+    "sku": "RAW-113",
+    "name": "Extruded Magnesium Alloy Billets",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 22,
+    "reorder_threshold": 22,
+    "stock_on_hand": 63,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 34,
+        "locations": {
+          "WH1/Main Store": 17,
+          "WH1/Production Floor": 8,
+          "WH1/Rack A": 5,
+          "WH1/Rack B": 4
+        }
+      },
+      "WH-BLR-02": {
+        "total": 29,
+        "locations": {
+          "WH2/Inbound Dock": 13,
+          "WH2/Bulk Storage": 8,
+          "WH2/Rack Alpha": 4,
+          "WH2/Rack Beta": 4
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 17,
+      "WH1/Production Floor": 8,
+      "WH1/Rack A": 5,
+      "WH1/Rack B": 4,
+      "WH2/Inbound Dock": 13,
+      "WH2/Bulk Storage": 8,
+      "WH2/Rack Alpha": 4,
+      "WH2/Rack Beta": 4,
+      "Main Store": 17,
+      "Production Floor": 8,
+      "Rack A": 5,
+      "Rack B": 4
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-114",
+    "sku": "RAW-114",
+    "name": "Moldable Polypropylene Granules",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 29,
+    "reorder_threshold": 29,
+    "stock_on_hand": 107,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 58,
+        "locations": {
+          "WH1/Main Store": 29,
+          "WH1/Production Floor": 14,
+          "WH1/Rack A": 8,
+          "WH1/Rack B": 7
+        }
+      },
+      "WH-BLR-02": {
+        "total": 49,
+        "locations": {
+          "WH2/Inbound Dock": 22,
+          "WH2/Bulk Storage": 14,
+          "WH2/Rack Alpha": 7,
+          "WH2/Rack Beta": 6
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 29,
+      "WH1/Production Floor": 14,
+      "WH1/Rack A": 8,
+      "WH1/Rack B": 7,
+      "WH2/Inbound Dock": 22,
+      "WH2/Bulk Storage": 14,
+      "WH2/Rack Alpha": 7,
+      "WH2/Rack Beta": 6,
+      "Main Store": 29,
+      "Production Floor": 14,
+      "Rack A": 8,
+      "Rack B": 7
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-115",
+    "sku": "RAW-115",
+    "name": "Hardened Tool Steel Bar Stock D2",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 36,
+    "reorder_threshold": 36,
+    "stock_on_hand": 151,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 83,
+        "locations": {
+          "WH1/Main Store": 41,
+          "WH1/Production Floor": 20,
+          "WH1/Rack A": 12,
+          "WH1/Rack B": 10
+        }
+      },
+      "WH-BLR-02": {
+        "total": 68,
+        "locations": {
+          "WH2/Inbound Dock": 30,
+          "WH2/Bulk Storage": 20,
+          "WH2/Rack Alpha": 10,
+          "WH2/Rack Beta": 8
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 41,
+      "WH1/Production Floor": 20,
+      "WH1/Rack A": 12,
+      "WH1/Rack B": 10,
+      "WH2/Inbound Dock": 30,
+      "WH2/Bulk Storage": 20,
+      "WH2/Rack Alpha": 10,
+      "WH2/Rack Beta": 8,
+      "Main Store": 41,
+      "Production Floor": 20,
+      "Rack A": 12,
+      "Rack B": 10
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-116",
+    "sku": "RAW-116",
+    "name": "Seamless Cast Iron Ingot Blocks",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 43,
+    "reorder_threshold": 43,
+    "stock_on_hand": 195,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 107,
+        "locations": {
+          "WH1/Main Store": 53,
+          "WH1/Production Floor": 26,
+          "WH1/Rack A": 16,
+          "WH1/Rack B": 12
+        }
+      },
+      "WH-BLR-02": {
+        "total": 88,
+        "locations": {
+          "WH2/Inbound Dock": 39,
+          "WH2/Bulk Storage": 26,
+          "WH2/Rack Alpha": 13,
+          "WH2/Rack Beta": 10
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 53,
+      "WH1/Production Floor": 26,
+      "WH1/Rack A": 16,
+      "WH1/Rack B": 12,
+      "WH2/Inbound Dock": 39,
+      "WH2/Bulk Storage": 26,
+      "WH2/Rack Alpha": 13,
+      "WH2/Rack Beta": 10,
+      "Main Store": 53,
+      "Production Floor": 26,
+      "Rack A": 16,
+      "Rack B": 12
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-117",
+    "sku": "RAW-117",
+    "name": "High-Strength Kevlar Fiber Filament",
+    "category": "Raw Materials",
+    "uom": "meters",
+    "minThreshold": 50,
+    "reorder_threshold": 50,
+    "stock_on_hand": 239,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 131,
+        "locations": {
+          "WH1/Main Store": 65,
+          "WH1/Production Floor": 32,
+          "WH1/Rack A": 19,
+          "WH1/Rack B": 15
+        }
+      },
+      "WH-BLR-02": {
+        "total": 108,
+        "locations": {
+          "WH2/Inbound Dock": 48,
+          "WH2/Bulk Storage": 32,
+          "WH2/Rack Alpha": 16,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 65,
+      "WH1/Production Floor": 32,
+      "WH1/Rack A": 19,
+      "WH1/Rack B": 15,
+      "WH2/Inbound Dock": 48,
+      "WH2/Bulk Storage": 32,
+      "WH2/Rack Alpha": 16,
+      "WH2/Rack Beta": 12,
+      "Main Store": 65,
+      "Production Floor": 32,
+      "Rack A": 19,
+      "Rack B": 15
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-118",
+    "sku": "RAW-118",
+    "name": "Natural Latex Rubber Sheeting",
+    "category": "Raw Materials",
+    "uom": "meters",
+    "minThreshold": 16,
+    "reorder_threshold": 16,
+    "stock_on_hand": 10,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 6,
+        "locations": {
+          "WH1/Main Store": 3,
+          "WH1/Production Floor": 1,
+          "WH1/Rack A": 0,
+          "WH1/Rack B": 2
+        }
+      },
+      "WH-BLR-02": {
+        "total": 4,
+        "locations": {
+          "WH2/Inbound Dock": 1,
+          "WH2/Bulk Storage": 1,
+          "WH2/Rack Alpha": 0,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 3,
+      "WH1/Production Floor": 1,
+      "WH1/Rack A": 0,
+      "WH1/Rack B": 2,
+      "WH2/Inbound Dock": 1,
+      "WH2/Bulk Storage": 1,
+      "WH2/Rack Alpha": 0,
+      "WH2/Rack Beta": 2,
+      "Main Store": 3,
+      "Production Floor": 1,
+      "Rack A": 0,
+      "Rack B": 2
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-119",
+    "sku": "RAW-119",
+    "name": "Structural Silicon Bronze Rods",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 23,
+    "reorder_threshold": 23,
+    "stock_on_hand": 286,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 157,
+        "locations": {
+          "WH1/Main Store": 78,
+          "WH1/Production Floor": 39,
+          "WH1/Rack A": 23,
+          "WH1/Rack B": 17
+        }
+      },
+      "WH-BLR-02": {
+        "total": 129,
+        "locations": {
+          "WH2/Inbound Dock": 58,
+          "WH2/Bulk Storage": 38,
+          "WH2/Rack Alpha": 19,
+          "WH2/Rack Beta": 14
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 78,
+      "WH1/Production Floor": 39,
+      "WH1/Rack A": 23,
+      "WH1/Rack B": 17,
+      "WH2/Inbound Dock": 58,
+      "WH2/Bulk Storage": 38,
+      "WH2/Rack Alpha": 19,
+      "WH2/Rack Beta": 14,
+      "Main Store": 78,
+      "Production Floor": 39,
+      "Rack A": 23,
+      "Rack B": 17
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-120",
+    "sku": "RAW-120",
+    "name": "Pure Nickel Anode Plates 200",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 30,
+    "reorder_threshold": 30,
+    "stock_on_hand": 330,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 181,
+        "locations": {
+          "WH1/Main Store": 90,
+          "WH1/Production Floor": 45,
+          "WH1/Rack A": 27,
+          "WH1/Rack B": 19
+        }
+      },
+      "WH-BLR-02": {
+        "total": 149,
+        "locations": {
+          "WH2/Inbound Dock": 67,
+          "WH2/Bulk Storage": 44,
+          "WH2/Rack Alpha": 22,
+          "WH2/Rack Beta": 16
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 90,
+      "WH1/Production Floor": 45,
+      "WH1/Rack A": 27,
+      "WH1/Rack B": 19,
+      "WH2/Inbound Dock": 67,
+      "WH2/Bulk Storage": 44,
+      "WH2/Rack Alpha": 22,
+      "WH2/Rack Beta": 16,
+      "Main Store": 90,
+      "Production Floor": 45,
+      "Rack A": 27,
+      "Rack B": 19
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-121",
+    "sku": "RAW-121",
+    "name": "Extruded Structural Nylon-6 Rods",
+    "category": "Raw Materials",
+    "uom": "meters",
+    "minThreshold": 37,
+    "reorder_threshold": 37,
+    "stock_on_hand": 374,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 205,
+        "locations": {
+          "WH1/Main Store": 102,
+          "WH1/Production Floor": 51,
+          "WH1/Rack A": 30,
+          "WH1/Rack B": 22
+        }
+      },
+      "WH-BLR-02": {
+        "total": 169,
+        "locations": {
+          "WH2/Inbound Dock": 76,
+          "WH2/Bulk Storage": 50,
+          "WH2/Rack Alpha": 25,
+          "WH2/Rack Beta": 18
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 102,
+      "WH1/Production Floor": 51,
+      "WH1/Rack A": 30,
+      "WH1/Rack B": 22,
+      "WH2/Inbound Dock": 76,
+      "WH2/Bulk Storage": 50,
+      "WH2/Rack Alpha": 25,
+      "WH2/Rack Beta": 18,
+      "Main Store": 102,
+      "Production Floor": 51,
+      "Rack A": 30,
+      "Rack B": 22
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-122",
+    "sku": "RAW-122",
+    "name": "High-Purity Graphite Electrodes",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 44,
+    "reorder_threshold": 44,
+    "stock_on_hand": 418,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 229,
+        "locations": {
+          "WH1/Main Store": 114,
+          "WH1/Production Floor": 57,
+          "WH1/Rack A": 34,
+          "WH1/Rack B": 24
+        }
+      },
+      "WH-BLR-02": {
+        "total": 189,
+        "locations": {
+          "WH2/Inbound Dock": 85,
+          "WH2/Bulk Storage": 56,
+          "WH2/Rack Alpha": 28,
+          "WH2/Rack Beta": 20
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 114,
+      "WH1/Production Floor": 57,
+      "WH1/Rack A": 34,
+      "WH1/Rack B": 24,
+      "WH2/Inbound Dock": 85,
+      "WH2/Bulk Storage": 56,
+      "WH2/Rack Alpha": 28,
+      "WH2/Rack Beta": 20,
+      "Main Store": 114,
+      "Production Floor": 57,
+      "Rack A": 34,
+      "Rack B": 24
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-123",
+    "sku": "RAW-123",
+    "name": "Vulcanized Neoprene Gasket Rubber",
+    "category": "Raw Materials",
+    "uom": "meters",
+    "minThreshold": 10,
+    "reorder_threshold": 10,
+    "stock_on_hand": 7,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 4,
+        "locations": {
+          "WH1/Main Store": 2,
+          "WH1/Production Floor": 1,
+          "WH1/Rack A": 0,
+          "WH1/Rack B": 1
+        }
+      },
+      "WH-BLR-02": {
+        "total": 3,
+        "locations": {
+          "WH2/Inbound Dock": 1,
+          "WH2/Bulk Storage": 0,
+          "WH2/Rack Alpha": 0,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 2,
+      "WH1/Production Floor": 1,
+      "WH1/Rack A": 0,
+      "WH1/Rack B": 1,
+      "WH2/Inbound Dock": 1,
+      "WH2/Bulk Storage": 0,
+      "WH2/Rack Alpha": 0,
+      "WH2/Rack Beta": 2,
+      "Main Store": 2,
+      "Production Floor": 1,
+      "Rack A": 0,
+      "Rack B": 1
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-124",
+    "sku": "RAW-124",
+    "name": "Heat-Treated Spring Steel Wire",
+    "category": "Raw Materials",
+    "uom": "meters",
+    "minThreshold": 17,
+    "reorder_threshold": 17,
+    "stock_on_hand": 85,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 46,
+        "locations": {
+          "WH1/Main Store": 23,
+          "WH1/Production Floor": 11,
+          "WH1/Rack A": 6,
+          "WH1/Rack B": 6
+        }
+      },
+      "WH-BLR-02": {
+        "total": 39,
+        "locations": {
+          "WH2/Inbound Dock": 17,
+          "WH2/Bulk Storage": 11,
+          "WH2/Rack Alpha": 5,
+          "WH2/Rack Beta": 6
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 23,
+      "WH1/Production Floor": 11,
+      "WH1/Rack A": 6,
+      "WH1/Rack B": 6,
+      "WH2/Inbound Dock": 17,
+      "WH2/Bulk Storage": 11,
+      "WH2/Rack Alpha": 5,
+      "WH2/Rack Beta": 6,
+      "Main Store": 23,
+      "Production Floor": 11,
+      "Rack A": 6,
+      "Rack B": 6
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-RAW-125",
+    "sku": "RAW-125",
+    "name": "Corrugated Zinc Plating Alloy",
+    "category": "Raw Materials",
+    "uom": "kg",
+    "minThreshold": 24,
+    "reorder_threshold": 24,
+    "stock_on_hand": 129,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 70,
+        "locations": {
+          "WH1/Main Store": 35,
+          "WH1/Production Floor": 17,
+          "WH1/Rack A": 10,
+          "WH1/Rack B": 8
+        }
+      },
+      "WH-BLR-02": {
+        "total": 59,
+        "locations": {
+          "WH2/Inbound Dock": 26,
+          "WH2/Bulk Storage": 17,
+          "WH2/Rack Alpha": 8,
+          "WH2/Rack Beta": 8
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 35,
+      "WH1/Production Floor": 17,
+      "WH1/Rack A": 10,
+      "WH1/Rack B": 8,
+      "WH2/Inbound Dock": 26,
+      "WH2/Bulk Storage": 17,
+      "WH2/Rack Alpha": 8,
+      "WH2/Rack Beta": 8,
+      "Main Store": 35,
+      "Production Floor": 17,
+      "Rack A": 10,
+      "Rack B": 8
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-201",
+    "sku": "FNG-201",
+    "name": "Ergonomic Industrial Assembly Chairs",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 23,
+    "reorder_threshold": 23,
+    "stock_on_hand": 280,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 154,
+        "locations": {
+          "WH1/Main Store": 77,
+          "WH1/Production Floor": 38,
+          "WH1/Rack A": 23,
+          "WH1/Rack B": 16
+        }
+      },
+      "WH-BLR-02": {
+        "total": 126,
+        "locations": {
+          "WH2/Inbound Dock": 56,
+          "WH2/Bulk Storage": 37,
+          "WH2/Rack Alpha": 18,
+          "WH2/Rack Beta": 15
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 77,
+      "WH1/Production Floor": 38,
+      "WH1/Rack A": 23,
+      "WH1/Rack B": 16,
+      "WH2/Inbound Dock": 56,
+      "WH2/Bulk Storage": 37,
+      "WH2/Rack Alpha": 18,
+      "WH2/Rack Beta": 15,
+      "Main Store": 77,
+      "Production Floor": 38,
+      "Rack A": 23,
+      "Rack B": 16
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-202",
+    "sku": "FNG-202",
+    "name": "Heavy Duty Modular Steel Workbenches",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 30,
+    "reorder_threshold": 30,
+    "stock_on_hand": 28,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 16,
+        "locations": {
+          "WH1/Main Store": 8,
+          "WH1/Production Floor": 4,
+          "WH1/Rack A": 2,
+          "WH1/Rack B": 2
+        }
+      },
+      "WH-BLR-02": {
+        "total": 12,
+        "locations": {
+          "WH2/Inbound Dock": 5,
+          "WH2/Bulk Storage": 3,
+          "WH2/Rack Alpha": 1,
+          "WH2/Rack Beta": 3
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 8,
+      "WH1/Production Floor": 4,
+      "WH1/Rack A": 2,
+      "WH1/Rack B": 2,
+      "WH2/Inbound Dock": 5,
+      "WH2/Bulk Storage": 3,
+      "WH2/Rack Alpha": 1,
+      "WH2/Rack Beta": 3,
+      "Main Store": 8,
+      "Production Floor": 4,
+      "Rack A": 2,
+      "Rack B": 2
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-203",
+    "sku": "FNG-203",
+    "name": "Reinforced Euro Wooden Storage Pallets",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 37,
+    "reorder_threshold": 37,
+    "stock_on_hand": 368,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 202,
+        "locations": {
+          "WH1/Main Store": 101,
+          "WH1/Production Floor": 50,
+          "WH1/Rack A": 30,
+          "WH1/Rack B": 21
+        }
+      },
+      "WH-BLR-02": {
+        "total": 166,
+        "locations": {
+          "WH2/Inbound Dock": 74,
+          "WH2/Bulk Storage": 49,
+          "WH2/Rack Alpha": 24,
+          "WH2/Rack Beta": 19
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 101,
+      "WH1/Production Floor": 50,
+      "WH1/Rack A": 30,
+      "WH1/Rack B": 21,
+      "WH2/Inbound Dock": 74,
+      "WH2/Bulk Storage": 49,
+      "WH2/Rack Alpha": 24,
+      "WH2/Rack Beta": 19,
+      "Main Store": 101,
+      "Production Floor": 50,
+      "Rack A": 30,
+      "Rack B": 21
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-204",
+    "sku": "FNG-204",
+    "name": "Heavy-Duty Gravity Conveyor Rollers",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 44,
+    "reorder_threshold": 44,
+    "stock_on_hand": 412,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 226,
+        "locations": {
+          "WH1/Main Store": 113,
+          "WH1/Production Floor": 56,
+          "WH1/Rack A": 33,
+          "WH1/Rack B": 24
+        }
+      },
+      "WH-BLR-02": {
+        "total": 186,
+        "locations": {
+          "WH2/Inbound Dock": 83,
+          "WH2/Bulk Storage": 55,
+          "WH2/Rack Alpha": 27,
+          "WH2/Rack Beta": 21
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 113,
+      "WH1/Production Floor": 56,
+      "WH1/Rack A": 33,
+      "WH1/Rack B": 24,
+      "WH2/Inbound Dock": 83,
+      "WH2/Bulk Storage": 55,
+      "WH2/Rack Alpha": 27,
+      "WH2/Rack Beta": 21,
+      "Main Store": 113,
+      "Production Floor": 56,
+      "Rack A": 33,
+      "Rack B": 24
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-205",
+    "sku": "FNG-205",
+    "name": "Impact-Resistant ABS Safety Helmets",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 10,
+    "reorder_threshold": 10,
+    "stock_on_hand": 415,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 228,
+        "locations": {
+          "WH1/Main Store": 114,
+          "WH1/Production Floor": 57,
+          "WH1/Rack A": 34,
+          "WH1/Rack B": 23
+        }
+      },
+      "WH-BLR-02": {
+        "total": 187,
+        "locations": {
+          "WH2/Inbound Dock": 84,
+          "WH2/Bulk Storage": 56,
+          "WH2/Rack Alpha": 28,
+          "WH2/Rack Beta": 19
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 114,
+      "WH1/Production Floor": 57,
+      "WH1/Rack A": 34,
+      "WH1/Rack B": 23,
+      "WH2/Inbound Dock": 84,
+      "WH2/Bulk Storage": 56,
+      "WH2/Rack Alpha": 28,
+      "WH2/Rack Beta": 19,
+      "Main Store": 114,
+      "Production Floor": 57,
+      "Rack A": 34,
+      "Rack B": 23
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-206",
+    "sku": "FNG-206",
+    "name": "Double-Acting Pneumatic Valve Actuators",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 17,
+    "reorder_threshold": 17,
+    "stock_on_hand": 0,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 0,
+        "locations": {
+          "WH1/Main Store": 0,
+          "WH1/Production Floor": 0,
+          "WH1/Rack A": 0,
+          "WH1/Rack B": 0
+        }
+      },
+      "WH-BLR-02": {
+        "total": 0,
+        "locations": {
+          "WH2/Inbound Dock": 0,
+          "WH2/Bulk Storage": 0,
+          "WH2/Rack Alpha": 0,
+          "WH2/Rack Beta": 0
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 0,
+      "WH1/Production Floor": 0,
+      "WH1/Rack A": 0,
+      "WH1/Rack B": 0,
+      "WH2/Inbound Dock": 0,
+      "WH2/Bulk Storage": 0,
+      "WH2/Rack Alpha": 0,
+      "WH2/Rack Beta": 0,
+      "Main Store": 0,
+      "Production Floor": 0,
+      "Rack A": 0,
+      "Rack B": 0
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-207",
+    "sku": "FNG-207",
+    "name": "Three-Tier Heavy Steel Tool Carts",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 24,
+    "reorder_threshold": 24,
+    "stock_on_hand": 123,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 67,
+        "locations": {
+          "WH1/Main Store": 33,
+          "WH1/Production Floor": 16,
+          "WH1/Rack A": 10,
+          "WH1/Rack B": 8
+        }
+      },
+      "WH-BLR-02": {
+        "total": 56,
+        "locations": {
+          "WH2/Inbound Dock": 25,
+          "WH2/Bulk Storage": 16,
+          "WH2/Rack Alpha": 8,
+          "WH2/Rack Beta": 7
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 33,
+      "WH1/Production Floor": 16,
+      "WH1/Rack A": 10,
+      "WH1/Rack B": 8,
+      "WH2/Inbound Dock": 25,
+      "WH2/Bulk Storage": 16,
+      "WH2/Rack Alpha": 8,
+      "WH2/Rack Beta": 7,
+      "Main Store": 33,
+      "Production Floor": 16,
+      "Rack A": 10,
+      "Rack B": 8
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-208",
+    "sku": "FNG-208",
+    "name": "Hydraulic Hand Pallet Truck 2.5T",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 31,
+    "reorder_threshold": 31,
+    "stock_on_hand": 167,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 91,
+        "locations": {
+          "WH1/Main Store": 45,
+          "WH1/Production Floor": 22,
+          "WH1/Rack A": 13,
+          "WH1/Rack B": 11
+        }
+      },
+      "WH-BLR-02": {
+        "total": 76,
+        "locations": {
+          "WH2/Inbound Dock": 34,
+          "WH2/Bulk Storage": 22,
+          "WH2/Rack Alpha": 11,
+          "WH2/Rack Beta": 9
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 45,
+      "WH1/Production Floor": 22,
+      "WH1/Rack A": 13,
+      "WH1/Rack B": 11,
+      "WH2/Inbound Dock": 34,
+      "WH2/Bulk Storage": 22,
+      "WH2/Rack Alpha": 11,
+      "WH2/Rack Beta": 9,
+      "Main Store": 45,
+      "Production Floor": 22,
+      "Rack A": 13,
+      "Rack B": 11
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-209",
+    "sku": "FNG-209",
+    "name": "Commercial Floor Sweeper Scrubber",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 38,
+    "reorder_threshold": 38,
+    "stock_on_hand": 211,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 116,
+        "locations": {
+          "WH1/Main Store": 58,
+          "WH1/Production Floor": 29,
+          "WH1/Rack A": 17,
+          "WH1/Rack B": 12
+        }
+      },
+      "WH-BLR-02": {
+        "total": 95,
+        "locations": {
+          "WH2/Inbound Dock": 42,
+          "WH2/Bulk Storage": 28,
+          "WH2/Rack Alpha": 14,
+          "WH2/Rack Beta": 11
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 58,
+      "WH1/Production Floor": 29,
+      "WH1/Rack A": 17,
+      "WH1/Rack B": 12,
+      "WH2/Inbound Dock": 42,
+      "WH2/Bulk Storage": 28,
+      "WH2/Rack Alpha": 14,
+      "WH2/Rack Beta": 11,
+      "Main Store": 58,
+      "Production Floor": 29,
+      "Rack A": 17,
+      "Rack B": 12
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-210",
+    "sku": "FNG-210",
+    "name": "Variable Speed Electric Motor 5HP",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 45,
+    "reorder_threshold": 45,
+    "stock_on_hand": 255,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 140,
+        "locations": {
+          "WH1/Main Store": 70,
+          "WH1/Production Floor": 35,
+          "WH1/Rack A": 21,
+          "WH1/Rack B": 14
+        }
+      },
+      "WH-BLR-02": {
+        "total": 115,
+        "locations": {
+          "WH2/Inbound Dock": 51,
+          "WH2/Bulk Storage": 34,
+          "WH2/Rack Alpha": 17,
+          "WH2/Rack Beta": 13
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 70,
+      "WH1/Production Floor": 35,
+      "WH1/Rack A": 21,
+      "WH1/Rack B": 14,
+      "WH2/Inbound Dock": 51,
+      "WH2/Bulk Storage": 34,
+      "WH2/Rack Alpha": 17,
+      "WH2/Rack Beta": 13,
+      "Main Store": 70,
+      "Production Floor": 35,
+      "Rack A": 21,
+      "Rack B": 14
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-211",
+    "sku": "FNG-211",
+    "name": "Wall-Mounted Eye Wash Safety Station",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 11,
+    "reorder_threshold": 11,
+    "stock_on_hand": 8,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 4,
+        "locations": {
+          "WH1/Main Store": 2,
+          "WH1/Production Floor": 1,
+          "WH1/Rack A": 0,
+          "WH1/Rack B": 1
+        }
+      },
+      "WH-BLR-02": {
+        "total": 4,
+        "locations": {
+          "WH2/Inbound Dock": 1,
+          "WH2/Bulk Storage": 1,
+          "WH2/Rack Alpha": 0,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 2,
+      "WH1/Production Floor": 1,
+      "WH1/Rack A": 0,
+      "WH1/Rack B": 1,
+      "WH2/Inbound Dock": 1,
+      "WH2/Bulk Storage": 1,
+      "WH2/Rack Alpha": 0,
+      "WH2/Rack Beta": 2,
+      "Main Store": 2,
+      "Production Floor": 1,
+      "Rack A": 0,
+      "Rack B": 1
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-212",
+    "sku": "FNG-212",
+    "name": "Industrial LED High-Bay Light Fixture",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 18,
+    "reorder_threshold": 18,
+    "stock_on_hand": 302,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 166,
+        "locations": {
+          "WH1/Main Store": 83,
+          "WH1/Production Floor": 41,
+          "WH1/Rack A": 24,
+          "WH1/Rack B": 18
+        }
+      },
+      "WH-BLR-02": {
+        "total": 136,
+        "locations": {
+          "WH2/Inbound Dock": 61,
+          "WH2/Bulk Storage": 40,
+          "WH2/Rack Alpha": 20,
+          "WH2/Rack Beta": 15
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 83,
+      "WH1/Production Floor": 41,
+      "WH1/Rack A": 24,
+      "WH1/Rack B": 18,
+      "WH2/Inbound Dock": 61,
+      "WH2/Bulk Storage": 40,
+      "WH2/Rack Alpha": 20,
+      "WH2/Rack Beta": 15,
+      "Main Store": 83,
+      "Production Floor": 41,
+      "Rack A": 24,
+      "Rack B": 18
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-213",
+    "sku": "FNG-213",
+    "name": "Self-Leveling Drum Spill Containment Pallet",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 25,
+    "reorder_threshold": 25,
+    "stock_on_hand": 346,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 190,
+        "locations": {
+          "WH1/Main Store": 95,
+          "WH1/Production Floor": 47,
+          "WH1/Rack A": 28,
+          "WH1/Rack B": 20
+        }
+      },
+      "WH-BLR-02": {
+        "total": 156,
+        "locations": {
+          "WH2/Inbound Dock": 70,
+          "WH2/Bulk Storage": 46,
+          "WH2/Rack Alpha": 23,
+          "WH2/Rack Beta": 17
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 95,
+      "WH1/Production Floor": 47,
+      "WH1/Rack A": 28,
+      "WH1/Rack B": 20,
+      "WH2/Inbound Dock": 70,
+      "WH2/Bulk Storage": 46,
+      "WH2/Rack Alpha": 23,
+      "WH2/Rack Beta": 17,
+      "Main Store": 95,
+      "Production Floor": 47,
+      "Rack A": 28,
+      "Rack B": 20
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-214",
+    "sku": "FNG-214",
+    "name": "Heavy Steel Lockable Tool Cabinet",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 32,
+    "reorder_threshold": 32,
+    "stock_on_hand": 390,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 214,
+        "locations": {
+          "WH1/Main Store": 107,
+          "WH1/Production Floor": 53,
+          "WH1/Rack A": 32,
+          "WH1/Rack B": 22
+        }
+      },
+      "WH-BLR-02": {
+        "total": 176,
+        "locations": {
+          "WH2/Inbound Dock": 79,
+          "WH2/Bulk Storage": 52,
+          "WH2/Rack Alpha": 26,
+          "WH2/Rack Beta": 19
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 107,
+      "WH1/Production Floor": 53,
+      "WH1/Rack A": 32,
+      "WH1/Rack B": 22,
+      "WH2/Inbound Dock": 79,
+      "WH2/Bulk Storage": 52,
+      "WH2/Rack Alpha": 26,
+      "WH2/Rack Beta": 19,
+      "Main Store": 107,
+      "Production Floor": 53,
+      "Rack A": 32,
+      "Rack B": 22
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-215",
+    "sku": "FNG-215",
+    "name": "High-Precision Digital Crane Scale 1000kg",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 39,
+    "reorder_threshold": 39,
+    "stock_on_hand": 434,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 238,
+        "locations": {
+          "WH1/Main Store": 119,
+          "WH1/Production Floor": 59,
+          "WH1/Rack A": 35,
+          "WH1/Rack B": 25
+        }
+      },
+      "WH-BLR-02": {
+        "total": 196,
+        "locations": {
+          "WH2/Inbound Dock": 88,
+          "WH2/Bulk Storage": 58,
+          "WH2/Rack Alpha": 29,
+          "WH2/Rack Beta": 21
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 119,
+      "WH1/Production Floor": 59,
+      "WH1/Rack A": 35,
+      "WH1/Rack B": 25,
+      "WH2/Inbound Dock": 88,
+      "WH2/Bulk Storage": 58,
+      "WH2/Rack Alpha": 29,
+      "WH2/Rack Beta": 21,
+      "Main Store": 119,
+      "Production Floor": 59,
+      "Rack A": 35,
+      "Rack B": 25
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-216",
+    "sku": "FNG-216",
+    "name": "Retractable Compressed Air Hose Reel",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 46,
+    "reorder_threshold": 46,
+    "stock_on_hand": 46,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 27,
+        "locations": {
+          "WH1/Main Store": 13,
+          "WH1/Production Floor": 6,
+          "WH1/Rack A": 4,
+          "WH1/Rack B": 4
+        }
+      },
+      "WH-BLR-02": {
+        "total": 19,
+        "locations": {
+          "WH2/Inbound Dock": 8,
+          "WH2/Bulk Storage": 5,
+          "WH2/Rack Alpha": 2,
+          "WH2/Rack Beta": 4
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 13,
+      "WH1/Production Floor": 6,
+      "WH1/Rack A": 4,
+      "WH1/Rack B": 4,
+      "WH2/Inbound Dock": 8,
+      "WH2/Bulk Storage": 5,
+      "WH2/Rack Alpha": 2,
+      "WH2/Rack Beta": 4,
+      "Main Store": 13,
+      "Production Floor": 6,
+      "Rack A": 4,
+      "Rack B": 4
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-217",
+    "sku": "FNG-217",
+    "name": "Safety Guard Rail Modular Section",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 12,
+    "reorder_threshold": 12,
+    "stock_on_hand": 101,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 55,
+        "locations": {
+          "WH1/Main Store": 27,
+          "WH1/Production Floor": 13,
+          "WH1/Rack A": 8,
+          "WH1/Rack B": 7
+        }
+      },
+      "WH-BLR-02": {
+        "total": 46,
+        "locations": {
+          "WH2/Inbound Dock": 20,
+          "WH2/Bulk Storage": 13,
+          "WH2/Rack Alpha": 6,
+          "WH2/Rack Beta": 7
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 27,
+      "WH1/Production Floor": 13,
+      "WH1/Rack A": 8,
+      "WH1/Rack B": 7,
+      "WH2/Inbound Dock": 20,
+      "WH2/Bulk Storage": 13,
+      "WH2/Rack Alpha": 6,
+      "WH2/Rack Beta": 7,
+      "Main Store": 27,
+      "Production Floor": 13,
+      "Rack A": 8,
+      "Rack B": 7
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-218",
+    "sku": "FNG-218",
+    "name": "Mobile Cantilever Warehouse Ladder",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 19,
+    "reorder_threshold": 19,
+    "stock_on_hand": 145,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 79,
+        "locations": {
+          "WH1/Main Store": 39,
+          "WH1/Production Floor": 19,
+          "WH1/Rack A": 11,
+          "WH1/Rack B": 10
+        }
+      },
+      "WH-BLR-02": {
+        "total": 66,
+        "locations": {
+          "WH2/Inbound Dock": 29,
+          "WH2/Bulk Storage": 19,
+          "WH2/Rack Alpha": 9,
+          "WH2/Rack Beta": 9
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 39,
+      "WH1/Production Floor": 19,
+      "WH1/Rack A": 11,
+      "WH1/Rack B": 10,
+      "WH2/Inbound Dock": 29,
+      "WH2/Bulk Storage": 19,
+      "WH2/Rack Alpha": 9,
+      "WH2/Rack Beta": 9,
+      "Main Store": 39,
+      "Production Floor": 19,
+      "Rack A": 11,
+      "Rack B": 10
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-219",
+    "sku": "FNG-219",
+    "name": "Portable Industrial Dust Collector Unit",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 26,
+    "reorder_threshold": 26,
+    "stock_on_hand": 189,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 103,
+        "locations": {
+          "WH1/Main Store": 51,
+          "WH1/Production Floor": 25,
+          "WH1/Rack A": 15,
+          "WH1/Rack B": 12
+        }
+      },
+      "WH-BLR-02": {
+        "total": 86,
+        "locations": {
+          "WH2/Inbound Dock": 38,
+          "WH2/Bulk Storage": 25,
+          "WH2/Rack Alpha": 12,
+          "WH2/Rack Beta": 11
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 51,
+      "WH1/Production Floor": 25,
+      "WH1/Rack A": 15,
+      "WH1/Rack B": 12,
+      "WH2/Inbound Dock": 38,
+      "WH2/Bulk Storage": 25,
+      "WH2/Rack Alpha": 12,
+      "WH2/Rack Beta": 11,
+      "Main Store": 51,
+      "Production Floor": 25,
+      "Rack A": 15,
+      "Rack B": 12
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-220",
+    "sku": "FNG-220",
+    "name": "Electric Automatic Straddle Stacker 1.5T",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 33,
+    "reorder_threshold": 33,
+    "stock_on_hand": 233,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 128,
+        "locations": {
+          "WH1/Main Store": 64,
+          "WH1/Production Floor": 32,
+          "WH1/Rack A": 19,
+          "WH1/Rack B": 13
+        }
+      },
+      "WH-BLR-02": {
+        "total": 105,
+        "locations": {
+          "WH2/Inbound Dock": 47,
+          "WH2/Bulk Storage": 31,
+          "WH2/Rack Alpha": 15,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 64,
+      "WH1/Production Floor": 32,
+      "WH1/Rack A": 19,
+      "WH1/Rack B": 13,
+      "WH2/Inbound Dock": 47,
+      "WH2/Bulk Storage": 31,
+      "WH2/Rack Alpha": 15,
+      "WH2/Rack Beta": 12,
+      "Main Store": 64,
+      "Production Floor": 32,
+      "Rack A": 19,
+      "Rack B": 13
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-221",
+    "sku": "FNG-221",
+    "name": "Heavy Duty Warehouse Platform Truck",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 40,
+    "reorder_threshold": 40,
+    "stock_on_hand": 277,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 152,
+        "locations": {
+          "WH1/Main Store": 76,
+          "WH1/Production Floor": 38,
+          "WH1/Rack A": 22,
+          "WH1/Rack B": 16
+        }
+      },
+      "WH-BLR-02": {
+        "total": 125,
+        "locations": {
+          "WH2/Inbound Dock": 56,
+          "WH2/Bulk Storage": 37,
+          "WH2/Rack Alpha": 18,
+          "WH2/Rack Beta": 14
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 76,
+      "WH1/Production Floor": 38,
+      "WH1/Rack A": 22,
+      "WH1/Rack B": 16,
+      "WH2/Inbound Dock": 56,
+      "WH2/Bulk Storage": 37,
+      "WH2/Rack Alpha": 18,
+      "WH2/Rack Beta": 14,
+      "Main Store": 76,
+      "Production Floor": 38,
+      "Rack A": 22,
+      "Rack B": 16
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-222",
+    "sku": "FNG-222",
+    "name": "Industrial Heat Gun Master Kit",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 47,
+    "reorder_threshold": 47,
+    "stock_on_hand": 321,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 176,
+        "locations": {
+          "WH1/Main Store": 88,
+          "WH1/Production Floor": 44,
+          "WH1/Rack A": 26,
+          "WH1/Rack B": 18
+        }
+      },
+      "WH-BLR-02": {
+        "total": 145,
+        "locations": {
+          "WH2/Inbound Dock": 65,
+          "WH2/Bulk Storage": 43,
+          "WH2/Rack Alpha": 21,
+          "WH2/Rack Beta": 16
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 88,
+      "WH1/Production Floor": 44,
+      "WH1/Rack A": 26,
+      "WH1/Rack B": 18,
+      "WH2/Inbound Dock": 65,
+      "WH2/Bulk Storage": 43,
+      "WH2/Rack Alpha": 21,
+      "WH2/Rack Beta": 16,
+      "Main Store": 88,
+      "Production Floor": 44,
+      "Rack A": 26,
+      "Rack B": 18
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-223",
+    "sku": "FNG-223",
+    "name": "Pneumatic Impact Wrench Heavy 1-inch",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 13,
+    "reorder_threshold": 13,
+    "stock_on_hand": 324,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 178,
+        "locations": {
+          "WH1/Main Store": 89,
+          "WH1/Production Floor": 44,
+          "WH1/Rack A": 26,
+          "WH1/Rack B": 19
+        }
+      },
+      "WH-BLR-02": {
+        "total": 146,
+        "locations": {
+          "WH2/Inbound Dock": 65,
+          "WH2/Bulk Storage": 43,
+          "WH2/Rack Alpha": 21,
+          "WH2/Rack Beta": 17
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 89,
+      "WH1/Production Floor": 44,
+      "WH1/Rack A": 26,
+      "WH1/Rack B": 19,
+      "WH2/Inbound Dock": 65,
+      "WH2/Bulk Storage": 43,
+      "WH2/Rack Alpha": 21,
+      "WH2/Rack Beta": 17,
+      "Main Store": 89,
+      "Production Floor": 44,
+      "Rack A": 26,
+      "Rack B": 19
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-224",
+    "sku": "FNG-224",
+    "name": "Explosion-Proof Portable Exhaust Fan",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 20,
+    "reorder_threshold": 20,
+    "stock_on_hand": 20,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 12,
+        "locations": {
+          "WH1/Main Store": 6,
+          "WH1/Production Floor": 3,
+          "WH1/Rack A": 1,
+          "WH1/Rack B": 2
+        }
+      },
+      "WH-BLR-02": {
+        "total": 8,
+        "locations": {
+          "WH2/Inbound Dock": 3,
+          "WH2/Bulk Storage": 2,
+          "WH2/Rack Alpha": 1,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 6,
+      "WH1/Production Floor": 3,
+      "WH1/Rack A": 1,
+      "WH1/Rack B": 2,
+      "WH2/Inbound Dock": 3,
+      "WH2/Bulk Storage": 2,
+      "WH2/Rack Alpha": 1,
+      "WH2/Rack Beta": 2,
+      "Main Store": 6,
+      "Production Floor": 3,
+      "Rack A": 1,
+      "Rack B": 2
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-FNG-225",
+    "sku": "FNG-225",
+    "name": "Magnetic Sweeper With Quick Release",
+    "category": "Finished Goods",
+    "uom": "units",
+    "minThreshold": 27,
+    "reorder_threshold": 27,
+    "stock_on_hand": 412,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 226,
+        "locations": {
+          "WH1/Main Store": 113,
+          "WH1/Production Floor": 56,
+          "WH1/Rack A": 33,
+          "WH1/Rack B": 24
+        }
+      },
+      "WH-BLR-02": {
+        "total": 186,
+        "locations": {
+          "WH2/Inbound Dock": 83,
+          "WH2/Bulk Storage": 55,
+          "WH2/Rack Alpha": 27,
+          "WH2/Rack Beta": 21
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 113,
+      "WH1/Production Floor": 56,
+      "WH1/Rack A": 33,
+      "WH1/Rack B": 24,
+      "WH2/Inbound Dock": 83,
+      "WH2/Bulk Storage": 55,
+      "WH2/Rack Alpha": 27,
+      "WH2/Rack Beta": 21,
+      "Main Store": 113,
+      "Production Floor": 56,
+      "Rack A": 33,
+      "Rack B": 24
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-301",
+    "sku": "HDW-301",
+    "name": "Zinc-Plated Hex Head Bolts M8x40",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 26,
+    "reorder_threshold": 26,
+    "stock_on_hand": 183,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 100,
+        "locations": {
+          "WH1/Main Store": 50,
+          "WH1/Production Floor": 25,
+          "WH1/Rack A": 15,
+          "WH1/Rack B": 10
+        }
+      },
+      "WH-BLR-02": {
+        "total": 83,
+        "locations": {
+          "WH2/Inbound Dock": 37,
+          "WH2/Bulk Storage": 24,
+          "WH2/Rack Alpha": 12,
+          "WH2/Rack Beta": 10
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 50,
+      "WH1/Production Floor": 25,
+      "WH1/Rack A": 15,
+      "WH1/Rack B": 10,
+      "WH2/Inbound Dock": 37,
+      "WH2/Bulk Storage": 24,
+      "WH2/Rack Alpha": 12,
+      "WH2/Rack Beta": 10,
+      "Main Store": 50,
+      "Production Floor": 25,
+      "Rack A": 15,
+      "Rack B": 10
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-302",
+    "sku": "HDW-302",
+    "name": "Stainless Steel Socket Cap Screws M6x25",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 33,
+    "reorder_threshold": 33,
+    "stock_on_hand": 227,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 124,
+        "locations": {
+          "WH1/Main Store": 62,
+          "WH1/Production Floor": 31,
+          "WH1/Rack A": 18,
+          "WH1/Rack B": 13
+        }
+      },
+      "WH-BLR-02": {
+        "total": 103,
+        "locations": {
+          "WH2/Inbound Dock": 46,
+          "WH2/Bulk Storage": 30,
+          "WH2/Rack Alpha": 15,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 62,
+      "WH1/Production Floor": 31,
+      "WH1/Rack A": 18,
+      "WH1/Rack B": 13,
+      "WH2/Inbound Dock": 46,
+      "WH2/Bulk Storage": 30,
+      "WH2/Rack Alpha": 15,
+      "WH2/Rack Beta": 12,
+      "Main Store": 62,
+      "Production Floor": 31,
+      "Rack A": 18,
+      "Rack B": 13
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-303",
+    "sku": "HDW-303",
+    "name": "Nylon Insert Lock Nuts M8 DIN 985",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 40,
+    "reorder_threshold": 40,
+    "stock_on_hand": 0,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 0,
+        "locations": {
+          "WH1/Main Store": 0,
+          "WH1/Production Floor": 0,
+          "WH1/Rack A": 0,
+          "WH1/Rack B": 0
+        }
+      },
+      "WH-BLR-02": {
+        "total": 0,
+        "locations": {
+          "WH2/Inbound Dock": 0,
+          "WH2/Bulk Storage": 0,
+          "WH2/Rack Alpha": 0,
+          "WH2/Rack Beta": 0
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 0,
+      "WH1/Production Floor": 0,
+      "WH1/Rack A": 0,
+      "WH1/Rack B": 0,
+      "WH2/Inbound Dock": 0,
+      "WH2/Bulk Storage": 0,
+      "WH2/Rack Alpha": 0,
+      "WH2/Rack Beta": 0,
+      "Main Store": 0,
+      "Production Floor": 0,
+      "Rack A": 0,
+      "Rack B": 0
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-304",
+    "sku": "HDW-304",
+    "name": "Heavy Duty Flat Washers M10 Form C",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 47,
+    "reorder_threshold": 47,
+    "stock_on_hand": 315,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 173,
+        "locations": {
+          "WH1/Main Store": 86,
+          "WH1/Production Floor": 43,
+          "WH1/Rack A": 25,
+          "WH1/Rack B": 19
+        }
+      },
+      "WH-BLR-02": {
+        "total": 142,
+        "locations": {
+          "WH2/Inbound Dock": 63,
+          "WH2/Bulk Storage": 42,
+          "WH2/Rack Alpha": 21,
+          "WH2/Rack Beta": 16
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 86,
+      "WH1/Production Floor": 43,
+      "WH1/Rack A": 25,
+      "WH1/Rack B": 19,
+      "WH2/Inbound Dock": 63,
+      "WH2/Bulk Storage": 42,
+      "WH2/Rack Alpha": 21,
+      "WH2/Rack Beta": 16,
+      "Main Store": 86,
+      "Production Floor": 43,
+      "Rack A": 25,
+      "Rack B": 19
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-305",
+    "sku": "HDW-305",
+    "name": "Heavy Masonry Wedge Anchor Fasteners M12",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 13,
+    "reorder_threshold": 13,
+    "stock_on_hand": 12,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 7,
+        "locations": {
+          "WH1/Main Store": 3,
+          "WH1/Production Floor": 1,
+          "WH1/Rack A": 1,
+          "WH1/Rack B": 2
+        }
+      },
+      "WH-BLR-02": {
+        "total": 5,
+        "locations": {
+          "WH2/Inbound Dock": 2,
+          "WH2/Bulk Storage": 1,
+          "WH2/Rack Alpha": 0,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 3,
+      "WH1/Production Floor": 1,
+      "WH1/Rack A": 1,
+      "WH1/Rack B": 2,
+      "WH2/Inbound Dock": 2,
+      "WH2/Bulk Storage": 1,
+      "WH2/Rack Alpha": 0,
+      "WH2/Rack Beta": 2,
+      "Main Store": 3,
+      "Production Floor": 1,
+      "Rack A": 1,
+      "Rack B": 2
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-306",
+    "sku": "HDW-306",
+    "name": "Deep Groove Ball Bearings 6204-2RS",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 20,
+    "reorder_threshold": 20,
+    "stock_on_hand": 362,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 199,
+        "locations": {
+          "WH1/Main Store": 99,
+          "WH1/Production Floor": 49,
+          "WH1/Rack A": 29,
+          "WH1/Rack B": 22
+        }
+      },
+      "WH-BLR-02": {
+        "total": 163,
+        "locations": {
+          "WH2/Inbound Dock": 73,
+          "WH2/Bulk Storage": 48,
+          "WH2/Rack Alpha": 24,
+          "WH2/Rack Beta": 18
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 99,
+      "WH1/Production Floor": 49,
+      "WH1/Rack A": 29,
+      "WH1/Rack B": 22,
+      "WH2/Inbound Dock": 73,
+      "WH2/Bulk Storage": 48,
+      "WH2/Rack Alpha": 24,
+      "WH2/Rack Beta": 18,
+      "Main Store": 99,
+      "Production Floor": 49,
+      "Rack A": 29,
+      "Rack B": 22
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-307",
+    "sku": "HDW-307",
+    "name": "High-Tensile Flange Head Bolts M10x50",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 27,
+    "reorder_threshold": 27,
+    "stock_on_hand": 406,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 223,
+        "locations": {
+          "WH1/Main Store": 111,
+          "WH1/Production Floor": 55,
+          "WH1/Rack A": 33,
+          "WH1/Rack B": 24
+        }
+      },
+      "WH-BLR-02": {
+        "total": 183,
+        "locations": {
+          "WH2/Inbound Dock": 82,
+          "WH2/Bulk Storage": 54,
+          "WH2/Rack Alpha": 27,
+          "WH2/Rack Beta": 20
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 111,
+      "WH1/Production Floor": 55,
+      "WH1/Rack A": 33,
+      "WH1/Rack B": 24,
+      "WH2/Inbound Dock": 82,
+      "WH2/Bulk Storage": 54,
+      "WH2/Rack Alpha": 27,
+      "WH2/Rack Beta": 20,
+      "Main Store": 111,
+      "Production Floor": 55,
+      "Rack A": 33,
+      "Rack B": 24
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-308",
+    "sku": "HDW-308",
+    "name": "Threaded Steel Rod Connector Studs M12",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 34,
+    "reorder_threshold": 34,
+    "stock_on_hand": 450,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 247,
+        "locations": {
+          "WH1/Main Store": 123,
+          "WH1/Production Floor": 61,
+          "WH1/Rack A": 37,
+          "WH1/Rack B": 26
+        }
+      },
+      "WH-BLR-02": {
+        "total": 203,
+        "locations": {
+          "WH2/Inbound Dock": 91,
+          "WH2/Bulk Storage": 60,
+          "WH2/Rack Alpha": 30,
+          "WH2/Rack Beta": 22
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 123,
+      "WH1/Production Floor": 61,
+      "WH1/Rack A": 37,
+      "WH1/Rack B": 26,
+      "WH2/Inbound Dock": 91,
+      "WH2/Bulk Storage": 60,
+      "WH2/Rack Alpha": 30,
+      "WH2/Rack Beta": 22,
+      "Main Store": 123,
+      "Production Floor": 61,
+      "Rack A": 37,
+      "Rack B": 26
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-309",
+    "sku": "HDW-309",
+    "name": "Internal Retaining Circlips 25mm",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 41,
+    "reorder_threshold": 41,
+    "stock_on_hand": 114,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 62,
+        "locations": {
+          "WH1/Main Store": 31,
+          "WH1/Production Floor": 15,
+          "WH1/Rack A": 9,
+          "WH1/Rack B": 7
+        }
+      },
+      "WH-BLR-02": {
+        "total": 52,
+        "locations": {
+          "WH2/Inbound Dock": 23,
+          "WH2/Bulk Storage": 15,
+          "WH2/Rack Alpha": 7,
+          "WH2/Rack Beta": 7
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 31,
+      "WH1/Production Floor": 15,
+      "WH1/Rack A": 9,
+      "WH1/Rack B": 7,
+      "WH2/Inbound Dock": 23,
+      "WH2/Bulk Storage": 15,
+      "WH2/Rack Alpha": 7,
+      "WH2/Rack Beta": 7,
+      "Main Store": 31,
+      "Production Floor": 15,
+      "Rack A": 9,
+      "Rack B": 7
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-310",
+    "sku": "HDW-310",
+    "name": "Slotted Spring Steel Tension Pins 6x40",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 48,
+    "reorder_threshold": 48,
+    "stock_on_hand": 42,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 25,
+        "locations": {
+          "WH1/Main Store": 12,
+          "WH1/Production Floor": 6,
+          "WH1/Rack A": 3,
+          "WH1/Rack B": 4
+        }
+      },
+      "WH-BLR-02": {
+        "total": 17,
+        "locations": {
+          "WH2/Inbound Dock": 7,
+          "WH2/Bulk Storage": 5,
+          "WH2/Rack Alpha": 2,
+          "WH2/Rack Beta": 3
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 12,
+      "WH1/Production Floor": 6,
+      "WH1/Rack A": 3,
+      "WH1/Rack B": 4,
+      "WH2/Inbound Dock": 7,
+      "WH2/Bulk Storage": 5,
+      "WH2/Rack Alpha": 2,
+      "WH2/Rack Beta": 3,
+      "Main Store": 12,
+      "Production Floor": 6,
+      "Rack A": 3,
+      "Rack B": 4
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-311",
+    "sku": "HDW-311",
+    "name": "Cup Head Carriage Bolts M8x60",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 14,
+    "reorder_threshold": 14,
+    "stock_on_hand": 161,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 88,
+        "locations": {
+          "WH1/Main Store": 44,
+          "WH1/Production Floor": 22,
+          "WH1/Rack A": 13,
+          "WH1/Rack B": 9
+        }
+      },
+      "WH-BLR-02": {
+        "total": 73,
+        "locations": {
+          "WH2/Inbound Dock": 32,
+          "WH2/Bulk Storage": 21,
+          "WH2/Rack Alpha": 10,
+          "WH2/Rack Beta": 10
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 44,
+      "WH1/Production Floor": 22,
+      "WH1/Rack A": 13,
+      "WH1/Rack B": 9,
+      "WH2/Inbound Dock": 32,
+      "WH2/Bulk Storage": 21,
+      "WH2/Rack Alpha": 10,
+      "WH2/Rack Beta": 10,
+      "Main Store": 44,
+      "Production Floor": 22,
+      "Rack A": 13,
+      "Rack B": 9
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-312",
+    "sku": "HDW-312",
+    "name": "High-Strength Serrated Flange Nuts M10",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 21,
+    "reorder_threshold": 21,
+    "stock_on_hand": 205,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 112,
+        "locations": {
+          "WH1/Main Store": 56,
+          "WH1/Production Floor": 28,
+          "WH1/Rack A": 16,
+          "WH1/Rack B": 12
+        }
+      },
+      "WH-BLR-02": {
+        "total": 93,
+        "locations": {
+          "WH2/Inbound Dock": 41,
+          "WH2/Bulk Storage": 27,
+          "WH2/Rack Alpha": 13,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 56,
+      "WH1/Production Floor": 28,
+      "WH1/Rack A": 16,
+      "WH1/Rack B": 12,
+      "WH2/Inbound Dock": 41,
+      "WH2/Bulk Storage": 27,
+      "WH2/Rack Alpha": 13,
+      "WH2/Rack Beta": 12,
+      "Main Store": 56,
+      "Production Floor": 28,
+      "Rack A": 16,
+      "Rack B": 12
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-313",
+    "sku": "HDW-313",
+    "name": "Tapered Roller Bearings 30205",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 28,
+    "reorder_threshold": 28,
+    "stock_on_hand": 249,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 136,
+        "locations": {
+          "WH1/Main Store": 68,
+          "WH1/Production Floor": 34,
+          "WH1/Rack A": 20,
+          "WH1/Rack B": 14
+        }
+      },
+      "WH-BLR-02": {
+        "total": 113,
+        "locations": {
+          "WH2/Inbound Dock": 50,
+          "WH2/Bulk Storage": 33,
+          "WH2/Rack Alpha": 16,
+          "WH2/Rack Beta": 14
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 68,
+      "WH1/Production Floor": 34,
+      "WH1/Rack A": 20,
+      "WH1/Rack B": 14,
+      "WH2/Inbound Dock": 50,
+      "WH2/Bulk Storage": 33,
+      "WH2/Rack Alpha": 16,
+      "WH2/Rack Beta": 14,
+      "Main Store": 68,
+      "Production Floor": 34,
+      "Rack A": 20,
+      "Rack B": 14
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-314",
+    "sku": "HDW-314",
+    "name": "Self-Drilling Tek Screws Hex Head",
+    "category": "Hardware",
+    "uom": "boxes",
+    "minThreshold": 35,
+    "reorder_threshold": 35,
+    "stock_on_hand": 293,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 161,
+        "locations": {
+          "WH1/Main Store": 80,
+          "WH1/Production Floor": 40,
+          "WH1/Rack A": 24,
+          "WH1/Rack B": 17
+        }
+      },
+      "WH-BLR-02": {
+        "total": 132,
+        "locations": {
+          "WH2/Inbound Dock": 59,
+          "WH2/Bulk Storage": 39,
+          "WH2/Rack Alpha": 19,
+          "WH2/Rack Beta": 15
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 80,
+      "WH1/Production Floor": 40,
+      "WH1/Rack A": 24,
+      "WH1/Rack B": 17,
+      "WH2/Inbound Dock": 59,
+      "WH2/Bulk Storage": 39,
+      "WH2/Rack Alpha": 19,
+      "WH2/Rack Beta": 15,
+      "Main Store": 80,
+      "Production Floor": 40,
+      "Rack A": 24,
+      "Rack B": 17
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-315",
+    "sku": "HDW-315",
+    "name": "Drop-In Expansion Anchors M10",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 42,
+    "reorder_threshold": 42,
+    "stock_on_hand": 0,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 0,
+        "locations": {
+          "WH1/Main Store": 0,
+          "WH1/Production Floor": 0,
+          "WH1/Rack A": 0,
+          "WH1/Rack B": 0
+        }
+      },
+      "WH-BLR-02": {
+        "total": 0,
+        "locations": {
+          "WH2/Inbound Dock": 0,
+          "WH2/Bulk Storage": 0,
+          "WH2/Rack Alpha": 0,
+          "WH2/Rack Beta": 0
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 0,
+      "WH1/Production Floor": 0,
+      "WH1/Rack A": 0,
+      "WH1/Rack B": 0,
+      "WH2/Inbound Dock": 0,
+      "WH2/Bulk Storage": 0,
+      "WH2/Rack Alpha": 0,
+      "WH2/Rack Beta": 0,
+      "Main Store": 0,
+      "Production Floor": 0,
+      "Rack A": 0,
+      "Rack B": 0
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-316",
+    "sku": "HDW-316",
+    "name": "Stainless Steel Split Cotter Pins 4x30",
+    "category": "Hardware",
+    "uom": "boxes",
+    "minThreshold": 49,
+    "reorder_threshold": 49,
+    "stock_on_hand": 381,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 209,
+        "locations": {
+          "WH1/Main Store": 104,
+          "WH1/Production Floor": 52,
+          "WH1/Rack A": 31,
+          "WH1/Rack B": 22
+        }
+      },
+      "WH-BLR-02": {
+        "total": 172,
+        "locations": {
+          "WH2/Inbound Dock": 77,
+          "WH2/Bulk Storage": 51,
+          "WH2/Rack Alpha": 25,
+          "WH2/Rack Beta": 19
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 104,
+      "WH1/Production Floor": 52,
+      "WH1/Rack A": 31,
+      "WH1/Rack B": 22,
+      "WH2/Inbound Dock": 77,
+      "WH2/Bulk Storage": 51,
+      "WH2/Rack Alpha": 25,
+      "WH2/Rack Beta": 19,
+      "Main Store": 104,
+      "Production Floor": 52,
+      "Rack A": 31,
+      "Rack B": 22
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-317",
+    "sku": "HDW-317",
+    "name": "Spherical Plain Rod End Bearings M12",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 15,
+    "reorder_threshold": 15,
+    "stock_on_hand": 384,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 211,
+        "locations": {
+          "WH1/Main Store": 105,
+          "WH1/Production Floor": 52,
+          "WH1/Rack A": 31,
+          "WH1/Rack B": 23
+        }
+      },
+      "WH-BLR-02": {
+        "total": 173,
+        "locations": {
+          "WH2/Inbound Dock": 77,
+          "WH2/Bulk Storage": 51,
+          "WH2/Rack Alpha": 25,
+          "WH2/Rack Beta": 20
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 105,
+      "WH1/Production Floor": 52,
+      "WH1/Rack A": 31,
+      "WH1/Rack B": 23,
+      "WH2/Inbound Dock": 77,
+      "WH2/Bulk Storage": 51,
+      "WH2/Rack Alpha": 25,
+      "WH2/Rack Beta": 20,
+      "Main Store": 105,
+      "Production Floor": 52,
+      "Rack A": 31,
+      "Rack B": 23
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-318",
+    "sku": "HDW-318",
+    "name": "Brass Threaded Inserts M6 For Plastic",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 22,
+    "reorder_threshold": 22,
+    "stock_on_hand": 428,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 235,
+        "locations": {
+          "WH1/Main Store": 117,
+          "WH1/Production Floor": 58,
+          "WH1/Rack A": 35,
+          "WH1/Rack B": 25
+        }
+      },
+      "WH-BLR-02": {
+        "total": 193,
+        "locations": {
+          "WH2/Inbound Dock": 86,
+          "WH2/Bulk Storage": 57,
+          "WH2/Rack Alpha": 28,
+          "WH2/Rack Beta": 22
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 117,
+      "WH1/Production Floor": 58,
+      "WH1/Rack A": 35,
+      "WH1/Rack B": 25,
+      "WH2/Inbound Dock": 86,
+      "WH2/Bulk Storage": 57,
+      "WH2/Rack Alpha": 28,
+      "WH2/Rack Beta": 22,
+      "Main Store": 117,
+      "Production Floor": 58,
+      "Rack A": 35,
+      "Rack B": 25
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-319",
+    "sku": "HDW-319",
+    "name": "Carbon Steel Belleville Spring Washers",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 29,
+    "reorder_threshold": 29,
+    "stock_on_hand": 22,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 13,
+        "locations": {
+          "WH1/Main Store": 6,
+          "WH1/Production Floor": 3,
+          "WH1/Rack A": 1,
+          "WH1/Rack B": 3
+        }
+      },
+      "WH-BLR-02": {
+        "total": 9,
+        "locations": {
+          "WH2/Inbound Dock": 4,
+          "WH2/Bulk Storage": 2,
+          "WH2/Rack Alpha": 1,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 6,
+      "WH1/Production Floor": 3,
+      "WH1/Rack A": 1,
+      "WH1/Rack B": 3,
+      "WH2/Inbound Dock": 4,
+      "WH2/Bulk Storage": 2,
+      "WH2/Rack Alpha": 1,
+      "WH2/Rack Beta": 2,
+      "Main Store": 6,
+      "Production Floor": 3,
+      "Rack A": 1,
+      "Rack B": 3
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-320",
+    "sku": "HDW-320",
+    "name": "Heavy Duty Turnbuckles Eye-and-Hook M14",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 36,
+    "reorder_threshold": 36,
+    "stock_on_hand": 136,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 74,
+        "locations": {
+          "WH1/Main Store": 37,
+          "WH1/Production Floor": 18,
+          "WH1/Rack A": 11,
+          "WH1/Rack B": 8
+        }
+      },
+      "WH-BLR-02": {
+        "total": 62,
+        "locations": {
+          "WH2/Inbound Dock": 27,
+          "WH2/Bulk Storage": 18,
+          "WH2/Rack Alpha": 9,
+          "WH2/Rack Beta": 8
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 37,
+      "WH1/Production Floor": 18,
+      "WH1/Rack A": 11,
+      "WH1/Rack B": 8,
+      "WH2/Inbound Dock": 27,
+      "WH2/Bulk Storage": 18,
+      "WH2/Rack Alpha": 9,
+      "WH2/Rack Beta": 8,
+      "Main Store": 37,
+      "Production Floor": 18,
+      "Rack A": 11,
+      "Rack B": 8
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-321",
+    "sku": "HDW-321",
+    "name": "Precision Linear Motion Ball Bushing 20mm",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 43,
+    "reorder_threshold": 43,
+    "stock_on_hand": 180,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 99,
+        "locations": {
+          "WH1/Main Store": 49,
+          "WH1/Production Floor": 24,
+          "WH1/Rack A": 14,
+          "WH1/Rack B": 12
+        }
+      },
+      "WH-BLR-02": {
+        "total": 81,
+        "locations": {
+          "WH2/Inbound Dock": 36,
+          "WH2/Bulk Storage": 24,
+          "WH2/Rack Alpha": 12,
+          "WH2/Rack Beta": 9
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 49,
+      "WH1/Production Floor": 24,
+      "WH1/Rack A": 14,
+      "WH1/Rack B": 12,
+      "WH2/Inbound Dock": 36,
+      "WH2/Bulk Storage": 24,
+      "WH2/Rack Alpha": 12,
+      "WH2/Rack Beta": 9,
+      "Main Store": 49,
+      "Production Floor": 24,
+      "Rack A": 14,
+      "Rack B": 12
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-322",
+    "sku": "HDW-322",
+    "name": "Heavy Steel Wire Rope Thimbles 10mm",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 50,
+    "reorder_threshold": 50,
+    "stock_on_hand": 48,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 28,
+        "locations": {
+          "WH1/Main Store": 14,
+          "WH1/Production Floor": 7,
+          "WH1/Rack A": 4,
+          "WH1/Rack B": 3
+        }
+      },
+      "WH-BLR-02": {
+        "total": 20,
+        "locations": {
+          "WH2/Inbound Dock": 9,
+          "WH2/Bulk Storage": 6,
+          "WH2/Rack Alpha": 3,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 14,
+      "WH1/Production Floor": 7,
+      "WH1/Rack A": 4,
+      "WH1/Rack B": 3,
+      "WH2/Inbound Dock": 9,
+      "WH2/Bulk Storage": 6,
+      "WH2/Rack Alpha": 3,
+      "WH2/Rack Beta": 2,
+      "Main Store": 14,
+      "Production Floor": 7,
+      "Rack A": 4,
+      "Rack B": 3
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-323",
+    "sku": "HDW-323",
+    "name": "Torx Drive Pan Head Machine Screws M4",
+    "category": "Hardware",
+    "uom": "boxes",
+    "minThreshold": 16,
+    "reorder_threshold": 16,
+    "stock_on_hand": 227,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 124,
+        "locations": {
+          "WH1/Main Store": 62,
+          "WH1/Production Floor": 31,
+          "WH1/Rack A": 18,
+          "WH1/Rack B": 13
+        }
+      },
+      "WH-BLR-02": {
+        "total": 103,
+        "locations": {
+          "WH2/Inbound Dock": 46,
+          "WH2/Bulk Storage": 30,
+          "WH2/Rack Alpha": 15,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 62,
+      "WH1/Production Floor": 31,
+      "WH1/Rack A": 18,
+      "WH1/Rack B": 13,
+      "WH2/Inbound Dock": 46,
+      "WH2/Bulk Storage": 30,
+      "WH2/Rack Alpha": 15,
+      "WH2/Rack Beta": 12,
+      "Main Store": 62,
+      "Production Floor": 31,
+      "Rack A": 18,
+      "Rack B": 13
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-324",
+    "sku": "HDW-324",
+    "name": "Dome Head Blind Pop Rivets 4.8x16",
+    "category": "Hardware",
+    "uom": "boxes",
+    "minThreshold": 23,
+    "reorder_threshold": 23,
+    "stock_on_hand": 271,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 149,
+        "locations": {
+          "WH1/Main Store": 74,
+          "WH1/Production Floor": 37,
+          "WH1/Rack A": 22,
+          "WH1/Rack B": 16
+        }
+      },
+      "WH-BLR-02": {
+        "total": 122,
+        "locations": {
+          "WH2/Inbound Dock": 54,
+          "WH2/Bulk Storage": 36,
+          "WH2/Rack Alpha": 18,
+          "WH2/Rack Beta": 14
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 74,
+      "WH1/Production Floor": 37,
+      "WH1/Rack A": 22,
+      "WH1/Rack B": 16,
+      "WH2/Inbound Dock": 54,
+      "WH2/Bulk Storage": 36,
+      "WH2/Rack Alpha": 18,
+      "WH2/Rack Beta": 14,
+      "Main Store": 74,
+      "Production Floor": 37,
+      "Rack A": 22,
+      "Rack B": 16
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-HDW-325",
+    "sku": "HDW-325",
+    "name": "Heavy Clevis Pins With Retaining Ring",
+    "category": "Hardware",
+    "uom": "pieces",
+    "minThreshold": 30,
+    "reorder_threshold": 30,
+    "stock_on_hand": 315,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 173,
+        "locations": {
+          "WH1/Main Store": 86,
+          "WH1/Production Floor": 43,
+          "WH1/Rack A": 25,
+          "WH1/Rack B": 19
+        }
+      },
+      "WH-BLR-02": {
+        "total": 142,
+        "locations": {
+          "WH2/Inbound Dock": 63,
+          "WH2/Bulk Storage": 42,
+          "WH2/Rack Alpha": 21,
+          "WH2/Rack Beta": 16
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 86,
+      "WH1/Production Floor": 43,
+      "WH1/Rack A": 25,
+      "WH1/Rack B": 19,
+      "WH2/Inbound Dock": 63,
+      "WH2/Bulk Storage": 42,
+      "WH2/Rack Alpha": 21,
+      "WH2/Rack Beta": 16,
+      "Main Store": 86,
+      "Production Floor": 43,
+      "Rack A": 25,
+      "Rack B": 19
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-401",
+    "sku": "PKG-401",
+    "name": "Double-Wall Corrugated Shipping Boxes 24x18x18",
+    "category": "Packaging",
+    "uom": "boxes",
+    "minThreshold": 29,
+    "reorder_threshold": 29,
+    "stock_on_hand": 86,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 47,
+        "locations": {
+          "WH1/Main Store": 23,
+          "WH1/Production Floor": 11,
+          "WH1/Rack A": 7,
+          "WH1/Rack B": 6
+        }
+      },
+      "WH-BLR-02": {
+        "total": 39,
+        "locations": {
+          "WH2/Inbound Dock": 17,
+          "WH2/Bulk Storage": 11,
+          "WH2/Rack Alpha": 5,
+          "WH2/Rack Beta": 6
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 23,
+      "WH1/Production Floor": 11,
+      "WH1/Rack A": 7,
+      "WH1/Rack B": 6,
+      "WH2/Inbound Dock": 17,
+      "WH2/Bulk Storage": 11,
+      "WH2/Rack Alpha": 5,
+      "WH2/Rack Beta": 6,
+      "Main Store": 23,
+      "Production Floor": 11,
+      "Rack A": 7,
+      "Rack B": 6
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-402",
+    "sku": "PKG-402",
+    "name": "Cast Hand Stretch Film Rolls 500mm 23mic",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 36,
+    "reorder_threshold": 36,
+    "stock_on_hand": 130,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 71,
+        "locations": {
+          "WH1/Main Store": 35,
+          "WH1/Production Floor": 17,
+          "WH1/Rack A": 10,
+          "WH1/Rack B": 9
+        }
+      },
+      "WH-BLR-02": {
+        "total": 59,
+        "locations": {
+          "WH2/Inbound Dock": 26,
+          "WH2/Bulk Storage": 17,
+          "WH2/Rack Alpha": 8,
+          "WH2/Rack Beta": 8
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 35,
+      "WH1/Production Floor": 17,
+      "WH1/Rack A": 10,
+      "WH1/Rack B": 9,
+      "WH2/Inbound Dock": 26,
+      "WH2/Bulk Storage": 17,
+      "WH2/Rack Alpha": 8,
+      "WH2/Rack Beta": 8,
+      "Main Store": 35,
+      "Production Floor": 17,
+      "Rack A": 10,
+      "Rack B": 9
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-403",
+    "sku": "PKG-403",
+    "name": "Polypropylene Pallet Strapping Band 16mm",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 43,
+    "reorder_threshold": 43,
+    "stock_on_hand": 40,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 24,
+        "locations": {
+          "WH1/Main Store": 12,
+          "WH1/Production Floor": 6,
+          "WH1/Rack A": 3,
+          "WH1/Rack B": 3
+        }
+      },
+      "WH-BLR-02": {
+        "total": 16,
+        "locations": {
+          "WH2/Inbound Dock": 7,
+          "WH2/Bulk Storage": 4,
+          "WH2/Rack Alpha": 2,
+          "WH2/Rack Beta": 3
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 12,
+      "WH1/Production Floor": 6,
+      "WH1/Rack A": 3,
+      "WH1/Rack B": 3,
+      "WH2/Inbound Dock": 7,
+      "WH2/Bulk Storage": 4,
+      "WH2/Rack Alpha": 2,
+      "WH2/Rack Beta": 3,
+      "Main Store": 12,
+      "Production Floor": 6,
+      "Rack A": 3,
+      "Rack B": 3
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-404",
+    "sku": "PKG-404",
+    "name": "Anti-Static Heavy Bubble Wrap 50m Roll",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 50,
+    "reorder_threshold": 50,
+    "stock_on_hand": 218,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 119,
+        "locations": {
+          "WH1/Main Store": 59,
+          "WH1/Production Floor": 29,
+          "WH1/Rack A": 17,
+          "WH1/Rack B": 14
+        }
+      },
+      "WH-BLR-02": {
+        "total": 99,
+        "locations": {
+          "WH2/Inbound Dock": 44,
+          "WH2/Bulk Storage": 29,
+          "WH2/Rack Alpha": 14,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 59,
+      "WH1/Production Floor": 29,
+      "WH1/Rack A": 17,
+      "WH1/Rack B": 14,
+      "WH2/Inbound Dock": 44,
+      "WH2/Bulk Storage": 29,
+      "WH2/Rack Alpha": 14,
+      "WH2/Rack Beta": 12,
+      "Main Store": 59,
+      "Production Floor": 29,
+      "Rack A": 17,
+      "Rack B": 14
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-405",
+    "sku": "PKG-405",
+    "name": "Moisture Absorbing Silica Gel Desiccants 100g",
+    "category": "Packaging",
+    "uom": "boxes",
+    "minThreshold": 16,
+    "reorder_threshold": 16,
+    "stock_on_hand": 221,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 121,
+        "locations": {
+          "WH1/Main Store": 60,
+          "WH1/Production Floor": 30,
+          "WH1/Rack A": 18,
+          "WH1/Rack B": 13
+        }
+      },
+      "WH-BLR-02": {
+        "total": 100,
+        "locations": {
+          "WH2/Inbound Dock": 45,
+          "WH2/Bulk Storage": 30,
+          "WH2/Rack Alpha": 15,
+          "WH2/Rack Beta": 10
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 60,
+      "WH1/Production Floor": 30,
+      "WH1/Rack A": 18,
+      "WH1/Rack B": 13,
+      "WH2/Inbound Dock": 45,
+      "WH2/Bulk Storage": 30,
+      "WH2/Rack Alpha": 15,
+      "WH2/Rack Beta": 10,
+      "Main Store": 60,
+      "Production Floor": 30,
+      "Rack A": 18,
+      "Rack B": 13
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-406",
+    "sku": "PKG-406",
+    "name": "Printed Warning Fragile Packing Tape",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 23,
+    "reorder_threshold": 23,
+    "stock_on_hand": 265,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 145,
+        "locations": {
+          "WH1/Main Store": 72,
+          "WH1/Production Floor": 36,
+          "WH1/Rack A": 21,
+          "WH1/Rack B": 16
+        }
+      },
+      "WH-BLR-02": {
+        "total": 120,
+        "locations": {
+          "WH2/Inbound Dock": 54,
+          "WH2/Bulk Storage": 36,
+          "WH2/Rack Alpha": 18,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 72,
+      "WH1/Production Floor": 36,
+      "WH1/Rack A": 21,
+      "WH1/Rack B": 16,
+      "WH2/Inbound Dock": 54,
+      "WH2/Bulk Storage": 36,
+      "WH2/Rack Alpha": 18,
+      "WH2/Rack Beta": 12,
+      "Main Store": 72,
+      "Production Floor": 36,
+      "Rack A": 21,
+      "Rack B": 16
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-407",
+    "sku": "PKG-407",
+    "name": "Polyethylene Foam Cushioning Sheets 2mm",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 30,
+    "reorder_threshold": 30,
+    "stock_on_hand": 309,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 169,
+        "locations": {
+          "WH1/Main Store": 84,
+          "WH1/Production Floor": 42,
+          "WH1/Rack A": 25,
+          "WH1/Rack B": 18
+        }
+      },
+      "WH-BLR-02": {
+        "total": 140,
+        "locations": {
+          "WH2/Inbound Dock": 63,
+          "WH2/Bulk Storage": 42,
+          "WH2/Rack Alpha": 21,
+          "WH2/Rack Beta": 14
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 84,
+      "WH1/Production Floor": 42,
+      "WH1/Rack A": 25,
+      "WH1/Rack B": 18,
+      "WH2/Inbound Dock": 63,
+      "WH2/Bulk Storage": 42,
+      "WH2/Rack Alpha": 21,
+      "WH2/Rack Beta": 14,
+      "Main Store": 84,
+      "Production Floor": 42,
+      "Rack A": 25,
+      "Rack B": 18
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-408",
+    "sku": "PKG-408",
+    "name": "Heavy Duty Biodegradable Dunnage Bags",
+    "category": "Packaging",
+    "uom": "units",
+    "minThreshold": 37,
+    "reorder_threshold": 37,
+    "stock_on_hand": 0,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 0,
+        "locations": {
+          "WH1/Main Store": 0,
+          "WH1/Production Floor": 0,
+          "WH1/Rack A": 0,
+          "WH1/Rack B": 0
+        }
+      },
+      "WH-BLR-02": {
+        "total": 0,
+        "locations": {
+          "WH2/Inbound Dock": 0,
+          "WH2/Bulk Storage": 0,
+          "WH2/Rack Alpha": 0,
+          "WH2/Rack Beta": 0
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 0,
+      "WH1/Production Floor": 0,
+      "WH1/Rack A": 0,
+      "WH1/Rack B": 0,
+      "WH2/Inbound Dock": 0,
+      "WH2/Bulk Storage": 0,
+      "WH2/Rack Alpha": 0,
+      "WH2/Rack Beta": 0,
+      "Main Store": 0,
+      "Production Floor": 0,
+      "Rack A": 0,
+      "Rack B": 0
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-409",
+    "sku": "PKG-409",
+    "name": "Plastic Pallet Top Weather Cover Film",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 44,
+    "reorder_threshold": 44,
+    "stock_on_hand": 397,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 218,
+        "locations": {
+          "WH1/Main Store": 109,
+          "WH1/Production Floor": 54,
+          "WH1/Rack A": 32,
+          "WH1/Rack B": 23
+        }
+      },
+      "WH-BLR-02": {
+        "total": 179,
+        "locations": {
+          "WH2/Inbound Dock": 80,
+          "WH2/Bulk Storage": 53,
+          "WH2/Rack Alpha": 26,
+          "WH2/Rack Beta": 20
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 109,
+      "WH1/Production Floor": 54,
+      "WH1/Rack A": 32,
+      "WH1/Rack B": 23,
+      "WH2/Inbound Dock": 80,
+      "WH2/Bulk Storage": 53,
+      "WH2/Rack Alpha": 26,
+      "WH2/Rack Beta": 20,
+      "Main Store": 109,
+      "Production Floor": 54,
+      "Rack A": 32,
+      "Rack B": 23
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-410",
+    "sku": "PKG-410",
+    "name": "Water Activated Reinforced Gummed Tape",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 10,
+    "reorder_threshold": 10,
+    "stock_on_hand": 400,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 220,
+        "locations": {
+          "WH1/Main Store": 110,
+          "WH1/Production Floor": 55,
+          "WH1/Rack A": 33,
+          "WH1/Rack B": 22
+        }
+      },
+      "WH-BLR-02": {
+        "total": 180,
+        "locations": {
+          "WH2/Inbound Dock": 81,
+          "WH2/Bulk Storage": 54,
+          "WH2/Rack Alpha": 27,
+          "WH2/Rack Beta": 18
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 110,
+      "WH1/Production Floor": 55,
+      "WH1/Rack A": 33,
+      "WH1/Rack B": 22,
+      "WH2/Inbound Dock": 81,
+      "WH2/Bulk Storage": 54,
+      "WH2/Rack Alpha": 27,
+      "WH2/Rack Beta": 18,
+      "Main Store": 110,
+      "Production Floor": 55,
+      "Rack A": 33,
+      "Rack B": 22
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-411",
+    "sku": "PKG-411",
+    "name": "Heavy Duty Cardboard Edge Protectors 1m",
+    "category": "Packaging",
+    "uom": "pieces",
+    "minThreshold": 17,
+    "reorder_threshold": 17,
+    "stock_on_hand": 64,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 35,
+        "locations": {
+          "WH1/Main Store": 17,
+          "WH1/Production Floor": 8,
+          "WH1/Rack A": 5,
+          "WH1/Rack B": 5
+        }
+      },
+      "WH-BLR-02": {
+        "total": 29,
+        "locations": {
+          "WH2/Inbound Dock": 13,
+          "WH2/Bulk Storage": 8,
+          "WH2/Rack Alpha": 4,
+          "WH2/Rack Beta": 4
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 17,
+      "WH1/Production Floor": 8,
+      "WH1/Rack A": 5,
+      "WH1/Rack B": 5,
+      "WH2/Inbound Dock": 13,
+      "WH2/Bulk Storage": 8,
+      "WH2/Rack Alpha": 4,
+      "WH2/Rack Beta": 4,
+      "Main Store": 17,
+      "Production Floor": 8,
+      "Rack A": 5,
+      "Rack B": 5
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-412",
+    "sku": "PKG-412",
+    "name": "Thermal Direct Barcode Shipping Labels 4x6",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 24,
+    "reorder_threshold": 24,
+    "stock_on_hand": 20,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 12,
+        "locations": {
+          "WH1/Main Store": 6,
+          "WH1/Production Floor": 3,
+          "WH1/Rack A": 1,
+          "WH1/Rack B": 2
+        }
+      },
+      "WH-BLR-02": {
+        "total": 8,
+        "locations": {
+          "WH2/Inbound Dock": 3,
+          "WH2/Bulk Storage": 2,
+          "WH2/Rack Alpha": 1,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 6,
+      "WH1/Production Floor": 3,
+      "WH1/Rack A": 1,
+      "WH1/Rack B": 2,
+      "WH2/Inbound Dock": 3,
+      "WH2/Bulk Storage": 2,
+      "WH2/Rack Alpha": 1,
+      "WH2/Rack Beta": 2,
+      "Main Store": 6,
+      "Production Floor": 3,
+      "Rack A": 1,
+      "Rack B": 2
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-413",
+    "sku": "PKG-413",
+    "name": "Clear Document Enclosed Self-Adhesive Pouches",
+    "category": "Packaging",
+    "uom": "boxes",
+    "minThreshold": 31,
+    "reorder_threshold": 31,
+    "stock_on_hand": 152,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 83,
+        "locations": {
+          "WH1/Main Store": 41,
+          "WH1/Production Floor": 20,
+          "WH1/Rack A": 12,
+          "WH1/Rack B": 10
+        }
+      },
+      "WH-BLR-02": {
+        "total": 69,
+        "locations": {
+          "WH2/Inbound Dock": 31,
+          "WH2/Bulk Storage": 20,
+          "WH2/Rack Alpha": 10,
+          "WH2/Rack Beta": 8
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 41,
+      "WH1/Production Floor": 20,
+      "WH1/Rack A": 12,
+      "WH1/Rack B": 10,
+      "WH2/Inbound Dock": 31,
+      "WH2/Bulk Storage": 20,
+      "WH2/Rack Alpha": 10,
+      "WH2/Rack Beta": 8,
+      "Main Store": 41,
+      "Production Floor": 20,
+      "Rack A": 12,
+      "Rack B": 10
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-414",
+    "sku": "PKG-414",
+    "name": "High-Tack Heavy Filament Strapping Tape",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 38,
+    "reorder_threshold": 38,
+    "stock_on_hand": 196,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 107,
+        "locations": {
+          "WH1/Main Store": 53,
+          "WH1/Production Floor": 26,
+          "WH1/Rack A": 16,
+          "WH1/Rack B": 12
+        }
+      },
+      "WH-BLR-02": {
+        "total": 89,
+        "locations": {
+          "WH2/Inbound Dock": 40,
+          "WH2/Bulk Storage": 26,
+          "WH2/Rack Alpha": 13,
+          "WH2/Rack Beta": 10
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 53,
+      "WH1/Production Floor": 26,
+      "WH1/Rack A": 16,
+      "WH1/Rack B": 12,
+      "WH2/Inbound Dock": 40,
+      "WH2/Bulk Storage": 26,
+      "WH2/Rack Alpha": 13,
+      "WH2/Rack Beta": 10,
+      "Main Store": 53,
+      "Production Floor": 26,
+      "Rack A": 16,
+      "Rack B": 12
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-415",
+    "sku": "PKG-415",
+    "name": "Anti-Corrosion VCI Rust Inhibitor Bags",
+    "category": "Packaging",
+    "uom": "boxes",
+    "minThreshold": 45,
+    "reorder_threshold": 45,
+    "stock_on_hand": 240,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 132,
+        "locations": {
+          "WH1/Main Store": 66,
+          "WH1/Production Floor": 33,
+          "WH1/Rack A": 19,
+          "WH1/Rack B": 14
+        }
+      },
+      "WH-BLR-02": {
+        "total": 108,
+        "locations": {
+          "WH2/Inbound Dock": 48,
+          "WH2/Bulk Storage": 32,
+          "WH2/Rack Alpha": 16,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 66,
+      "WH1/Production Floor": 33,
+      "WH1/Rack A": 19,
+      "WH1/Rack B": 14,
+      "WH2/Inbound Dock": 48,
+      "WH2/Bulk Storage": 32,
+      "WH2/Rack Alpha": 16,
+      "WH2/Rack Beta": 12,
+      "Main Store": 66,
+      "Production Floor": 33,
+      "Rack A": 19,
+      "Rack B": 14
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-416",
+    "sku": "PKG-416",
+    "name": "Self-Sealing Kraft Padded Bubble Mailers",
+    "category": "Packaging",
+    "uom": "boxes",
+    "minThreshold": 11,
+    "reorder_threshold": 11,
+    "stock_on_hand": 243,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 133,
+        "locations": {
+          "WH1/Main Store": 66,
+          "WH1/Production Floor": 33,
+          "WH1/Rack A": 19,
+          "WH1/Rack B": 15
+        }
+      },
+      "WH-BLR-02": {
+        "total": 110,
+        "locations": {
+          "WH2/Inbound Dock": 49,
+          "WH2/Bulk Storage": 33,
+          "WH2/Rack Alpha": 16,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 66,
+      "WH1/Production Floor": 33,
+      "WH1/Rack A": 19,
+      "WH1/Rack B": 15,
+      "WH2/Inbound Dock": 49,
+      "WH2/Bulk Storage": 33,
+      "WH2/Rack Alpha": 16,
+      "WH2/Rack Beta": 12,
+      "Main Store": 66,
+      "Production Floor": 33,
+      "Rack A": 19,
+      "Rack B": 15
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-417",
+    "sku": "PKG-417",
+    "name": "Industrial Steel Strapping Seals 19mm",
+    "category": "Packaging",
+    "uom": "boxes",
+    "minThreshold": 18,
+    "reorder_threshold": 18,
+    "stock_on_hand": 287,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 157,
+        "locations": {
+          "WH1/Main Store": 78,
+          "WH1/Production Floor": 39,
+          "WH1/Rack A": 23,
+          "WH1/Rack B": 17
+        }
+      },
+      "WH-BLR-02": {
+        "total": 130,
+        "locations": {
+          "WH2/Inbound Dock": 58,
+          "WH2/Bulk Storage": 39,
+          "WH2/Rack Alpha": 19,
+          "WH2/Rack Beta": 14
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 78,
+      "WH1/Production Floor": 39,
+      "WH1/Rack A": 23,
+      "WH1/Rack B": 17,
+      "WH2/Inbound Dock": 58,
+      "WH2/Bulk Storage": 39,
+      "WH2/Rack Alpha": 19,
+      "WH2/Rack Beta": 14,
+      "Main Store": 78,
+      "Production Floor": 39,
+      "Rack A": 23,
+      "Rack B": 17
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-418",
+    "sku": "PKG-418",
+    "name": "Corrugated Divider Sheets 1200x1000mm",
+    "category": "Packaging",
+    "uom": "pieces",
+    "minThreshold": 25,
+    "reorder_threshold": 25,
+    "stock_on_hand": 331,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 182,
+        "locations": {
+          "WH1/Main Store": 91,
+          "WH1/Production Floor": 45,
+          "WH1/Rack A": 27,
+          "WH1/Rack B": 19
+        }
+      },
+      "WH-BLR-02": {
+        "total": 149,
+        "locations": {
+          "WH2/Inbound Dock": 67,
+          "WH2/Bulk Storage": 44,
+          "WH2/Rack Alpha": 22,
+          "WH2/Rack Beta": 16
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 91,
+      "WH1/Production Floor": 45,
+      "WH1/Rack A": 27,
+      "WH1/Rack B": 19,
+      "WH2/Inbound Dock": 67,
+      "WH2/Bulk Storage": 44,
+      "WH2/Rack Alpha": 22,
+      "WH2/Rack Beta": 16,
+      "Main Store": 91,
+      "Production Floor": 45,
+      "Rack A": 27,
+      "Rack B": 19
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-419",
+    "sku": "PKG-419",
+    "name": "Stretch Wrap Hand Dispenser Tool",
+    "category": "Packaging",
+    "uom": "units",
+    "minThreshold": 32,
+    "reorder_threshold": 32,
+    "stock_on_hand": 375,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 206,
+        "locations": {
+          "WH1/Main Store": 103,
+          "WH1/Production Floor": 51,
+          "WH1/Rack A": 30,
+          "WH1/Rack B": 22
+        }
+      },
+      "WH-BLR-02": {
+        "total": 169,
+        "locations": {
+          "WH2/Inbound Dock": 76,
+          "WH2/Bulk Storage": 50,
+          "WH2/Rack Alpha": 25,
+          "WH2/Rack Beta": 18
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 103,
+      "WH1/Production Floor": 51,
+      "WH1/Rack A": 30,
+      "WH1/Rack B": 22,
+      "WH2/Inbound Dock": 76,
+      "WH2/Bulk Storage": 50,
+      "WH2/Rack Alpha": 25,
+      "WH2/Rack Beta": 18,
+      "Main Store": 103,
+      "Production Floor": 51,
+      "Rack A": 30,
+      "Rack B": 22
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-420",
+    "sku": "PKG-420",
+    "name": "Manual Steel Strapping Tensioner Tool",
+    "category": "Packaging",
+    "uom": "units",
+    "minThreshold": 39,
+    "reorder_threshold": 39,
+    "stock_on_hand": 35,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 21,
+        "locations": {
+          "WH1/Main Store": 10,
+          "WH1/Production Floor": 5,
+          "WH1/Rack A": 3,
+          "WH1/Rack B": 3
+        }
+      },
+      "WH-BLR-02": {
+        "total": 14,
+        "locations": {
+          "WH2/Inbound Dock": 6,
+          "WH2/Bulk Storage": 4,
+          "WH2/Rack Alpha": 2,
+          "WH2/Rack Beta": 2
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 10,
+      "WH1/Production Floor": 5,
+      "WH1/Rack A": 3,
+      "WH1/Rack B": 3,
+      "WH2/Inbound Dock": 6,
+      "WH2/Bulk Storage": 4,
+      "WH2/Rack Alpha": 2,
+      "WH2/Rack Beta": 2,
+      "Main Store": 10,
+      "Production Floor": 5,
+      "Rack A": 3,
+      "Rack B": 3
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-421",
+    "sku": "PKG-421",
+    "name": "Pallet Shrink Hood Bags Heavy Duty",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 46,
+    "reorder_threshold": 46,
+    "stock_on_hand": 463,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 254,
+        "locations": {
+          "WH1/Main Store": 127,
+          "WH1/Production Floor": 63,
+          "WH1/Rack A": 38,
+          "WH1/Rack B": 26
+        }
+      },
+      "WH-BLR-02": {
+        "total": 209,
+        "locations": {
+          "WH2/Inbound Dock": 94,
+          "WH2/Bulk Storage": 62,
+          "WH2/Rack Alpha": 31,
+          "WH2/Rack Beta": 22
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 127,
+      "WH1/Production Floor": 63,
+      "WH1/Rack A": 38,
+      "WH1/Rack B": 26,
+      "WH2/Inbound Dock": 94,
+      "WH2/Bulk Storage": 62,
+      "WH2/Rack Alpha": 31,
+      "WH2/Rack Beta": 22,
+      "Main Store": 127,
+      "Production Floor": 63,
+      "Rack A": 38,
+      "Rack B": 26
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-422",
+    "sku": "PKG-422",
+    "name": "Tamper Evident Security Barcode Tape",
+    "category": "Packaging",
+    "uom": "rolls",
+    "minThreshold": 12,
+    "reorder_threshold": 12,
+    "stock_on_hand": 86,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 47,
+        "locations": {
+          "WH1/Main Store": 23,
+          "WH1/Production Floor": 11,
+          "WH1/Rack A": 7,
+          "WH1/Rack B": 6
+        }
+      },
+      "WH-BLR-02": {
+        "total": 39,
+        "locations": {
+          "WH2/Inbound Dock": 17,
+          "WH2/Bulk Storage": 11,
+          "WH2/Rack Alpha": 5,
+          "WH2/Rack Beta": 6
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 23,
+      "WH1/Production Floor": 11,
+      "WH1/Rack A": 7,
+      "WH1/Rack B": 6,
+      "WH2/Inbound Dock": 17,
+      "WH2/Bulk Storage": 11,
+      "WH2/Rack Alpha": 5,
+      "WH2/Rack Beta": 6,
+      "Main Store": 23,
+      "Production Floor": 11,
+      "Rack A": 7,
+      "Rack B": 6
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-423",
+    "sku": "PKG-423",
+    "name": "Expanded Polystyrene Packing Peanuts 15 cu ft",
+    "category": "Packaging",
+    "uom": "boxes",
+    "minThreshold": 19,
+    "reorder_threshold": 19,
+    "stock_on_hand": 130,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 71,
+        "locations": {
+          "WH1/Main Store": 35,
+          "WH1/Production Floor": 17,
+          "WH1/Rack A": 10,
+          "WH1/Rack B": 9
+        }
+      },
+      "WH-BLR-02": {
+        "total": 59,
+        "locations": {
+          "WH2/Inbound Dock": 26,
+          "WH2/Bulk Storage": 17,
+          "WH2/Rack Alpha": 8,
+          "WH2/Rack Beta": 8
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 35,
+      "WH1/Production Floor": 17,
+      "WH1/Rack A": 10,
+      "WH1/Rack B": 9,
+      "WH2/Inbound Dock": 26,
+      "WH2/Bulk Storage": 17,
+      "WH2/Rack Alpha": 8,
+      "WH2/Rack Beta": 8,
+      "Main Store": 35,
+      "Production Floor": 17,
+      "Rack A": 10,
+      "Rack B": 9
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-424",
+    "sku": "PKG-424",
+    "name": "Heavy Duty Zip Ties Cable Straps 400mm",
+    "category": "Packaging",
+    "uom": "boxes",
+    "minThreshold": 26,
+    "reorder_threshold": 26,
+    "stock_on_hand": 174,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 95,
+        "locations": {
+          "WH1/Main Store": 47,
+          "WH1/Production Floor": 23,
+          "WH1/Rack A": 14,
+          "WH1/Rack B": 11
+        }
+      },
+      "WH-BLR-02": {
+        "total": 79,
+        "locations": {
+          "WH2/Inbound Dock": 35,
+          "WH2/Bulk Storage": 23,
+          "WH2/Rack Alpha": 11,
+          "WH2/Rack Beta": 10
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 47,
+      "WH1/Production Floor": 23,
+      "WH1/Rack A": 14,
+      "WH1/Rack B": 11,
+      "WH2/Inbound Dock": 35,
+      "WH2/Bulk Storage": 23,
+      "WH2/Rack Alpha": 11,
+      "WH2/Rack Beta": 10,
+      "Main Store": 47,
+      "Production Floor": 23,
+      "Rack A": 14,
+      "Rack B": 11
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  },
+  {
+    "id": "PROD-PKG-425",
+    "sku": "PKG-425",
+    "name": "Water-Resistant Poly Woven Sacks 50kg",
+    "category": "Packaging",
+    "uom": "boxes",
+    "minThreshold": 33,
+    "reorder_threshold": 33,
+    "stock_on_hand": 218,
+    "warehouses": {
+      "WH-HYD-01": {
+        "total": 119,
+        "locations": {
+          "WH1/Main Store": 59,
+          "WH1/Production Floor": 29,
+          "WH1/Rack A": 17,
+          "WH1/Rack B": 14
+        }
+      },
+      "WH-BLR-02": {
+        "total": 99,
+        "locations": {
+          "WH2/Inbound Dock": 44,
+          "WH2/Bulk Storage": 29,
+          "WH2/Rack Alpha": 14,
+          "WH2/Rack Beta": 12
+        }
+      }
+    },
+    "locations": {
+      "WH1/Main Store": 59,
+      "WH1/Production Floor": 29,
+      "WH1/Rack A": 17,
+      "WH1/Rack B": 14,
+      "WH2/Inbound Dock": 44,
+      "WH2/Bulk Storage": 29,
+      "WH2/Rack Alpha": 14,
+      "WH2/Rack Beta": 12,
+      "Main Store": 59,
+      "Production Floor": 29,
+      "Rack A": 17,
+      "Rack B": 14
+    },
+    "createdAt": "2026-09-26T06:00:00.000Z"
+  }
+]
