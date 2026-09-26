@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockSense // Terminal Sign-in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Firebase Authentication SDK (Compat Build) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <style>
+    /* ==========================================================================
+       STOCKSENSE AUTHENTICATION DESIGN SYSTEM
+       Mobile-first, utilitarian, industrial, strict color semantics
+       ========================================================================== */
+
+    :root {
+      --bg-canvas: #F2F0EA;
+      --bg-surface: #EAE6DC;
+      --bg-subtle: #DFD9CC;
+      --bg-field: #FAF8F5;
+
+      --steel-graphite: #2E2C28;
+      --border-color: #D8D3C7;
+      --border-strong: #2E2C28;
+      --border-focus: #1C1B19;
+
+      --text-primary: #1C1B19;
+      --text-secondary: #58544B;
+      --text-muted: #7E786C;
+      --text-invert: #F2F0EA;
+
+      /* Semantic tokens */
+      --amber-accent: #B87A1E;
+      --amber-accent-hover: #9E6514;
+      --amber-subtle: #F6ECDA;
+      --amber-border: #C98A2C;
+
+      --teal-success: #3F6B4F;
+      --teal-subtle: #E3EDE6;
+      --teal-border: #2F543C;
+
+      --rust-warning: #A6521F;
+      --rust-subtle: #F7EBE3;
+      --rust-border: #873E12;
+
+      --oxide-danger: #8C2F26;
+      --oxide-subtle: #F6E6E4;
+      --oxide-border: #6F221B;
+
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --transition-fast: 120ms ease;
+    }
+
+    [data-theme="dark"] {
+      --bg-canvas: #191815;
+      --bg-surface: #22201C;
+      --bg-subtle: #2C2924;
+      --bg-field: #141311;
+
+      --steel-graphite: #32302A;
+      --border-color: #3C3932;
+      --border-strong: #5A554A;
+      --border-focus: #ABA496;
+
+      --text-primary: #EDEAE3;
+      --text-secondary: #A8A396;
+      --text-muted: #767166;
+      --text-invert: #191815;
+
+      --amber-accent: #D9A24B;
+      --amber-accent-hover: #E8B35C;
+      --amber-subtle: #2C2111;
+      --amber-border: #9E6C1A;
+
+      --teal-success: #4E8562;
+      --teal-subtle: #14241B;
+      --teal-border: #355C43;
+
+      --rust-warning: #C06428;
+      --rust-subtle: #2B180E;
+      --rust-border: #823E11;
+
+      --oxide-danger: #AA3B31;
+      --oxide-subtle: #2A1311;
+      --oxide-border: #73251D;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background-color: var(--amber-accent);
+      color: #FFFFFF;
+    }
+
+    .auth-root {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      border-left: 6px solid var(--steel-graphite);
+    }
+
+    /* Masthead */
+    .auth-masthead {
+      background-color: var(--bg-surface);
+      border-bottom: 2px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      padding: 0 16px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+      letter-spacing: 0.5px;
+    }
+
+    .brand-mark {
+      width: 14px;
+      height: 14px;
+      background-color: var(--amber-accent);
+      display: inline-block;
+    }
+
+    .station-telemetry {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .telemetry-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--teal-success);
+      display: inline-block;
+    }
+
+    .masthead-actions {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .util-btn {
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color var(--transition-fast);
+    }
+
+    .util-btn:hover {
+      background-color: var(--bg-surface);
+    }
+
+    /* Auth Page Content Wrapper - Mobile First */
+    .auth-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 440px;
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-strong);
+      position: relative;
+    }
+
+    /* Industrial Hazard Header Tape */
+    .auth-card-tape {
+      height: 8px;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--steel-graphite),
+        var(--steel-graphite) 10px,
+        var(--amber-accent) 10px,
+        var(--amber-accent) 20px
+      );
+      border-bottom: 1px solid var(--border-strong);
+    }
+
+    .auth-card-body {
+      padding: 24px;
+    }
+
+    @media (max-width: 480px) {
+      .auth-card-body {
+        padding: 18px 16px;
+      }
+    }
+
+    .auth-heading-block {
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 14px;
+    }
+
+    .auth-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      letter-spacing: -0.2px;
+    }
+
+    .auth-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Forms & Fields */
+    .field-group {
+      margin-bottom: 18px;
+    }
+
+    .field-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .field-sublabel {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .phone-input-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1px;
+      background-color: var(--border-strong);
+      border: 1px solid var(--border-strong);
+    }
+
+    .country-code-pill {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .country-flag {
+      font-size: 13px;
+    }
+
+    .phone-field {
+      flex: 1;
+      height: 46px;
+      background-color: var(--bg-field);
+      border: none;
+      padding: 0 14px;
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+      outline: none;
+      transition: background-color var(--transition-fast);
+    }
+
+    .phone-field:focus {
+      background-color: var(--bg-canvas);
+    }
+
+    /* Buttons */
+    .btn-auth-primary {
+      width: 100%;
+      height: 46px;
+      background-color: var(--amber-accent);
+      border: 2px solid var(--amber-border);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color var(--transition-fast);
+      letter-spacing: 0.2px;
+    }
+
+    .btn-auth-primary:hover:not(:disabled) {
+      background-color: var(--amber-accent-hover);
+    }
+
+    .btn-auth-primary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      background-color: var(--bg-subtle);
+      border-color: var(--border-color);
+      color: var(--text-muted);
+    }
+
+    .btn-auth-outline {
+      width: 100%;
+      height: 42px;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background-color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .btn-auth-outline:hover {
+      background-color: var(--bg-subtle);
+      border-color: var(--border-focus);
+    }
+
+    .google-icon-svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Or Divider */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .auth-divider-line {
+      flex: 1;
+      height: 1px;
+      background-color: var(--border-color);
+    }
+
+    .auth-divider-label {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* Inline Alert and Validation Messages */
+    .inline-msg-box {
+      margin-top: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .inline-msg-box.msg-error {
+      background-color: var(--oxide-subtle);
+      border-left: 3px solid var(--oxide-danger);
+      color: var(--oxide-danger);
+    }
+
+    .inline-msg-box.msg-warning {
+      background-color: var(--rust-subtle);
+      border-left: 3px solid var(--rust-warning);
+      color: var(--rust-warning);
+    }
+
+    .inline-msg-box.msg-info {
+      background-color: var(--amber-subtle);
+      border-left: 3px solid var(--amber-accent);
+      color: var(--amber-accent);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    /* ==========================================================================
+       STEP 2: OTP VERIFICATION VIEW
+       6-box input, backspace handling, countdown, attempts limiter
+       ========================================================================== */
+    .step-pane {
+      display: none;
+    }
+
+    .step-pane.active {
+      display: block;
+    }
+
+    .otp-target-banner {
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .otp-target-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .otp-target-text strong {
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+    }
+
+    .btn-link-action {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--amber-accent);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      font-family: var(--font-sans);
+    }
+
+    .btn-link-action:hover {
+      color: var(--amber-accent-hover);
+    }
+
+    /* 6-digit OTP Box Matrix */
+    .otp-boxes-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .otp-single-box {
+      width: 100%;
+      height: 52px;
+      background-color: var(--bg-field);
+      border: 2px solid var(--border-strong);
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      outline: none;
+      transition: all var(--transition-fast);
+      -moz-appearance: textfield;
+    }
+
+    .otp-single-box::-webkit-outer-spin-button,
+    .otp-single-box::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .otp-single-box:focus {
+      border-color: var(--amber-accent);
+      background-color: var(--bg-canvas);
+      box-shadow: 0 0 0 2px rgba(184, 122, 30, 0.2);
+    }
+
+    .otp-single-box.box-error {
+      border-color: var(--oxide-danger) !important;
+      background-color: var(--oxide-subtle) !important;
+      color: var(--oxide-danger) !important;
+    }
+
+    .otp-single-box.box-success {
+      border-color: var(--teal-success) !important;
+      background-color: var(--teal-subtle) !important;
+      color: var(--teal-success) !important;
+    }
+
+    /* Resend & Timer Row */
+    .otp-timer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+    }
+
+    .btn-resend-code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--amber-accent);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .btn-resend-code:disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+      text-decoration: none;
+    }
+
+    /* Simulation SMS Toast HUD (for rapid operator testing) */
+    .sms-simulation-box {
+      margin-top: 18px;
+      padding: 12px;
+      background-color: var(--bg-subtle);
+      border: 1px dashed var(--border-strong);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sms-sim-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .sms-sim-body {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-primary);
+      background-color: var(--bg-field);
+      padding: 6px 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .sms-sim-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .sms-chip-autofill {
+      background-color: var(--steel-graphite);
+      color: var(--text-invert);
+      border: none;
+      padding: 3px 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      transition: background-color var(--transition-fast);
+    }
+
+    .sms-chip-autofill:hover {
+      background-color: var(--amber-accent);
+    }
+
+    /* ==========================================================================
+       STEP 3: SUCCESS STATE
+       ========================================================================== */
+    .success-card-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px 10px;
+      gap: 14px;
+    }
+
+    .success-stamp-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background-color: var(--teal-subtle);
+      border: 2px solid var(--teal-border);
+      color: var(--teal-success);
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .success-heading {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .success-method-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background-color: var(--teal-subtle);
+      border: 1px solid var(--teal-border);
+      color: var(--teal-success);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .success-method-chip .indicator-sq {
+      width: 8px;
+      height: 8px;
+      background-color: var(--teal-success);
+    }
+
+    .terminal-handshake-meter {
+      width: 100%;
+      height: 6px;
+      background-color: var(--border-color);
+      position: relative;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .terminal-handshake-fill {
+      height: 100%;
+      background-color: var(--teal-success);
+      width: 0%;
+      transition: width 1200ms ease;
+    }
+
+    .success-redirect-note {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    /* Footer telemetry */
+    .auth-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      background-color: var(--bg-surface);
+    }
+
+    .auth-footer strong {
+      color: var(--text-secondary);
+    }
+
+    /* Firebase Configuration Modal & Live Indicator */
+    .firebase-status-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 12px;
+      margin-bottom: 16px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .firebase-status-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .firebase-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--teal-success);
+    }
+
+    .firebase-status-dot.dev {
+      background-color: var(--amber-accent);
+    }
+
+    .firebase-cfg-link {
+      color: var(--amber-accent);
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 0;
+    }
+
+    .firebase-cfg-link:hover {
+      color: var(--amber-accent-hover);
+    }
+
+    /* Modal Overlay & Card */
+    .fb-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(28, 27, 25, 0.75);
+      backdrop-filter: blur(2px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .fb-modal-backdrop.active {
+      display: flex;
+    }
+
+    .fb-modal-card {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-strong);
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .fb-modal-header {
+      background-color: var(--bg-subtle);
+      border-bottom: 2px solid var(--border-strong);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .fb-modal-body {
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .fb-config-textarea {
+      width: 100%;
+      height: 140px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 10px;
+      background-color: var(--bg-field);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+      resize: vertical;
+      line-height: 1.4;
+    }
+
+    .fb-config-textarea:focus {
+      outline: none;
+      border-color: var(--amber-accent);
+    }
+
+    .fb-modal-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      background-color: var(--bg-subtle);
+    }
+
+    /* ==========================================================================
+       RFC 6238 TOTP 2FA WORKSTATION STYLES
+       ========================================================================== */
+    .totp-status-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .totp-status-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .totp-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--teal-success);
+      box-shadow: 0 0 6px rgba(63, 107, 79, 0.6);
+      animation: pulse-ring 2s infinite;
+    }
+
+    .totp-cfg-link {
+      color: var(--amber-accent);
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 0;
+    }
+
+    .totp-cfg-link:hover {
+      color: var(--amber-accent-hover);
+    }
+
+    /* 30s Rotating Window Timer & Bar */
+    .totp-window-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .totp-window-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .totp-window-bar {
+      width: 100%;
+      height: 4px;
+      background-color: var(--border-color);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .totp-window-fill {
+      height: 100%;
+      width: 100%;
+      background-color: var(--amber-accent);
+      transition: width 1s linear, background-color 0.3s ease;
+    }
+
+    .totp-window-fill.warning {
+      background-color: var(--oxide-danger);
+    }
+
+    /* QR Code Modal Dialog */
+    .totp-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(28, 27, 25, 0.8);
+      backdrop-filter: blur(3px);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .totp-modal-backdrop.active {
+      display: flex;
+    }
+
+    .totp-modal-card {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-strong);
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .totp-modal-header {
+      background-color: var(--bg-subtle);
+      border-bottom: 2px solid var(--border-strong);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .totp-modal-body {
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .totp-qr-wrap {
+      width: 200px;
+      height: 200px;
+      background-color: #FFFFFF;
+      border: 2px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .totp-qr-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .totp-secret-row {
+      width: 100%;
+      background-color: var(--bg-field);
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .totp-secret-key {
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      user-select: all;
+    }
+
+    .btn-copy-secret {
+      background-color: var(--steel-graphite);
+      color: var(--text-invert);
+      border: none;
+      padding: 4px 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      cursor: pointer;
+      transition: background-color var(--transition-fast);
+    }
+
+    .btn-copy-secret:hover {
+      background-color: var(--amber-accent);
+    }
+
+    .totp-steps-list {
+      text-align: left;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      padding-left: 18px;
+    }
+
+    .totp-steps-list li {
+      margin-bottom: 4px;
+    }
+
+    .totp-modal-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: flex-end;
+      background-color: var(--bg-subtle);
+    }
+
+    /* Secondary flow toggle accordion */
+    .auth-accordion-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: none;
+      border: 1px dashed var(--border-color);
+      padding: 8px;
+      width: 100%;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      margin-top: 14px;
+      transition: all var(--transition-fast);
+    }
+
+    .auth-accordion-toggle:hover {
+      background-color: var(--bg-subtle);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-root">
+    
+    <!-- MASTHEAD -->
+    <header class="auth-masthead">
+      <div class="brand-wrap">
+        <span class="brand-mark"></span>
+        <span>StockSense</span>
+      </div>
+
+      <div class="station-telemetry">
+        <div class="telemetry-tag">
+          <span class="pulse-dot"></span>
+          <span>GATEWAY: <strong>AUTH-01</strong></span>
+        </div>
+        <div class="telemetry-tag" style="display: none; @media(min-width:600px){display:flex;}">
+          <span>PORT: <strong>SECURE // 9443</strong></span>
+        </div>
+      </div>
+
+      <div class="masthead-actions">
+        <button class="util-btn" id="fbConfigBtn" onclick="AuthEngine.openFirebaseModal()" title="Firebase Authentication Settings">
+          <span id="fbIcon">🔥</span>
+          <span id="fbStatusLabel">FIREBASE: LIVE</span>
+        </button>
+        <button class="util-btn" id="soundToggleBtn" onclick="AuthEngine.toggleAudio()">
+          <span id="soundIcon">🔊</span>
+          <span id="soundLabel">BEEP: ON</span>
+        </button>
+        <button class="util-btn" id="themeToggleBtn" onclick="AuthEngine.toggleTheme()">
+          <span id="themeIcon">◐</span>
+          <span id="themeLabel">WARM PAPER</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- AUTH STAGE -->
+    <main class="auth-stage">
+      
+      <div class="auth-card">
+        <div class="auth-card-tape"></div>
+
+        <!-- ================================================================
+             STEP 1: PRIMARY PHONE ENTRY & GMAIL SIGN-IN
+             ================================================================ -->
+        <div class="auth-card-body step-pane active" id="stepPhonePane">
+          
+          <div class="auth-heading-block">
+            <h1 class="auth-title">Terminal sign-in</h1>
+            <p class="auth-subtitle">Verify operator credentials via RFC 6238 TOTP (Google/Microsoft Authenticator).</p>
+          </div>
+
+          <!-- RFC 6238 TOTP Status & Workstation Pairing Banner -->
+          <div class="totp-status-banner">
+            <div class="totp-status-left">
+              <span class="totp-status-dot"></span>
+              <span id="totpStatusSummary">RFC 6238 TOTP // GOOGLE &amp; MS AUTHENTICATOR</span>
+            </div>
+            <button type="button" class="totp-cfg-link" id="btnPairTotp" onclick="TotpEngine.openPairingModal()">[📷 PAIR APP / QR]</button>
+          </div>
+
+          <!-- PRIMARY FLOW: 6-DIGIT TOTP AUTHENTICATION -->
+          <form id="totpForm" onsubmit="event.preventDefault(); verifyReceivedOtp();">
+            <div class="field-group">
+              <div class="totp-window-row">
+                <span class="totp-window-tag">
+                  <span style="display:inline-block; width:6px; height:6px; background-color:var(--amber-accent);"></span>
+                  <span>ROTATING WINDOW</span>
+                </span>
+                <span id="totpCountdownTag">Refresh in <strong id="totpCountdownNum" style="color:var(--amber-accent);">30</strong>s</span>
+              </div>
+              <div class="totp-window-bar">
+                <div class="totp-window-fill" id="totpWindowFill"></div>
+              </div>
+
+              <label class="field-label" for="verification-code">
+                <span>Security Token (6 Digits)</span>
+                <span class="field-sublabel">From Authenticator App</span>
+              </label>
+
+              <!-- Single verification input for direct script/user typing and automated tests -->
+              <div style="margin-bottom: 12px;">
+                <input 
+                  type="text" 
+                  id="verification-code" 
+                  name="verification-code"
+                  class="phone-field" 
+                  placeholder="000000" 
+                  maxlength="6" 
+                  inputmode="numeric" 
+                  autocomplete="one-time-code"
+                  style="text-align: center; letter-spacing: 6px; font-weight: 700; font-size: 20px; font-family: var(--font-mono);" 
+                  autofocus
+                />
+              </div>
+
+              <!-- 6 separate single-digit boxes with auto-advance & backspace -->
+              <div class="otp-boxes-grid" id="otpBoxGrid">
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="0" autocomplete="off" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="1" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="2" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="3" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="4" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="5" />
+              </div>
+
+              <!-- Inline validation error container -->
+              <div id="totpErrorBox" class="inline-msg-box msg-error" style="display: none;">
+                <span id="totpErrorText">Invalid 6-digit code. Check your authenticator app time.</span>
+              </div>
+            </div>
+
+            <!-- Verify OTP / TOTP Button -->
+            <button type="button" class="btn-auth-primary" id="verify-btn" onclick="verifyReceivedOtp()">
+              <span>Verify &amp; Enter Workstation</span>
+              <span style="font-family:var(--font-mono);">[ENTER]</span>
+            </button>
+          </form>
+
+          <div style="margin-top: 10px; display: flex; justify-content: center;">
+            <button type="button" class="btn-link-action" style="font-size: 11px; text-decoration: underline;" onclick="TotpEngine.openPairingModal()">
+              First time setup? Scan QR Code to pair device →
+            </button>
+          </div>
+
+          <!-- SECONDARY ACTION: GMAIL SIGN-IN -->
+          <div class="auth-divider">
+            <div class="auth-divider-line"></div>
+            <span class="auth-divider-label">or enterprise account</span>
+            <div class="auth-divider-line"></div>
+          </div>
+
+          <button type="button" class="btn-auth-outline" id="btnGmailAuth" onclick="AuthEngine.handleGmailSignIn()">
+            <svg class="google-icon-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Continue with Gmail</span>
+          </button>
+
+          <!-- FALLBACK SMS OTP DELIVERY ACCORDION -->
+          <div style="margin-top: 14px;">
+            <button type="button" class="auth-accordion-toggle" onclick="TotpEngine.toggleSmsFallback()">
+              <span id="smsToggleIcon">▼</span>
+              <span>Legacy SMS OTP Delivery (Fallback)</span>
+            </button>
+            <div id="smsFallbackContainer" style="display: none; padding-top: 12px;">
+              <form id="phoneForm" onsubmit="event.preventDefault(); sendOtpToPhone();">
+                <div id="recaptcha-container"></div>
+                <div class="field-group">
+                  <label class="field-label" for="phone-number">
+                    <span>Mobile number</span>
+                    <span class="field-sublabel">SMS OTP delivery</span>
+                  </label>
+                  <div class="phone-input-row" id="phoneInputRow">
+                    <input 
+                      type="tel" 
+                      id="phone-number" 
+                      name="phone-number"
+                      class="phone-field" 
+                      placeholder="+919876543210" 
+                      maxlength="16" 
+                      inputmode="tel" 
+                      autocomplete="tel" 
+                    />
+                  </div>
+                  <div id="phoneErrorBox" class="inline-msg-box msg-error" style="display: none;">
+                    <span id="phoneErrorText">Please enter a valid mobile number with country code.</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-auth-outline" id="send-otp-btn" style="width:100%;" onclick="sendOtpToPhone()">
+                  <span>Send SMS Code</span>
+                  <span style="font-family:var(--font-mono);">→</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ================================================================
+             STEP 2: 6-DIGIT OTP VERIFICATION
+             ================================================================ -->
+        <div class="auth-card-body step-pane" id="stepOtpPane">
+          <!-- Input and button for entering the received OTP -->
+          <div id="otp-section" style="display:none;">
+          
+          <div class="auth-heading-block">
+            <h1 class="auth-title">Verify mobile number</h1>
+            <p class="auth-subtitle">Enter the 6-digit code delivered via SMS to authorize this device.</p>
+          </div>
+
+          <div class="otp-target-banner">
+            <div class="otp-target-text">
+              <span>Code sent to: </span>
+              <strong id="displayTargetPhone">+91 ••••• •••••</strong>
+            </div>
+            <button type="button" class="btn-link-action" onclick="AuthEngine.goToPhoneStep()">Change</button>
+          </div>
+
+          <form id="otpForm" onsubmit="event.preventDefault(); verifyReceivedOtp();">
+            
+            <div class="field-group">
+              <label class="field-label" for="verification-code">
+                <span>Security code (6 digits)</span>
+                <span class="field-sublabel" id="expiryIndicator">Expires in 05:00</span>
+              </label>
+
+              <!-- Single verification input for direct script/user typing -->
+              <div style="margin-bottom: 12px;">
+                <input 
+                  type="text" 
+                  id="verification-code" 
+                  class="phone-field" 
+                  placeholder="6-digit code" 
+                  maxlength="6" 
+                  inputmode="numeric" 
+                  style="text-align: center; letter-spacing: 4px; font-weight: 700; font-size: 18px;" 
+                />
+              </div>
+
+              <!-- 6 separate single-digit boxes with auto-advance & backspace -->
+              <div class="otp-boxes-grid" id="otpBoxGrid">
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="0" autofocus autocomplete="one-time-code" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="1" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="2" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="3" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="4" />
+                <input type="text" class="otp-single-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-index="5" />
+              </div>
+
+              <!-- Inline verification / error message -->
+              <div id="otpErrorBox" class="inline-msg-box msg-error" style="display: none;">
+                <span id="otpErrorText">Incorrect code. 2 attempts remaining.</span>
+              </div>
+            </div>
+
+            <!-- Verify OTP Button -->
+            <button type="button" class="btn-auth-primary" id="verify-btn" onclick="verifyReceivedOtp()">
+              <span>Verify OTP</span>
+              <span style="font-family:var(--font-mono);">[ENTER]</span>
+            </button>
+
+            <!-- Resend timer & countdown -->
+            <div class="otp-timer-row">
+              <span id="attemptsCounterLabel">Attempts left: 3 / 3</span>
+              <div>
+                <button type="button" class="btn-resend-code" id="btnResendOtp" disabled onclick="AuthEngine.resendOtp()">
+                  Resend code in <span id="resendCountdownNum">30</span>s
+                </button>
+              </div>
+            </div>
+
+          </form>
+
+          <!-- SMS Carrier Feed / Demonstration HUD -->
+          <div class="sms-simulation-box" id="smsSimulationBox">
+            <div class="sms-sim-header">
+              <span id="carrierGatewayTag">GATEWAY: FIREBASE GOOGLE SMS // AUTH-01</span>
+              <span>DEV SIMULATOR</span>
+            </div>
+            <div class="sms-sim-body" id="simulatedSmsText">
+              [StockSense] Your terminal verification code is <strong id="simSmsCode" style="color:var(--amber-accent);">------</strong>. Valid for 5 min.
+            </div>
+            <div class="sms-sim-actions">
+              <button type="button" class="sms-chip-autofill" onclick="AuthEngine.fillSimulatedCode()">
+                Auto-fill simulated code for test
+              </button>
+            </div>
+          </div>
+
+          </div>
+        </div>
+
+
+        <!-- ================================================================
+             STEP 3: AUTHENTICATION CONFIRMED & TRANSITION
+             ================================================================ -->
+        <div class="auth-card-body step-pane" id="stepSuccessPane">
+          
+          <div class="success-card-body">
+            <div class="success-stamp-box">
+              <span>✓</span>
+            </div>
+
+            <h2 class="success-heading">Access authorized</h2>
+
+            <div class="success-method-chip" id="authMethodBadge">
+              <span class="indicator-sq"></span>
+              <span id="authMethodText">Mobile number verified (+91 98765 43210)</span>
+            </div>
+
+            <div style="font-size:12px; color:var(--text-secondary); line-height: 1.5;">
+              Operator session initialized via Firebase Identity Service. Cryptographic station key minted for <strong>BAY-04 // DOCK-NORTH</strong>.
+            </div>
+
+            <div class="terminal-handshake-meter">
+              <div class="terminal-handshake-fill" id="redirectProgress"></div>
+            </div>
+
+            <div class="success-redirect-note" id="redirectStatusText">
+              Redirecting to Warehouse Dashboard in 2 seconds...
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- FOOTER TELEMETRY -->
+    <footer class="auth-footer">
+      <div>StockSense Core OS: <strong>v2.8.4-LTS</strong></div>
+      <div>Security Engine: <strong>Firebase Auth (Google SSO + SMS OTP)</strong></div>
+      <div>Session Timeout: <strong>8h Shift Limit</strong></div>
+    </footer>
+
+  </div>
+
+  <!-- FIREBASE CONFIGURATION INDUSTRIAL MODAL -->
+  <div class="fb-modal-backdrop" id="firebaseModal">
+    <div class="fb-modal-card">
+      <div class="auth-card-tape"></div>
+      <div class="fb-modal-header">
+        <span>STOCKSENSE // FIREBASE AUTH SETUP</span>
+        <button type="button" class="btn-link-action" onclick="AuthEngine.closeFirebaseModal()">[ESC / CLOSE]</button>
+      </div>
+      <div class="fb-modal-body">
+        <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">
+          <strong>Connect your live Firebase Project:</strong><br>
+          1. Go to <a href="https://console.firebase.google.com" target="_blank" style="color:var(--amber-accent); font-weight:600;">console.firebase.google.com</a> &rarr; Build &rarr; Authentication &rarr; Sign-in method.<br>
+          2. Enable <strong>Google</strong> (pick support email) and <strong>Phone</strong>.<br>
+          3. Project settings (gear icon) &rarr; General &rarr; Your apps &rarr; Web &rarr; Copy <code>firebaseConfig</code>.<br>
+          4. Paste below (supports JSON or JS object).<br>
+          <span style="color:var(--teal-success); font-size:11px;">💡 <em>Tip: Under Phone &gt; "Phone numbers for testing", add your number with a static code (e.g. 123456) to test real Firebase Auth without SMS quotas!</em></span>
+        </div>
+        <textarea id="firebaseConfigInput" class="fb-config-textarea" spellcheck="false" placeholder='{
+  "apiKey": "AIzaSy...",
+  "authDomain": "your-project.firebaseapp.com",
+  "projectId": "your-project-id",
+  "storageBucket": "your-project.appspot.com",
+  "messagingSenderId": "1234567890",
+  "appId": "1:1234567890:web:abcdef"
+}'></textarea>
+        <div style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">
+          <span id="fbModalStatusText">Status: Checking...</span>
+          <button type="button" class="btn-link-action" onclick="AuthEngine.loadDemoFirebaseConfig()">[Load Example Template]</button>
+        </div>
+      </div>
+      <div class="fb-modal-footer">
+        <button type="button" class="util-btn" onclick="AuthEngine.resetFirebaseConfig()">Reset to Dev Mode</button>
+        <button type="button" class="btn-auth-primary" style="margin:0; width:auto; padding:6px 14px; font-size:12px;" onclick="AuthEngine.saveFirebaseConfig()">Save &amp; Connect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTP QR CODE PAIRING MODAL -->
+  <div class="totp-modal-backdrop" id="totpModal" onclick="if(event.target===this) TotpEngine.closePairingModal()">
+    <div class="totp-modal-card">
+      <div class="totp-modal-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="color:var(--amber-accent);">🔐</span>
+          <span>AUTHENTICATOR PAIRING // RFC 6238 TOTP</span>
+        </div>
+        <button type="button" class="util-btn" onclick="TotpEngine.closePairingModal()">✕</button>
+      </div>
+
+      <div class="totp-modal-body">
+        <p style="font-size:12px; color:var(--text-secondary); margin:0;">
+          Scan this QR code using <strong>Google Authenticator</strong>, <strong>Microsoft Authenticator</strong>, or <strong>Aegis</strong> to pair this workstation.
+        </p>
+
+        <div class="totp-qr-wrap">
+          <img id="totpQrImage" class="totp-qr-img" src="" alt="TOTP QR Code" />
+        </div>
+
+        <div class="totp-secret-row">
+          <div style="text-align:left;">
+            <span style="font-size:10px; color:var(--text-muted); display:block;">MANUAL SECRET KEY:</span>
+            <code id="totpSecretKey" class="totp-secret-key">GENERATING...</code>
+          </div>
+          <button type="button" class="btn-copy-secret" id="btnCopySecret" onclick="TotpEngine.copySecret()">COPY KEY</button>
+        </div>
+
+        <ol class="totp-steps-list">
+          <li>Open your Authenticator app on your phone.</li>
+          <li>Tap <strong>+</strong> &rarr; <strong>Scan a QR code</strong>.</li>
+          <li>Enter the current 6-digit rotating code into the sign-in form.</li>
+        </ol>
+      </div>
+
+      <div class="totp-modal-footer">
+        <button type="button" class="btn-auth-primary" style="margin:0; width:auto; padding:8px 18px; font-size:12px;" onclick="TotpEngine.closePairingModal()">
+          Done // Ready to Sign in &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    const AuthEngine = (function() {
+      // Audio Engine for physical feedback
+      let audioCtx = null;
+      let soundEnabled = true;
+
+      function getAudioContext() {
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) audioCtx = new AudioContext();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playSound(type) {
+        if (!soundEnabled) return;
+        try {
+          const ctx = getAudioContext();
+          if (!ctx) return;
+          const now = ctx.currentTime;
+
+          if (type === 'beep-success') {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(1400, now);
+            osc.frequency.setValueAtTime(1850, now + 0.05);
+            gain.gain.setValueAtTime(0.08, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.12);
+          } else if (type === 'beep-error') {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(190, now);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.28);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.28);
+          } else if (type === 'beep-click') {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(800, now);
+            gain.gain.setValueAtTime(0.04, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.04);
+          }
+        } catch (e) {
+          console.warn('Audio feedback error:', e);
+        }
+      }
+
+      // Hardcoded Firebase production config (stocksense-889bf)
+      const firebaseConfig = {
+        apiKey: "AIzaSyCwOlpjo9VrKngX9t1-ArLhZE-XlsBDsrU",
+        authDomain: "stocksense-889bf.firebaseapp.com",
+        projectId: "stocksense-889bf",
+        storageBucket: "stocksense-889bf.firebasestorage.app",
+        messagingSenderId: "1003309878973",
+        appId: "1:1003309878973:web:929fa78ff5929b830171d4",
+        measurementId: "G-5R4KFVL4Q7"
+      };
+
+      // Clear any stale local storage config to prevent old key conflicts
+      localStorage.removeItem('stocksense_firebase_config');
+
+      if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+
+      // State Management
+      let currentPhone = '';
+      let generatedOtp = '';
+      let confirmationResult = null;
+      let attemptsRemaining = 3;
+      let resendTimer = null;
+      let resendSeconds = 30;
+      let expiryTimer = null;
+      let expirySeconds = 300; // 5 minutes
+      let isCodeExpired = false;
+
+      // DOM Elements
+      const phoneInput = document.getElementById('phone-number') || document.getElementById('mobileNumberInput');
+      const btnSendOtp = document.getElementById('send-otp-btn') || document.getElementById('btnSendOtp');
+      const verificationInput = document.getElementById('verification-code');
+      const btnVerifyOtp = document.getElementById('verify-btn') || document.getElementById('btnVerifyOtp');
+      const phoneErrorBox = document.getElementById('phoneErrorBox');
+      const phoneErrorText = document.getElementById('phoneErrorText');
+      const stepPhonePane = document.getElementById('stepPhonePane');
+      const stepOtpPane = document.getElementById('stepOtpPane');
+      const stepSuccessPane = document.getElementById('stepSuccessPane');
+      const displayTargetPhone = document.getElementById('displayTargetPhone');
+      const otpBoxes = document.querySelectorAll('.otp-single-box');
+      const otpErrorBox = document.getElementById('otpErrorBox');
+      const otpErrorText = document.getElementById('otpErrorText');
+      const btnResendOtp = document.getElementById('btnResendOtp');
+      const resendCountdownNum = document.getElementById('resendCountdownNum');
+      const attemptsCounterLabel = document.getElementById('attemptsCounterLabel');
+      const expiryIndicator = document.getElementById('expiryIndicator');
+      const simSmsCode = document.getElementById('simSmsCode');
+      const authMethodText = document.getElementById('authMethodText');
+      const redirectProgress = document.getElementById('redirectProgress');
+      const smsSimulationBox = document.getElementById('smsSimulationBox');
+
+      // Firebase Configuration retrieval (directly returns hardcoded credentials)
+      function getActiveFirebaseConfig() {
+        return firebaseConfig;
+      }
+
+      function isFirebaseLive() {
+        return typeof firebase !== 'undefined' && firebase.apps.length > 0;
+      }
+
+      function updateStatusDisplay() {
+        const live = isFirebaseLive();
+        const statusLabel = document.getElementById('fbStatusLabel');
+        const liveDot = document.getElementById('firebaseLiveDot');
+        const summary = document.getElementById('firebaseStatusSummary');
+        const gatewayTag = document.getElementById('carrierGatewayTag');
+
+        if (live) {
+          if (statusLabel) statusLabel.textContent = 'FIREBASE: LIVE';
+          if (liveDot) liveDot.classList.remove('dev');
+          if (summary) summary.innerHTML = 'FIREBASE AUTH // <strong>LIVE SMS &amp; GOOGLE SSO</strong>';
+          if (gatewayTag) gatewayTag.textContent = 'GATEWAY: GOOGLE FIREBASE SMS // AUTH-01';
+        } else {
+          if (statusLabel) statusLabel.textContent = 'FIREBASE: DEV MODE';
+          if (liveDot) liveDot.classList.add('dev');
+          if (summary) summary.innerHTML = 'FIREBASE AUTH // <strong>DEV MODE (CLICK CONFIGURE FOR LIVE SMS)</strong>';
+          if (gatewayTag) gatewayTag.textContent = 'GATEWAY: DEV SIMULATOR // LOCAL-01';
+        }
+      }
+
+      function initFirebaseApp() {
+        if (!isFirebaseLive()) {
+          updateStatusDisplay();
+          return null;
+        }
+
+        try {
+          const cfg = getActiveFirebaseConfig();
+          if (!firebase.apps.length) {
+            firebase.initializeApp(cfg);
+          }
+          const auth = firebase.auth();
+          updateStatusDisplay();
+          return auth;
+        } catch(err) {
+          console.warn('[StockSense] Firebase init notice:', err.message);
+          updateStatusDisplay();
+          return null;
+        }
+      }
+
+      function initRecaptcha() {
+        if (window.recaptchaVerifier) return;
+        try {
+          if (typeof firebase !== 'undefined' && firebase.auth) {
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+              size: 'invisible',
+              callback: () => {
+                // reCAPTCHA solved
+              }
+            });
+            window.recaptchaVerifier.render().then((widgetId) => {
+              window.recaptchaWidgetId = widgetId;
+            }).catch(e => console.warn('[StockSense] reCAPTCHA render notice:', e));
+          }
+        } catch(e) {
+          console.warn('[StockSense] reCAPTCHA init notice:', e);
+        }
+      }
+
+      // Phone input validation
+      function handlePhoneInput(el) {
+        el.value = el.value.replace(/\D/g, '');
+        hidePhoneError();
+        if (el.value.length === 10) {
+          btnSendOtp.disabled = false;
+        } else {
+          btnSendOtp.disabled = true;
+        }
+      }
+
+      function showPhoneError(msg) {
+        phoneErrorText.textContent = msg;
+        phoneErrorBox.style.display = 'flex';
+        playSound('beep-error');
+      }
+
+      function hidePhoneError() {
+        phoneErrorBox.style.display = 'none';
+      }
+
+      // Phone Submit (Dispatches real SMS via Firebase Phone Auth or Local Dev Simulator)
+      async function handlePhoneSubmit(e) {
+        if (e) e.preventDefault();
+        const raw = phoneInput.value.trim();
+
+        if (!/^\d{10}$/.test(raw)) {
+          showPhoneError('Please enter exactly 10 numeric digits.');
+          return;
+        }
+
+        currentPhone = "+91" + raw;
+        hidePhoneError();
+
+        const btn = document.getElementById('btnSendOtp');
+        btn.disabled = true;
+
+        if (isFirebaseLive()) {
+          btn.innerHTML = `<span>Dispatching SMS via Google…</span>`;
+          try {
+            const auth = initFirebaseApp();
+            initRecaptcha();
+
+            confirmationResult = await auth.signInWithPhoneNumber(currentPhone, window.recaptchaVerifier);
+
+            // Transition to OTP step
+            stepPhonePane.classList.remove('active');
+            stepOtpPane.classList.add('active');
+
+            const formatted = `+91 ${raw.slice(0, 5)} ${raw.slice(5)}`;
+            displayTargetPhone.textContent = formatted;
+
+            // Hide simulation box since real SMS was sent by Google
+            if (smsSimulationBox) smsSimulationBox.style.display = 'none';
+
+            clearOtpBoxes();
+            startResendCountdown();
+            startExpiryTimer();
+            hideOtpError();
+            attemptsRemaining = 3;
+            updateAttemptsDisplay();
+            playSound('beep-success');
+
+            setTimeout(() => {
+              if (otpBoxes[0]) otpBoxes[0].focus();
+            }, 100);
+          } catch(err) {
+            showPhoneError('Firebase SMS: ' + err.message);
+            playSound('beep-error');
+            if (window.grecaptcha && window.recaptchaWidgetId !== undefined) {
+              try { grecaptcha.reset(window.recaptchaWidgetId); } catch(e) {}
+            }
+          } finally {
+            btn.disabled = false;
+            btn.innerHTML = `<span>Send verification code</span><span style="font-family:var(--font-mono);">→</span>`;
+          }
+        } else {
+          // Dev Mode / Simulation Fallback
+          btn.innerHTML = `<span>Simulating SMS dispatch…</span>`;
+          setTimeout(() => {
+            generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+            confirmationResult = null;
+
+            stepPhonePane.classList.remove('active');
+            stepOtpPane.classList.add('active');
+
+            const formatted = `+91 ${raw.slice(0, 5)} ${raw.slice(5)}`;
+            displayTargetPhone.textContent = formatted;
+
+            if (simSmsCode) simSmsCode.textContent = generatedOtp;
+            if (smsSimulationBox) smsSimulationBox.style.display = 'flex';
+
+            clearOtpBoxes();
+            startResendCountdown();
+            startExpiryTimer();
+            hideOtpError();
+            attemptsRemaining = 3;
+            updateAttemptsDisplay();
+            playSound('beep-success');
+
+            btn.disabled = false;
+            btn.innerHTML = `<span>Send verification code</span><span style="font-family:var(--font-mono);">→</span>`;
+
+            setTimeout(() => {
+              if (otpBoxes[0]) otpBoxes[0].focus();
+            }, 100);
+          }, 350);
+        }
+      }
+
+      function goToPhoneStep() {
+        stopTimers();
+        stepOtpPane.classList.remove('active');
+        stepPhonePane.classList.add('active');
+        phoneInput.focus();
+        playSound('beep-click');
+      }
+
+      function clearOtpBoxes() {
+        otpBoxes.forEach(box => {
+          box.value = '';
+          box.classList.remove('box-error', 'box-success');
+        });
+      }
+
+      function setupOtpBoxEvents() {
+        otpBoxes.forEach((box, index) => {
+          box.addEventListener('input', () => {
+            const val = box.value.replace(/\D/g, '');
+            box.value = val.slice(0, 1);
+            hideOtpError();
+
+            if (box.value && index < otpBoxes.length - 1) {
+              otpBoxes[index + 1].focus();
+            }
+
+            const currentFull = getEnteredOtp();
+            if (currentFull.length === 6) {
+              playSound('beep-click');
+            }
+          });
+
+          box.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace') {
+              if (!box.value && index > 0) {
+                otpBoxes[index - 1].focus();
+                otpBoxes[index - 1].value = '';
+              } else {
+                box.value = '';
+              }
+            } else if (e.key === 'ArrowLeft' && index > 0) {
+              otpBoxes[index - 1].focus();
+            } else if (e.key === 'ArrowRight' && index < otpBoxes.length - 1) {
+              otpBoxes[index + 1].focus();
+            }
+          });
+
+          box.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pastedData = (e.clipboardData || window.clipboardData).getData('text');
+            const cleanDigits = pastedData.replace(/\D/g, '').slice(0, 6);
+
+            if (cleanDigits) {
+              for (let i = 0; i < cleanDigits.length; i++) {
+                if (otpBoxes[i]) {
+                  otpBoxes[i].value = cleanDigits[i];
+                }
+              }
+              const targetIndex = Math.min(cleanDigits.length, 5);
+              otpBoxes[targetIndex].focus();
+              hideOtpError();
+              playSound('beep-click');
+            }
+          });
+        });
+      }
+
+      function getEnteredOtp() {
+        let code = '';
+        otpBoxes.forEach(b => code += b.value);
+        return code;
+      }
+
+      function showOtpError(msg) {
+        otpErrorText.textContent = msg;
+        otpErrorBox.style.display = 'flex';
+        otpBoxes.forEach(b => b.classList.add('box-error'));
+        playSound('beep-error');
+      }
+
+      function hideOtpError() {
+        otpErrorBox.style.display = 'none';
+        otpBoxes.forEach(b => b.classList.remove('box-error'));
+      }
+
+      function updateAttemptsDisplay() {
+        attemptsCounterLabel.textContent = `Attempts left: ${attemptsRemaining} / 3`;
+      }
+
+      // Handle OTP Verification Submit
+      async function handleOtpSubmit(e) {
+        if (e) e.preventDefault();
+
+        if (isCodeExpired) {
+          showOtpError('This verification code has expired. Please request a new code.');
+          return;
+        }
+
+        if (attemptsRemaining <= 0) {
+          showOtpError('Maximum 3 attempts exceeded. Request a new code to continue.');
+          return;
+        }
+
+        const entered = getEnteredOtp();
+        if (entered.length < 6) {
+          showOtpError('Please enter all 6 digits of the verification code.');
+          return;
+        }
+
+        const btn = document.getElementById('btnVerifyOtp');
+        btn.disabled = true;
+        btn.innerHTML = `<span>Verifying credentials…</span>`;
+
+        if (confirmationResult) {
+          // LIVE FIREBASE VERIFICATION
+          try {
+            const result = await confirmationResult.confirm(entered);
+            const user = result.user;
+            const idToken = await user.getIdToken();
+
+            stopTimers();
+            otpBoxes.forEach(b => b.classList.add('box-success'));
+            playSound('beep-success');
+
+            const profile = {
+              name: 'Floor Operator',
+              phone: user.phoneNumber || currentPhone,
+              method: 'firebase-phone',
+              role: 'Floor Inventory Scanner',
+              station: 'BAY-02 / MOBILE-SCANNER',
+              uid: user.uid
+            };
+
+            localStorage.setItem("stocksense_token", idToken);
+            localStorage.setItem("stocksense_user", JSON.stringify(profile));
+            sessionStorage.setItem("stocksense_auth", JSON.stringify({
+              authenticated: true,
+              method: 'MOBILE',
+              identity: user.phoneNumber || currentPhone,
+              timestamp: new Date().toISOString()
+            }));
+
+            completeAuthentication('MOBILE', user.phoneNumber || currentPhone);
+          } catch(err) {
+            attemptsRemaining--;
+            updateAttemptsDisplay();
+            if (attemptsRemaining > 0) {
+              showOtpError(`Firebase verification: ${err.message}. ${attemptsRemaining} attempt${attemptsRemaining > 1 ? 's' : ''} left.`);
+            } else {
+              showOtpError('Verification locked after 3 failed attempts. Please request a fresh code.');
+              btn.disabled = true;
+            }
+            playSound('beep-error');
+          } finally {
+            if (attemptsRemaining > 0) {
+              btn.disabled = false;
+              btn.innerHTML = `<span>Verify & sign in</span><span style="font-family:var(--font-mono);">[ENTER]</span>`;
+            }
+          }
+        } else {
+          // DEV SIMULATION VERIFICATION
+          setTimeout(() => {
+            if (entered === generatedOtp) {
+              stopTimers();
+              otpBoxes.forEach(b => b.classList.add('box-success'));
+              playSound('beep-success');
+
+              const mockToken = "sim-jwt-" + btoa(currentPhone + ":" + Date.now());
+              const profile = {
+                name: 'Floor Operator (Dev)',
+                phone: currentPhone,
+                method: 'mobile-otp',
+                role: 'Floor Inventory Scanner',
+                station: 'BAY-02 / TEST-SCANNER'
+              };
+
+              localStorage.setItem("stocksense_token", mockToken);
+              localStorage.setItem("stocksense_user", JSON.stringify(profile));
+              sessionStorage.setItem("stocksense_auth", JSON.stringify({
+                authenticated: true,
+                method: 'MOBILE',
+                identity: currentPhone,
+                timestamp: new Date().toISOString()
+              }));
+
+              completeAuthentication('MOBILE', currentPhone);
+            } else {
+              attemptsRemaining--;
+              updateAttemptsDisplay();
+              if (attemptsRemaining > 0) {
+                showOtpError(`Incorrect simulated code. ${attemptsRemaining} attempt${attemptsRemaining > 1 ? 's' : ''} left.`);
+              } else {
+                showOtpError('Verification locked after 3 failed attempts. Request a fresh code.');
+                btn.disabled = true;
+              }
+              playSound('beep-error');
+            }
+            if (attemptsRemaining > 0) {
+              btn.disabled = false;
+              btn.innerHTML = `<span>Verify & sign in</span><span style="font-family:var(--font-mono);">[ENTER]</span>`;
+            }
+          }, 300);
+        }
+      }
+
+      function startResendCountdown() {
+        clearInterval(resendTimer);
+        resendSeconds = 30;
+        btnResendOtp.disabled = true;
+        resendCountdownNum.textContent = resendSeconds;
+        btnResendOtp.innerHTML = `Resend code in <span id="resendCountdownNum">${resendSeconds}</span>s`;
+
+        resendTimer = setInterval(() => {
+          resendSeconds--;
+          const numSpan = document.getElementById('resendCountdownNum');
+          if (numSpan) numSpan.textContent = resendSeconds;
+
+          if (resendSeconds <= 0) {
+            clearInterval(resendTimer);
+            btnResendOtp.disabled = false;
+            btnResendOtp.textContent = 'Resend code';
+          }
+        }, 1000);
+      }
+
+      function startExpiryTimer() {
+        clearInterval(expiryTimer);
+        expirySeconds = 300;
+        isCodeExpired = false;
+
+        expiryTimer = setInterval(() => {
+          expirySeconds--;
+          const m = String(Math.floor(expirySeconds / 60)).padStart(2, '0');
+          const s = String(expirySeconds % 60).padStart(2, '0');
+          if (expiryIndicator) expiryIndicator.textContent = `Expires in ${m}:${s}`;
+
+          if (expirySeconds <= 0) {
+            clearInterval(expiryTimer);
+            isCodeExpired = true;
+            if (expiryIndicator) expiryIndicator.textContent = 'Expired';
+            showOtpError('Verification code expired. Request a new code via Resend.');
+          }
+        }, 1000);
+      }
+
+      function stopTimers() {
+        clearInterval(resendTimer);
+        clearInterval(expiryTimer);
+      }
+
+      // Resend Code Action
+      async function resendOtp() {
+        clearOtpBoxes();
+        hideOtpError();
+        document.getElementById('btnVerifyOtp').disabled = false;
+        attemptsRemaining = 3;
+        updateAttemptsDisplay();
+
+        if (isFirebaseLive()) {
+          try {
+            const auth = initFirebaseApp();
+            initRecaptcha();
+            confirmationResult = await auth.signInWithPhoneNumber(currentPhone, window.recaptchaVerifier);
+            startResendCountdown();
+            startExpiryTimer();
+            playSound('beep-success');
+            if (otpBoxes[0]) otpBoxes[0].focus();
+          } catch(err) {
+            showOtpError('Firebase resend failed: ' + err.message);
+            playSound('beep-error');
+          }
+        } else {
+          generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+          if (simSmsCode) simSmsCode.textContent = generatedOtp;
+          startResendCountdown();
+          startExpiryTimer();
+          playSound('beep-success');
+          if (otpBoxes[0]) otpBoxes[0].focus();
+        }
+      }
+
+      function fillSimulatedCode() {
+        if (!generatedOtp) return;
+        for (let i = 0; i < 6; i++) {
+          if (otpBoxes[i]) otpBoxes[i].value = generatedOtp[i];
+        }
+        hideOtpError();
+        playSound('beep-click');
+      }
+
+      // GMAIL AUTHENTICATION (Real Firebase Google Sign-In with Popup)
+      async function handleGmailSignIn() {
+        playSound('beep-click');
+
+        if (isFirebaseLive()) {
+          try {
+            const auth = initFirebaseApp();
+            const provider = new firebase.auth.GoogleAuthProvider();
+            const result = await auth.signInWithPopup(provider);
+            const user = result.user;
+            const idToken = await user.getIdToken();
+
+            const profile = {
+              name: user.displayName || (user.email ? user.email.split('@')[0] : 'Operator'),
+              email: user.email,
+              photo: user.photoURL,
+              method: 'firebase-google',
+              role: 'Warehouse Operations Lead',
+              station: 'BAY-04 / TERMINAL-A',
+              uid: user.uid
+            };
+
+            localStorage.setItem("stocksense_token", idToken);
+            localStorage.setItem("stocksense_user", JSON.stringify(profile));
+            sessionStorage.setItem("stocksense_auth", JSON.stringify({
+              authenticated: true,
+              method: 'GMAIL',
+              identity: user.email,
+              timestamp: new Date().toISOString()
+            }));
+
+            playSound('beep-success');
+            completeAuthentication('GMAIL', user.email);
+          } catch(err) {
+            showPhoneError('Google Sign-in: ' + err.message);
+            playSound('beep-error');
+          }
+        } else {
+          // Dev Mode prompt
+          const proceed = confirm(
+            "StockSense Firebase Authentication (Dev Mode Active):\n\n" +
+            "Sign in as J. Miller (operator.turner@stocksense.internal)?\n\n" +
+            "• To connect live Firebase for real Google SSO popup & SMS OTP, click [CONFIGURE] in the top right.\n" +
+            "• Press OK to continue with developer session."
+          );
+          if (!proceed) return;
+
+          const mockToken = "sim-jwt-google-" + Date.now();
+          const profile = {
+            name: "J. Miller (Dev)",
+            email: "operator.turner@stocksense.internal",
+            method: "google",
+            role: "Inventory Lead",
+            station: "BAY-04 / TERMINAL-A"
+          };
+
+          localStorage.setItem("stocksense_token", mockToken);
+          localStorage.setItem("stocksense_user", JSON.stringify(profile));
+          sessionStorage.setItem("stocksense_auth", JSON.stringify({
+            authenticated: true,
+            method: 'GMAIL',
+            identity: profile.email,
+            timestamp: new Date().toISOString()
+          }));
+
+          playSound('beep-success');
+          completeAuthentication('GMAIL', profile.email);
+        }
+      }
+
+      // Complete Authentication & Transition
+      function completeAuthentication(method, identity) {
+        stepPhonePane.classList.remove('active');
+        stepOtpPane.classList.remove('active');
+        stepSuccessPane.classList.add('active');
+
+        if (method === 'GMAIL') {
+          authMethodText.textContent = `Signed in with Gmail (${identity})`;
+        } else {
+          authMethodText.textContent = `Mobile number verified (${identity})`;
+        }
+
+        // Animate redirect progress bar
+        setTimeout(() => {
+          if (redirectProgress) redirectProgress.style.width = '100%';
+        }, 100);
+
+        setTimeout(() => {
+          navigateToDashboard();
+        }, 1600);
+      }
+
+      function navigateToDashboard() {
+        const isFileProto = window.location.protocol === 'file:';
+        if (isFileProto) {
+          window.location.href = 'index.html';
+        } else {
+          const path = window.location.pathname;
+          if (path.endsWith('login.html')) {
+            window.location.href = path.replace('login.html', 'dashboard.html');
+          } else if (path.includes('/login')) {
+            window.location.href = '/dashboard';
+          } else {
+            window.location.href = 'dashboard.html';
+          }
+        }
+      }
+
+      // Theme toggle
+      function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+
+        const icon = document.getElementById('themeIcon');
+        const label = document.getElementById('themeLabel');
+
+        if (newTheme === 'dark') {
+          if (icon) icon.textContent = '◑';
+          if (label) label.textContent = 'DARK STEEL';
+        } else {
+          if (icon) icon.textContent = '◐';
+          if (label) label.textContent = 'WARM PAPER';
+        }
+        playSound('beep-click');
+      }
+
+      // Audio toggle
+      function toggleAudio() {
+        soundEnabled = !soundEnabled;
+        const icon = document.getElementById('soundIcon');
+        const label = document.getElementById('soundLabel');
+        if (soundEnabled) {
+          if (icon) icon.textContent = '🔊';
+          if (label) label.textContent = 'BEEP: ON';
+          playSound('beep-success');
+        } else {
+          if (icon) icon.textContent = '🔇';
+          if (label) label.textContent = 'BEEP: OFF';
+        }
+      }
+
+      // Firebase Modal Handlers
+      function openFirebaseModal() {
+        playSound('beep-click');
+        const modal = document.getElementById('firebaseModal');
+        const textarea = document.getElementById('firebaseConfigInput');
+        const statusText = document.getElementById('fbModalStatusText');
+
+        const cfg = getActiveFirebaseConfig();
+        textarea.value = JSON.stringify(cfg, null, 2);
+
+        if (isFirebaseLive()) {
+          statusText.innerHTML = '<span style="color:var(--teal-success);">● LIVE FIREBASE CONNECTED</span>';
+        } else {
+          statusText.innerHTML = '<span style="color:var(--amber-accent);">● DEV SIMULATION MODE</span>';
+        }
+
+        modal.classList.add('active');
+      }
+
+      function closeFirebaseModal() {
+        playSound('beep-click');
+        const modal = document.getElementById('firebaseModal');
+        modal.classList.remove('active');
+      }
+
+      function parseFirebaseConfigInput(text) {
+        text = text.trim();
+        // Remove 'const firebaseConfig = ' or 'var firebaseConfig = ' or 'let firebaseConfig = '
+        text = text.replace(/^(const|let|var)\s+\w+\s*=\s*/i, '');
+        // Remove trailing semicolons
+        text = text.replace(/;+\s*$/, '');
+        // Try strict JSON parse first
+        try {
+          return JSON.parse(text);
+        } catch(e) {}
+        // Try loose JS object notation conversion
+        try {
+          const jsonCompliant = text
+            .replace(/([{,]\s*)([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+            .replace(/'/g, '"');
+          return JSON.parse(jsonCompliant);
+        } catch(e) {}
+        // Fallback to safe evaluation for JS object literals
+        try {
+          const fn = new Function('return (' + text + ')');
+          const result = fn();
+          if (result && typeof result === 'object') return result;
+        } catch(e) {}
+        throw new Error('Please ensure you paste a valid JSON or JavaScript object from Firebase Console.');
+      }
+
+      function saveFirebaseConfig() {
+        const textarea = document.getElementById('firebaseConfigInput');
+        try {
+          const parsed = parseFirebaseConfigInput(textarea.value);
+          if (!parsed.apiKey || !parsed.projectId) {
+            alert('Invalid config: "apiKey" and "projectId" are required.');
+            return;
+          }
+          localStorage.setItem('stocksense_firebase_config', JSON.stringify(parsed));
+          playSound('beep-success');
+          alert('Firebase configuration saved successfully! Connecting to live project...');
+          window.location.reload();
+        } catch(e) {
+          alert('Config Parse Error: ' + e.message);
+        }
+      }
+
+      function resetFirebaseConfig() {
+        localStorage.clear();
+        sessionStorage.clear();
+        playSound('beep-click');
+        alert('Browser cache wiped and reset to default Firebase console credentials (stocksense-889bf).');
+        window.location.reload();
+      }
+
+      function loadDemoFirebaseConfig() {
+        const textarea = document.getElementById('firebaseConfigInput');
+        textarea.value = JSON.stringify(DEFAULT_FIREBASE_CONFIG, null, 2);
+        playSound('beep-click');
+      }
+
+      function init() {
+        setupOtpBoxEvents();
+        initFirebaseApp();
+
+        // Check for existing active session unless logout/reauth requested
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('reauth') && !urlParams.has('logout')) {
+          const existingToken = localStorage.getItem('stocksense_token') || sessionStorage.getItem('stocksense_token');
+          const existingUser = localStorage.getItem('stocksense_user');
+          if (existingToken && existingUser) {
+            // Already signed in
+            navigateToDashboard();
+            return;
+          }
+        } else {
+          localStorage.removeItem('stocksense_token');
+          localStorage.removeItem('stocksense_user');
+          sessionStorage.removeItem('stocksense_token');
+          sessionStorage.removeItem('stocksense_auth');
+          if (typeof firebase !== 'undefined' && firebase.auth) {
+            try { firebase.auth().signOut(); } catch(e) {}
+          }
+        }
+
+        // Close modal on Escape
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            closeFirebaseModal();
+          }
+        });
+      }
+
+      return {
+        init,
+        handlePhoneInput,
+        handlePhoneSubmit,
+        goToPhoneStep,
+        handleOtpSubmit,
+        resendOtp,
+        fillSimulatedCode,
+        handleGmailSignIn,
+        toggleTheme,
+        toggleAudio,
+        openFirebaseModal,
+        closeFirebaseModal,
+        saveFirebaseConfig,
+        resetFirebaseConfig,
+        loadDemoFirebaseConfig
+      };
+    })();
+
+    // =========================================================================
+    // GLOBAL FIREBASE PHONE AUTH IMPLEMENTATION
+    // =========================================================================
+
+    // 1. Directly hardcoded Firebase configuration (stocksense-889bf)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwOlpjo9VrKngX9t1-ArLhZE-XlsBDsrU",
+      authDomain: "stocksense-889bf.firebaseapp.com",
+      projectId: "stocksense-889bf",
+      storageBucket: "stocksense-889bf.firebasestorage.app",
+      messagingSenderId: "1003309878973",
+      appId: "1:1003309878973:web:929fa78ff5929b830171d4",
+      measurementId: "G-5R4KFVL4Q7"
+    };
+
+    // Clear any stale local storage config to prevent old key conflicts
+    localStorage.removeItem('stocksense_firebase_config');
+
+    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    // 2. Initialize the Invisible reCAPTCHA
+    function initRecaptchaVerifier() {
+      if (window.recaptchaVerifier) return;
+      try {
+        if (typeof firebase !== 'undefined' && firebase.auth) {
+          window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+            size: 'invisible',
+            callback: (response) => {
+              // reCAPTCHA solved
+              console.log("reCAPTCHA verified");
+            },
+            'expired-callback': () => {
+              console.warn("reCAPTCHA expired, please try again.");
+            }
+          });
+        }
+      } catch (e) {
+        console.warn("reCAPTCHA verifier initialization notice:", e);
+      }
+    }
+
+    // 3. Step 1: Send SMS to Phone
+    function sendOtpToPhone() {
+      const phoneEl = document.getElementById('phone-number');
+      const rawNumber = (phoneEl ? phoneEl.value : '').trim();
+      
+      // Must include international code e.g. +91
+      if (!rawNumber.startsWith('+')) {
+        alert("Please include country code (e.g. +91XXXXXXXXXX)");
+        return;
+      }
+
+      // Ensure Firebase app is initialized
+      if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+        try { firebase.initializeApp(firebaseConfig); } catch (e) {}
+      }
+
+      if (!window.recaptchaVerifier && typeof firebase !== 'undefined' && firebase.auth) {
+        initRecaptchaVerifier();
+      }
+
+      const appVerifier = window.recaptchaVerifier;
+      const isLive = firebase.apps.length > 0 && typeof firebase.auth === 'function' && appVerifier;
+
+      if (isLive) {
+        const btn = document.getElementById('send-otp-btn');
+        if (btn) btn.disabled = true;
+
+        firebase.auth().signInWithPhoneNumber(rawNumber, appVerifier)
+          .then((confirmationResult) => {
+            // SMS sent successfully. Save confirmationResult to window
+            window.confirmationResult = confirmationResult;
+            const otpSec = document.getElementById('otp-section');
+            if (otpSec) otpSec.style.display = 'block';
+
+            const stepPhone = document.getElementById('stepPhonePane');
+            const stepOtp = document.getElementById('stepOtpPane');
+            if (stepPhone) stepPhone.classList.remove('active');
+            if (stepOtp) stepOtp.classList.add('active');
+
+            const displayPhone = document.getElementById('displayTargetPhone');
+            if (displayPhone) displayPhone.textContent = rawNumber;
+
+            const simBox = document.getElementById('smsSimulationBox');
+            if (simBox) simBox.style.display = 'none';
+
+            if (btn) btn.disabled = false;
+            alert("SMS Sent! Enter the 6-digit code received on your phone.");
+          })
+          .catch((error) => {
+            console.error("SMS dispatch failed:", error);
+            alert(`Error sending SMS: ${error.message}`);
+            if (btn) btn.disabled = false;
+            // Reset reCAPTCHA on failure so user can retry
+            if (window.recaptchaVerifier) {
+              window.recaptchaVerifier.render().then(widgetId => {
+                if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
+                  grecaptcha.reset(widgetId);
+                }
+              }).catch(() => {});
+            }
+          });
+      } else {
+        // DEV SIMULATOR FALLBACK
+        const simCode = String(Math.floor(100000 + Math.random() * 900000));
+        window.confirmationResult = {
+          confirm: async (code) => {
+            if (code === simCode || code === "123456") {
+              return {
+                user: {
+                  phoneNumber: rawNumber,
+                  uid: "sim-" + Date.now(),
+                  getIdToken: async () => "sim-token-" + btoa(rawNumber + ":" + Date.now())
+                }
+              };
+            } else {
+              throw new Error("Invalid verification code (Dev Simulator). Use: " + simCode);
+            }
+          }
+        };
+
+        const otpSec = document.getElementById('otp-section');
+        if (otpSec) otpSec.style.display = 'block';
+
+        const stepPhone = document.getElementById('stepPhonePane');
+        const stepOtp = document.getElementById('stepOtpPane');
+        if (stepPhone) stepPhone.classList.remove('active');
+        if (stepOtp) stepOtp.classList.add('active');
+
+        const displayPhone = document.getElementById('displayTargetPhone');
+        if (displayPhone) displayPhone.textContent = rawNumber;
+
+        const simBox = document.getElementById('smsSimulationBox');
+        const simSmsCode = document.getElementById('simSmsCode');
+        if (simBox) simBox.style.display = 'flex';
+        if (simSmsCode) simSmsCode.textContent = simCode;
+
+        alert(`SMS Sent! [DEV SIMULATOR active - code: ${simCode}]\nTo send real SMS to your phone, click [CONFIGURE] at top right and paste your Firebase config.`);
+      }
+    }
+
+    // =========================================================================
+    // RFC 6238 TOTP 2FA ENGINE (Self-Contained speakeasy + qrcode verification)
+    // =========================================================================
+    const TotpEngine = (function() {
+      let activeSecret = localStorage.getItem('stocksense_totp_secret') || '';
+      let activeQr = '';
+      let windowTimer = null;
+
+      async function setupTotp(force = false) {
+        if (activeSecret && activeQr && !force) {
+          updateQrModalUI(activeQr, activeSecret);
+          return { secret: activeSecret, qrCode: activeQr };
+        }
+
+        try {
+          const res = await fetch('/api/auth/setup-totp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ label: 'Floor Operator', issuer: 'StockSense' })
+          });
+          const data = await res.json();
+          if (data.success) {
+            activeSecret = data.secret;
+            activeQr = data.qrCode;
+            localStorage.setItem('stocksense_totp_secret', activeSecret);
+            updateQrModalUI(activeQr, activeSecret);
+            return data;
+          }
+        } catch (err) {
+          console.warn('[StockSense] TOTP Setup notice:', err.message);
+        }
+      }
+
+      function updateQrModalUI(qr, secret) {
+        const img = document.getElementById('totpQrImage');
+        const keyEl = document.getElementById('totpSecretKey');
+        if (img && qr) img.src = qr;
+        if (keyEl && secret) keyEl.textContent = secret;
+      }
+
+      function openPairingModal() {
+        setupTotp();
+        const modal = document.getElementById('totpModal');
+        if (modal) modal.classList.add('active');
+        if (typeof AuthEngine !== 'undefined' && AuthEngine.playSound) AuthEngine.playSound('beep-click');
+      }
+
+      function closePairingModal() {
+        const modal = document.getElementById('totpModal');
+        if (modal) modal.classList.remove('active');
+        if (typeof AuthEngine !== 'undefined' && AuthEngine.playSound) AuthEngine.playSound('beep-click');
+      }
+
+      function copySecret() {
+        const keyEl = document.getElementById('totpSecretKey');
+        const btn = document.getElementById('btnCopySecret');
+        if (keyEl && keyEl.textContent) {
+          navigator.clipboard.writeText(keyEl.textContent).then(() => {
+            if (btn) {
+              btn.textContent = 'COPIED!';
+              setTimeout(() => { btn.textContent = 'COPY KEY'; }, 2000);
+            }
+            if (typeof AuthEngine !== 'undefined' && AuthEngine.playSound) AuthEngine.playSound('beep-success');
+          }).catch(() => {
+            alert('Secret key: ' + keyEl.textContent);
+          });
+        }
+      }
+
+      function startWindowCountdown() {
+        clearInterval(windowTimer);
+        function tick() {
+          const nowSec = Math.floor(Date.now() / 1000);
+          const remSec = 30 - (nowSec % 30);
+          const pct = (remSec / 30) * 100;
+
+          const numEl = document.getElementById('totpCountdownNum');
+          const fillEl = document.getElementById('totpWindowFill');
+          if (numEl) numEl.textContent = remSec;
+          if (fillEl) {
+            fillEl.style.width = pct + '%';
+            if (remSec <= 5) {
+              fillEl.classList.add('warning');
+            } else {
+              fillEl.classList.remove('warning');
+            }
+          }
+        }
+        tick();
+        windowTimer = setInterval(tick, 1000);
+      }
+
+      function showTotpError(msg) {
+        const errBox = document.getElementById('totpErrorBox') || document.getElementById('otpErrorBox');
+        const errText = document.getElementById('totpErrorText') || document.getElementById('otpErrorText');
+        if (errText) errText.textContent = msg;
+        if (errBox) errBox.style.display = 'flex';
+        document.querySelectorAll('.otp-single-box').forEach(b => b.classList.add('box-error'));
+        if (typeof AuthEngine !== 'undefined' && AuthEngine.playSound) AuthEngine.playSound('beep-error');
+      }
+
+      function hideTotpError() {
+        const errBox = document.getElementById('totpErrorBox') || document.getElementById('otpErrorBox');
+        if (errBox) errBox.style.display = 'none';
+        document.querySelectorAll('.otp-single-box').forEach(b => b.classList.remove('box-error'));
+      }
+
+      async function verifyTotpToken(code) {
+        hideTotpError();
+        const cleanCode = String(code || '').trim();
+        if (!cleanCode || cleanCode.length < 6) {
+          showTotpError('Please enter the complete 6-digit verification code.');
+          return false;
+        }
+
+        const verifyBtn = document.getElementById('verify-btn');
+        if (verifyBtn) {
+          verifyBtn.disabled = true;
+          verifyBtn.innerHTML = '<span>Verifying token…</span>';
+        }
+
+        try {
+          const res = await fetch('/api/auth/verify-totp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              token: cleanCode,
+              secret: activeSecret || localStorage.getItem('stocksense_totp_secret') || '',
+              label: 'Floor Operator'
+            })
+          });
+
+          const data = await res.json();
+          if (data.success) {
+            document.querySelectorAll('.otp-single-box').forEach(b => b.classList.add('box-success'));
+            if (typeof AuthEngine !== 'undefined' && AuthEngine.playSound) AuthEngine.playSound('beep-success');
+
+            localStorage.setItem('stocksense_token', data.token);
+            localStorage.setItem('stocksense_user', JSON.stringify(data.user));
+            sessionStorage.setItem('stocksense_auth', JSON.stringify({
+              authenticated: true,
+              method: 'TOTP-2FA',
+              identity: data.user.name || 'Floor Operator',
+              timestamp: new Date().toISOString()
+            }));
+
+            // Transition to success screen
+            const stepPhone = document.getElementById('stepPhonePane');
+            const stepOtp = document.getElementById('stepOtpPane');
+            const stepSuccess = document.getElementById('stepSuccessPane');
+            const authMethodText = document.getElementById('authMethodText');
+
+            if (stepPhone) stepPhone.classList.remove('active');
+            if (stepOtp) stepOtp.classList.remove('active');
+            if (stepSuccess) stepSuccess.classList.add('active');
+            if (authMethodText) authMethodText.textContent = 'RFC 6238 TOTP Authenticator Verified (Operator)';
+
+            const redirectProgress = document.getElementById('redirectProgress');
+            if (redirectProgress) {
+              setTimeout(() => { redirectProgress.style.width = '100%'; }, 100);
+            }
+
+            setTimeout(() => {
+              const isFile = window.location.protocol === 'file:';
+              if (isFile) {
+                window.location.href = 'index.html';
+              } else {
+                const path = window.location.pathname;
+                if (path.endsWith('login.html')) {
+                  window.location.href = path.replace('login.html', 'dashboard.html');
+                } else if (path.includes('/login')) {
+                  window.location.href = '/dashboard';
+                } else {
+                  window.location.href = 'dashboard.html';
+                }
+              }
+            }, 1200);
+
+            return true;
+          } else {
+            showTotpError(data.error || 'Invalid 6-digit code. Check your authenticator app time.');
+            return false;
+          }
+        } catch (err) {
+          showTotpError('Network/Verification error: ' + err.message);
+          return false;
+        } finally {
+          if (verifyBtn) {
+            verifyBtn.disabled = false;
+            verifyBtn.innerHTML = '<span>Verify &amp; Enter Workstation</span><span style="font-family:var(--font-mono);">[ENTER]</span>';
+          }
+        }
+      }
+
+      function toggleSmsFallback() {
+        const container = document.getElementById('smsFallbackContainer');
+        const icon = document.getElementById('smsToggleIcon');
+        if (!container) return;
+        if (container.style.display === 'none' || container.style.display === '') {
+          container.style.display = 'block';
+          if (icon) icon.textContent = '▲';
+        } else {
+          container.style.display = 'none';
+          if (icon) icon.textContent = '▼';
+        }
+      }
+
+      function init() {
+        startWindowCountdown();
+        setupTotp();
+      }
+
+      return {
+        init,
+        openPairingModal,
+        closePairingModal,
+        copySecret,
+        verifyTotpToken,
+        toggleSmsFallback,
+        setupTotp
+      };
+    })();
+
+    window.TotpEngine = TotpEngine;
+
+    // 4. Step 2: Verify the Code Entered by User
+    function verifyReceivedOtp() {
+      let code = document.getElementById('verification-code').value.trim();
+
+      // If user entered via 6 individual boxes, pull value from boxes
+      if (!code) {
+        const boxes = document.querySelectorAll('.otp-single-box');
+        let boxVal = '';
+        boxes.forEach(b => boxVal += b.value.trim());
+        if (boxVal.length === 6) {
+          code = boxVal;
+          document.getElementById('verification-code').value = code;
+        }
+      }
+
+      const stepOtpPane = document.getElementById('stepOtpPane');
+      if (window.confirmationResult && stepOtpPane && stepOtpPane.classList.contains('active')) {
+        const verifyBtn = document.getElementById('verify-btn');
+        if (verifyBtn) verifyBtn.disabled = true;
+
+        window.confirmationResult.confirm(code)
+          .then((result) => {
+            const user = result.user;
+            console.log("Authenticated User:", user);
+            
+            user.getIdToken().then(token => {
+              localStorage.setItem('stocksense_token', token);
+              localStorage.setItem('stocksense_user', JSON.stringify({
+                phone: user.phoneNumber,
+                uid: user.uid
+              }));
+              sessionStorage.setItem('stocksense_auth', JSON.stringify({
+                authenticated: true,
+                method: 'MOBILE',
+                identity: user.phoneNumber,
+                timestamp: new Date().toISOString()
+              }));
+
+              const isFile = window.location.protocol === 'file:';
+              if (isFile) {
+                window.location.href = 'dashboard.html';
+              } else {
+                const path = window.location.pathname;
+                if (path.endsWith('login.html')) {
+                  window.location.href = path.replace('login.html', 'dashboard.html');
+                } else {
+                  window.location.href = '/dashboard';
+                }
+              }
+            });
+          })
+          .catch((error) => {
+            console.error("Verification failed:", error);
+            alert(`Invalid code: ${error.message}`);
+            if (verifyBtn) verifyBtn.disabled = false;
+          });
+      } else {
+        // DEFAULT: Self-Contained RFC 6238 TOTP Verification
+        TotpEngine.verifyTotpToken(code);
+      }
+    }
+
+    // Two-way synchronization between #verification-code and 6 single-digit boxes
+    function setupVerificationCodeSync() {
+      const vInput = document.getElementById('verification-code');
+      const boxes = document.querySelectorAll('.otp-single-box');
+      if (vInput) {
+        vInput.addEventListener('input', (e) => {
+          const val = e.target.value.replace(/\D/g, '').slice(0, 6);
+          e.target.value = val;
+          boxes.forEach((box, i) => {
+            box.value = val[i] || '';
+          });
+        });
+      }
+      boxes.forEach(box => {
+        box.addEventListener('input', () => {
+          let combined = '';
+          boxes.forEach(b => combined += b.value);
+          if (vInput) vInput.value = combined;
+        });
+      });
+    }
+
+    window.sendOtpToPhone = sendOtpToPhone;
+    window.verifyReceivedOtp = verifyReceivedOtp;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      AuthEngine.init();
+      TotpEngine.init();
+      initRecaptchaVerifier();
+      setupVerificationCodeSync();
+    });
+  </script>
+</body>
+</html>
