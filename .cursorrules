@@ -2,7 +2,7 @@
 
 Refer to PONYTAIL_RULES.md for complete execution guidelines.
 
-## Persistent Response Scaffolding
+## Persistent Response Scaffolding.
 For every substantial code generation or agentic loop task, structure your response as follows:
 
 ### [PONYTAIL EXECUTION]
